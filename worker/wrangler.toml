@@ -1,0 +1,20 @@
+# AIO診断ツールのAPI。デプロイは .github/workflows/deploy-worker.yml(main に worker/ の変更が入ったとき)
+name = "aio-checker"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+[vars]
+ALLOWED_ORIGINS = "https://aio.shiokonbu.com"
+
+# 1つのIPから1分に10回まで
+[[ratelimits]]
+name = "LIMITER"
+namespace_id = "1001"
+simple = { limit = 10, period = 60 }
+
+# 同じサイトへの診断は1分に20回まで(診断ツールを使った他サイトへの連続アクセスを防ぐ)
+[[ratelimits]]
+name = "HOST_LIMITER"
+namespace_id = "1002"
+simple = { limit = 20, period = 60 }

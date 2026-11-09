@@ -1,0 +1,39 @@
+# AIO診断ツールのAPI(worker/)を Cloudflare Workers にデプロイする。
+# 必要な Secrets: CLOUDFLARE_API_TOKEN(テンプレート「Edit Cloudflare Workers」で作ったトークン)、CLOUDFLARE_ACCOUNT_ID
+# Secrets がまだないときは何もしない(赤くならない)。
+name: Deploy worker
+on:
+  push:
+    branches: [main]
+    paths: ['worker/**', '.github/workflows/deploy-worker.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test
+        run: node worker/test.mjs
+  deploy:
+    needs: test
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check secrets
+        id: s
+        env:
+          TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then echo "::notice::CLOUDFLARE_API_TOKEN がないのでデプロイを飛ばしました"; echo "ok=false" >> "$GITHUB_OUTPUT"; else echo "ok=true" >> "$GITHUB_OUTPUT"; fi
+      - uses: cloudflare/wrangler-action@v3
+        if: steps.s.outputs.ok == 'true'
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: worker

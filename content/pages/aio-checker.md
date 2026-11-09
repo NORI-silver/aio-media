@@ -1,0 +1,53 @@
+---
+title: AIO診断ツール
+seo_title: AIO診断ツール|URLを入れるだけでAI検索対策を無料チェック
+description: サイトのURLを入れるだけで、AIクローラーへの公開設定・llms.txt・構造化データ・見出し・表示速度など、AI検索(AIO)とSEOの対策状況を無料で診断します。登録は不要です。
+template: checker
+updated: 2026-11-09
+---
+## AIO診断ツールでは何をチェックする?
+
+入力したページと、そのサイトの robots.txt・llms.txt・サイトマップを読み込み、**ChatGPT・Claude・Perplexity・Google の AI Overviews などのAI検索に読まれ、引用されるための土台が整っているか** を19項目で確かめます。AIO(AI検索最適化)という言葉の意味は「[AIO・LLMO・GEO・AEOの違い](/aio/aio-llmo-geo-aeo-difference/)」で解説しています。
+
+| 分類 | 主なチェック項目 | 関連する解説 |
+|---|---|---|
+| AIクローラーへの公開 | robots.txt で OAI-SearchBot・Claude-SearchBot・PerplexityBot・Googlebot などをブロックしていないか、noindex・nosnippet がないか、llms.txt・サイトマップがあるか | [AIクローラーのrobots.txt設定](/aio/ai-crawler-robots-txt/) |
+| ページの基本(SEO) | ステータスコード、HTTPS、タイトル、meta description、canonical、lang、OGP | [AI Overviewsとは?](/aio/ai-overviews/) |
+| AIに理解・引用されやすい作り | 構造化データ(JSON-LD)、運営者・著者、公開日・更新日、見出しの構成、本文が最初のHTMLに入っているか | [構造化データとは?](/seo/structured-data/) |
+| 表示の速さ | サーバーの応答時間、HTMLの大きさ | — |
+
+点数は、AI検索に出るための影響が大きい項目(検索用クローラーの許可、noindex・nosnippet、本文、構造化データ)ほど重くしています。AIの学習用クローラー(GPTBot・ClaudeBot・Google-Extended など)をブロックしているかどうかは表示しますが、**学習を断ってもAI検索には出られるので、点数には入れていません**。
+
+## 診断結果はどう読めばいい?
+
+まず「NG」の項目から直してください。特に次の3つは、どれか1つでもあるとAI検索にほぼ出られません。
+
+- robots.txt で検索用のAIクローラーや Googlebot をブロックしている
+- ページに `noindex` が付いている(Google はインデックスされたページだけを AI Overviews に使います)
+- `nosnippet` が付いている(Google はこの指定があるページを AI Overviews で引用しません。出典:[AI features and your website](https://developers.google.com/search/docs/appearance/ai-features)、2026年11月時点で確認)
+
+「注意」の項目は、直すとAIや検索エンジンにページの中身が伝わりやすくなるものです。llms.txt のように、Google 検索では使われていない(Google 自身がそう説明しています)けれど、ほかのAIエージェント向けに置いておくと安心、という項目も含みます。詳しくは「[llms.txtとは?](/glossary/llms-txt/)」を見てください。
+
+## AIクローラーとして実際に見えている内容と同じ?
+
+このツールは「AIOCheckerBot」という名前で、JavaScript を実行せずにページを取得します。多くのAIクローラーも JavaScript を実行しないため、**ここで本文が少なく出るページは、AIクローラーからも中身が見えていない可能性があります**(Vercel の調査「[The rise of the AI crawler](https://vercel.com/blog/the-rise-of-the-ai-crawler)」、2024年12月)。
+
+ただし、Cloudflare などのボット対策で、本物のAIクローラーだけを通す設定にしているサイトでは、このツールからのアクセスが止められて「ページが正常に表示されない」と出ることがあります。その場合は、実際のAIクローラーへの許可設定を CDN や WAF の管理画面で確認してください。
+
+## よくある質問
+
+### 無料で使える?登録は必要?
+
+無料で、登録も不要です。同じURLの診断結果は10分間キャッシュするため、直した直後は少し時間をおいてから診断し直してください。悪用を防ぐため、1分あたりの診断回数に上限があります。
+
+### 入力したURLや診断結果は保存される?
+
+診断のためにページを読み込むだけで、入力したURLや結果をデータベースに保存することはありません。利用状況を把握するため、Google アナリティクスで診断したドメイン名と点数を記録します(詳しくは[プライバシーポリシー](/privacy/))。
+
+### 点数が高ければAI検索に引用される?
+
+いいえ。このツールが確かめるのは「AIに読まれ、理解されるための土台」です。引用されるかどうかは、内容が質問に的確に答えているか、一次情報や信頼できる出典があるかで大きく変わります。Google も、AI検索のために特別な対策は必要なく、通常のSEOの基本がそのまま当てはまるとしています。
+
+### 社内サイトやログインが必要なページも診断できる?
+
+できません。インターネットに公開されていて、ログインなしで見られるページだけを診断できます。安全のため、IPアドレスで指定したURL、80番・443番以外のポート、社内向けのドメインは受け付けません。
