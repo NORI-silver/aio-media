@@ -602,6 +602,25 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes }) {
     ms <= 800 ? "" : "応答が遅いとクローラーが読む量が減ることがあります。キャッシュやCDNを見直しましょう。正確な速さは PageSpeed Insights で測れます。",
     "", 7);
 
+  // 上級者向け: 診断に使った生の値
+  const hdr = (k) => page.headers.get(k);
+  const ldInfo = h ? ldTypes(h.ld) : { types: [], broken: 0 };
+  const firstLines = (r) => (r && !r.error && r.status === 200 && !/^\s*</.test(r.text) ? r.text.split(/\r?\n/).slice(0, 30).join("\n") : null);
+  const raw = {
+    redirects: [...page.chain.map((c) => `${c.status} ${c.url}`), `${page.status} ${final.href}`],
+    headers: Object.fromEntries(["content-type", "x-robots-tag", "cache-control", "server", "content-encoding", "strict-transport-security", "link", "last-modified"]
+      .map((k) => [k, hdr(k)]).filter(([, v]) => v)),
+    timing: { firstByteMs: page.ms, totalMs: page.totalMs, htmlBytes: new TextEncoder().encode(page.text).length, truncated: !!page.truncated },
+    html: h ? {
+      title: h.title, description: h.description, metaRobots: h.robots, canonical: h.canonical, lang: h.lang, og: h.og,
+      h1: h.h1, h2: h.h2.slice(0, 20), h3Count: h.h3count, textChars: h.textLength, scriptTags: h.scriptCount,
+      jsonLdTypes: ldInfo.types, jsonLdBlocks: h.ld.length, jsonLdBroken: ldInfo.broken,
+    } : null,
+    robotsTxt: robotsOk ? { status: robotsRes.status, sitemaps: robots.sitemaps, groups: robots.groups.length, head: firstLines(robotsRes) } : { status: robotsRes?.status ?? null, error: robotsRes?.error ?? null },
+    llmsTxt: { status: llmsRes?.status ?? null, head: llmsOk ? firstLines(llmsRes).split("\n").slice(0, 12).join("\n") : null },
+    sitemapXml: { status: sitemapRes?.status ?? null },
+  };
+
   const scored = checks.filter((c) => c.weight > 0);
   const total = scored.reduce((s, c) => s + c.weight, 0);
   const got = scored.reduce((s, c) => s + (c.status === "ok" ? c.weight : c.status === "warn" ? c.weight / 2 : 0), 0);
@@ -618,6 +637,7 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes }) {
       ng: checks.filter((c) => c.status === "ng").length,
     },
     bots: botResults.map(({ ua, owner, role, search, allowed, rule }) => ({ ua, owner, role, search, allowed, rule: rule || null })),
-    checks: checks.map(({ weight, ...c }) => c),
+    checks: checks.map((c) => ({ ...c, weight: c.weight })),
+    raw,
   };
 }
