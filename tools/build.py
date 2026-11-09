@@ -58,6 +58,22 @@ def slugify_heading(text, used):
     return s
 
 
+# 見出しの末尾に [初級] [中級] [上級] と書くと、難易度のラベルとレベル別の読み方ガイドが付く
+LEVELS = {"初級": ("basic", "はじめての方"), "中級": ("mid", "設定・実務をする方"), "上級": ("adv", "もっと深く知りたい方")}
+
+
+def level_guide(toc):
+    rows = []
+    for name, (key, who) in LEVELS.items():
+        hs = [(hid, t) for lv, hid, t, l in toc if lv == 2 and l == name]
+        if hs:
+            links = "、".join(f'<a href="#{hid}">{esc(t)}</a>' for hid, t in hs)
+            rows.append(f'<li><span class="lv lv-{key}">{name}</span><strong>{who}</strong>:{links}</li>')
+    if len(rows) < 2:
+        return ""
+    return '<nav class="guide" aria-label="レベル別の読み方"><p>レベル別の読み方</p><ul>' + "".join(rows) + "</ul></nav>"
+
+
 def markdown(md):
     """Markdown を HTML にする。戻り値: (html, 見出しの一覧[(level, id, text)], FAQ[(q, a)])"""
     lines = md.replace("\r\n", "\n").split("\n")
@@ -87,6 +103,11 @@ def markdown(md):
         m = re.match(r"(#{2,4})\s+(.*)", line)
         if m:
             level, text = len(m.group(1)), m.group(2).strip()
+            lv = re.search(r"\s*\[(初級|中級|上級)\]$", text)
+            badge = ""
+            if lv:
+                text = text[: lv.start()].strip()
+                badge = f' <span class="lv lv-{LEVELS[lv.group(1)][0]}">{lv.group(1)}</span>'
             hid = slugify_heading(text, used)
             if level == 2:
                 flush_q()
@@ -95,8 +116,8 @@ def markdown(md):
                 flush_q()
                 cur_q = text
             if level <= 3:
-                toc.append((level, hid, text))
-            out.append(f'<h{level} id="{hid}">{inline(text)}</h{level}>')
+                toc.append((level, hid, text, lv.group(1) if lv else ""))
+            out.append(f'<h{level} id="{hid}">{inline(text)}{badge}</h{level}>')
             i += 1
             continue
         if line.startswith("|"):
@@ -314,10 +335,12 @@ def build_article(a, arts):
         lds.append({"@type": "FAQPage", "mainEntity": [
             {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": ans}} for q, ans in faq]})
     toc_html = ""
-    h2s = [(hid, t) for lv, hid, t in toc if lv == 2]
+    h2s = [(hid, t, l) for lv, hid, t, l in toc if lv == 2]
     if len(h2s) >= 3:
         toc_html = '<nav class="toc" aria-label="目次"><p>目次</p><ol>' + "".join(
-            f'<li><a href="#{hid}">{esc(t)}</a></li>' for hid, t in h2s) + "</ol></nav>"
+            f'<li><a href="#{hid}">{esc(t)}</a>' + (f' <span class="lv lv-{LEVELS[l][0]}">{l}</span>' if l else "") + "</li>"
+            for hid, t, l in h2s) + "</ol></nav>"
+    toc_html = level_guide(toc) + toc_html
     summary = f'<p class="summary"><strong>この記事の結論:</strong>{inline(a["summary"])}</p>' if a.get("summary") else ""
     related = [x for x in arts if x["cat"] == a["cat"] and x is not a][:6]
     rel_html = ('<section class="related"><h2>あわせて読みたい</h2><ul class="cards">' + "".join(card(x) for x in related) + "</ul></section>") if related else ""

@@ -9,7 +9,12 @@ AIクローラーへの対応は、**「AIの学習に使わせるか」と「AI
 
 この記事では、主なAIクローラーの役割と robots.txt の書き方を、各社の公式ドキュメント(2026年11月時点で確認)をもとに整理します。AIO(AI検索最適化)という言葉の意味は「[AIO・LLMO・GEO・AEOの違い](/aio/aio-llmo-geo-aeo-difference/)」で解説しています。
 
-## AIクローラーにはどんな種類がある?
+## AIクローラーにはどんな種類がある? [初級]
+
+まず言葉を2つ押さえておきましょう。
+
+- **クローラー**:Web のページを自動で読んで回るプログラムです。「ボット」とも呼ばれます。Google 検索の Googlebot が代表例です。
+- **robots.txt**:サイトに置くテキストファイルで、「このクローラーはここを読んでよい・読まないで」とお願いするためのものです。
 
 主なAIクローラーは、目的で3つに分けると整理しやすくなります。
 
@@ -24,7 +29,7 @@ AIクローラーへの対応は、**「AIの学習に使わせるか」と「AI
 
 出典:[OpenAI「Overview of OpenAI Crawlers」](https://developers.openai.com/api/docs/bots)、[Anthropic ヘルプセンター](https://support.claude.com/en/articles/8896518)、[Perplexity「Perplexity Crawlers」](https://docs.perplexity.ai/docs/resources/perplexity-crawlers.md)、[Google「Google's common crawlers」](https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers)(いずれも2026年11月9日に確認)。
 
-## 各社のクローラーはそれぞれ何をする?
+## 各社のクローラーはそれぞれ何をする? [中級]
 
 ### OpenAI(ChatGPT)
 
@@ -43,7 +48,7 @@ AIクローラーへの対応は、**「AIの学習に使わせるか」と「AI
 - **PerplexityBot**:Perplexity の検索結果にサイトを表示・リンクするためのクローラーです。AIモデルの学習用ではないとされ、Perplexity は許可することを推奨しています。
 - **Perplexity-User**:ユーザーの質問に答えるためにページを読みに来ます。Perplexity は「通常は robots.txt を無視する」と明記しています。反映には最大24時間かかるとされています。
 
-## Google-ExtendedをブロックするとAI Overviewsから消える?
+## Google-ExtendedをブロックするとAI Overviewsから消える? [中級]
 
 消えません。ここはよく誤解されるところです。
 
@@ -51,7 +56,7 @@ Google-Extended は、Google がクロールした内容を **Gemini の今後�
 
 Google 検索の [AI Overviews(AIによる概要)](/aio/ai-overviews/) や AI モードに出るかどうかは、通常の検索と同じ **Googlebot** と、`nosnippet` などのスニペット制御で決まります([AI features and your website](https://developers.google.com/search/docs/appearance/ai-features))。AI Overviews に出たくない場合に Google-Extended を止めても効果はない、ということです。
 
-## robots.txtはどう書く?
+## robots.txtはどう書く? [中級]
 
 robots.txt はサイトの一番上(`https://example.com/robots.txt`)に置くテキストファイルです。サブドメインごとに別のファイルが必要です。
 
@@ -115,7 +120,7 @@ Disallow: /members/
 
 会員ページや社内向けの資料など、特定の場所だけ止めることもできます。ただし robots.txt は「お願い」であって鍵ではありません。見られて困るページは、ログインやパスワードで守ってください。
 
-## 設定するときの注意点は?
+## 設定するときの注意点は? [中級]
 
 ### 個別に書いたクローラーは「*」のルールを読まない
 
@@ -135,7 +140,37 @@ ChatGPT-User と Perplexity-User は、robots.txt が適用されない場合が
 
 robots.txt で許可していても、CDN(コンテンツ配信サービス)や WAF(ファイアウォール)のボット対策機能で、AIクローラーがまとめて止められていることがあります。AI検索に出たいのに引用されない場合は、robots.txt だけでなくこちらの設定も確認してください。
 
-## 結局、AIクローラーは許可すべき?
+## ルールの優先順位と本物の見分け方は? [上級]
+
+### 同じグループの中では「長いパス」が勝つ
+
+Google の [robots.txt の仕様](https://developers.google.com/search/docs/crawling-indexing/robots/robots_txt) では、1つの URL に複数のルールが当てはまるとき、**パスが長い(より具体的な)ルール** が使われます。長さが同じで Allow と Disallow がぶつかったときは、**制限の弱いほう(Allow)** が使われます。
+
+```
+User-agent: GPTBot
+Disallow: /blog/
+Allow: /blog/public/
+```
+
+この場合、`/blog/public/a.html` は `Allow: /blog/public/` のほうが長いので読まれ、`/blog/b.html` は読まれません。OpenAI など他社が細かい解釈まで同じとは限らないので、複雑な書き方は避け、できるだけ単純に保つのが安全です。
+
+### 大文字・小文字の扱い
+
+Google の仕様では、`User-agent` の値(クローラー名)は大文字・小文字を区別しません。一方、`Disallow: /Admin/` のような **パスは区別します**。`/admin/` と `/Admin/` は別物として扱われます。
+
+### 名乗っているボットが本物か確かめる
+
+User-Agent の文字列はだれでも偽れます。アクセスログで「GPTBot」を名乗るアクセスを見つけても、本物とは限りません。
+
+- **OpenAI**:クローラーごとの IP アドレスの一覧を公開しています(`openai.com/gptbot.json`、`openai.com/searchbot.json`、`openai.com/chatgpt-user.json`)。ログの IP がこの範囲に入っているかで確かめられます。
+- **Anthropic**:IP アドレスでのブロックは「正しく働かない、または確実なオプトアウトにならない可能性がある」として、robots.txt での指定をすすめています。
+- **Google**:Googlebot が本物かどうかは、IP アドレスの逆引き(DNS)で確かめる方法を Google が案内しています。なお Google-Extended は独自のクローラーではないため、ログに「Google-Extended」という名前のアクセスは現れません。
+
+### サーバーの負荷が気になるときは
+
+AIクローラーのアクセスが多くてサーバーが重い場合、すぐに全部ブロックするより、まず負荷の原因になっているボットを特定します。Anthropic(ClaudeBot)は `Crawl-delay`(アクセスの間隔の指定)に対応していますが、これは標準の仕様ではなく、Google は `Crawl-delay` を使いません。
+
+## 結局、AIクローラーは許可すべき? [初級]
 
 AI検索から問い合わせや認知を得たいサイトなら、**少なくとも検索用(OAI-SearchBot・Claude-SearchBot・PerplexityBot)は許可する** のがおすすめです。ここを止めると、ChatGPT や Claude、Perplexity の検索で引用される入口がなくなります。
 
