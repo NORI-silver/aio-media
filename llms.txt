@@ -4,6 +4,7 @@
 
 ## ツール
 - [AIO診断ツール](https://aio.shiokonbu.com/aio-checker/): URLを入れると、AIクローラーへの公開設定・llms.txt・構造化データなどAI検索対策の状況を無料で診断する
+- [AIO・SEO強化ロードマップ](https://aio.shiokonbu.com/roadmap/): 初級から上級まで14ステップで、AI検索とSEOの対策を進めるチェックリスト
 
 ## 運営者と方針
 - [運営者情報](https://aio.shiokonbu.com/about/): 運営者と連絡先

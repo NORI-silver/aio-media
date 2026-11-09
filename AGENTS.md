@@ -18,6 +18,7 @@
 | `site.json` | サイト名・URL・カテゴリ(柱)・GA4・公開前フラグ(`launched`)・Search Console の確認用メタタグ(`google_site_verification` に content の値を配列で) |
 | `content/articles/<カテゴリ>/<スラッグ>.md` | 記事の元。書き方は `docs/writing.md` |
 | `content/pages/*.md` | 運営者情報・編集方針・プライバシーポリシー |
+| `content/roadmap.json` | AIO・SEO強化ロードマップ(`/roadmap/`)の14ステップ。記事の末尾の「このあと何をする?」、トップの案内、診断結果からの「次にやるステップ」もここから作る。`checks` は診断ツールのチェックID。進み具合と診断履歴は `assets/progress.js` がブラウザ内だけに保存 |
 | `tools/build.py` | 元データから全ページ・sitemap.xml・feed.xml・robots.txt・llms.txt・llms-full.txt を作る |
 | `tools/seo_check.py` `.github/workflows/seo-check.yml` | SEO・AIOの自動チェック(PRごと。ビルドし忘れも赤くなる) |
 | `tools/indexnow.py` `.github/workflows/indexnow.yml` `<32桁>.txt` | main の変更ページを IndexNow(Bing など)に送る。.txt は鍵(公開してよい値)なので消さない |
@@ -36,6 +37,7 @@
 - **数字・仕様には出典リンクと確認日**(例:「2026年11月時点、Google 検索セントラル」)。公式で確かめられないものは書かない。
 - 根拠のない実績・「No.1」「業界最安」などは書かない。他社をけなさない。
 - 呼び方(AIO・LLMO・GEO・AEO)が揺れている語は、記事の中で定義してから使う。
+- 記事を足したら `content/roadmap.json` の関係するステップの `articles` にパスを足す(読者が「次にやること」へ進めるように)。
 - 本文の内部リンクを3本以上(同じ柱のピラー記事、用語集、関連記事)。
 - AIで下書きしてよいが、事実確認をしてから公開する(Google の「大量生成コンテンツの乱用」に当たる薄い記事を出さない)。
 

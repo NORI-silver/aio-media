@@ -121,3 +121,32 @@ td.ok{color:#1a7f37}td.ng{color:#c62828;font-weight:700}td.warn{color:#b26a00}
 .cr-chips{display:flex;flex-wrap:wrap;gap:4px}
 .cr-chip{display:inline-block;font-size:.7rem;padding:1px 7px;border-radius:99px;margin-right:6px;background:var(--soft);border:1px solid var(--line);color:var(--fg)}
 .g-imp{background:#e8f0fb}.g-ctr{background:#fff3e0}.g-rank{background:#e7f6ec}.g-ai{background:#f6ebfa}
+.rm-total{border:1px solid var(--line);border-radius:10px;padding:10px 16px;margin:16px 0;background:var(--soft)}
+.rm-total p{margin:0}
+.rm-bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:6px 0}
+.rm-bar span{display:block;height:100%;width:0;background:#1a7f37;transition:width .3s}
+.rm-steps{padding-left:0;list-style:none}
+.rm-step{border:1px solid var(--line);border-left:5px solid var(--line);border-radius:8px;padding:4px 16px 12px;margin:12px 0;scroll-margin-top:12px}
+.rm-step.is-done{border-left-color:#1a7f37;background:#f6fbf7}
+.rm-step h3{margin:.6em 0 .2em}
+.rm-step>p{margin:.3em 0}
+.rm-step ul{margin:.3em 0;padding-left:1.3em}
+.rm-links{font-size:.9rem}
+.rm-status{margin:.4em 0!important}
+.rm-status.st-ng{color:#c62828}.rm-status.st-warn{color:#b26a00}.rm-status.st-ok{color:#1a7f37}
+.rm-check{display:inline-flex;gap:6px;align-items:center;font-weight:700;font-size:.92rem;cursor:pointer;margin-top:4px}
+.rm-check input{width:18px;height:18px}
+.rm-next{border:1px solid #b9d3f0;background:#f2f7fd;border-radius:10px;padding:8px 16px;margin:24px 0}
+.rm-next-h{font-weight:700;margin:.3em 0}
+.rm-next ul{margin:0;padding-left:1.2em}
+.rm-next li{margin:4px 0}
+.rm-next .rm-check{margin-left:8px}
+.cr-progress{border:1px solid #b9d3f0;background:#f2f7fd;border-radius:10px;padding:4px 16px 8px;margin:16px 0}
+.cr-progress h2{border:0;margin:.6em 0 .2em;font-size:1.1rem}
+.cr-progress p{margin:.4em 0}
+.cr-diff{font-weight:700;font-size:1.05rem}
+.cr-diff.up{color:#1a7f37}.cr-diff.down{color:#c62828}
+.cr-broke{color:#c62828}
+.cr-steps{list-style:none;padding:0;margin:.2em 0}
+.cr-steps li{margin:4px 0}
+.cr-steps .lv{margin:0 6px 0 0}

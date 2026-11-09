@@ -369,6 +369,7 @@
           return fail(r.error);
         }
         render(r);
+        window.dispatchEvent(new CustomEvent("aio:checked", { detail: r })); // 履歴とロードマップ(progress.js)
         var host = "";
         try { host = new URL(r.finalUrl).hostname; } catch (e) {}
         track("aio_check", { check_domain: host, check_score: r.score, check_grade: r.grade });
