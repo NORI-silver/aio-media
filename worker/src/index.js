@@ -574,6 +574,90 @@ function growthActions(pageType, h, final) {
   return a;
 }
 
+// 順位を上げるためのアクション(このページの中身から具体的に作る)
+function rankActions(pageType, h, final, checks) {
+  const st = Object.fromEntries(checks.map((c) => [c.id, c]));
+  const bad = (id) => st[id] && (st[id].status === "ng" || st[id].status === "warn");
+  const out = [];
+  const now = (id) => bad(id) && `いまの状態: ${st[id].detail}`;
+  const push = (priority, title, why, steps, effort, from) => out.push({ priority, title, why, steps: steps.filter(Boolean), effort, from });
+  // 0. そもそも検索に出られない
+  if (bad("indexable") || bad("ai-search-bots") || bad("status")) {
+    push("最優先", "まず、検索に出られる状態にする",
+      "お店の入口に「立入禁止」の札がかかっていると、中身がよくてもお客さんは入れません。検索に出ない設定のままでは、順位は上がりようがありません。",
+      [bad("status") && `ページが正常に表示されていません(${st.status.detail})。`, now("indexable"), now("ai-search-bots"),
+        "設定を直したら、Search Console の「URL検査」で「インデックス登録をリクエスト」を押す"], "15分〜", "このページで見つかった課題");
+  }
+  if (!h) return out;
+  // 1. ねらうキーワードを決めてそろえる
+  const kw = ((h.h1[0] || h.title || "").split(/[?？!！|｜「」【】()（）:：、。…]/)[0] || "").replace(/(とは|について|の(選び方|やり方|方法|始め方))$/, "").trim().slice(0, 24);
+  if (kw) {
+    const inTitle = (h.title || "").slice(0, 20).includes(kw);
+    const inDesc = (h.description || "").includes(kw);
+    const inFirst = (h.firstParagraph || "").includes(kw);
+    const inH2 = h.h2.some((t) => t.includes(kw));
+    const miss = [!inTitle && "タイトルの前半", !inDesc && "説明文(meta description)", !inFirst && "最初の段落", pageType === "article" && !inH2 && "h2 の見出し"].filter(Boolean);
+    push(miss.length ? "高" : "中", "ねらう検索キーワードを1つ決めて、大事な場所にそろえる",
+      "Google は、ページが「何についての答えか」をタイトル・見出し・冒頭から判断します。本の題名と目次と最初のページで話題がそろっていると、何の本かすぐわかるのと同じです。",
+      [`このページのテーマは「${kw}」と読み取れました(h1・タイトルから推測)。本当にねらう言葉か、Search Console で実際に表示されている言葉と比べて決める`,
+        miss.length ? `「${kw}」が入っていない場所: ${miss.join("、")}。不自然にならない形で入れる` : `「${kw}」はタイトル・説明文・冒頭にそろっています。次は関連する言葉(「${kw} 費用」「${kw} やり方」など)を h2 で拾う`,
+        "同じキーワードをねらう自分のページが2つ以上あるなら、1つにまとめるか、ねらう言葉を分ける(評価が割れるのを防ぐ)"],
+      "30分", miss.length ? "このページで見つかった課題" : "このページの分析");
+  }
+  // 2. 検索意図に合わせる
+  push("高", "検索結果の1ページ目を見て、求められている「答えの形」に合わせる",
+    "同じ言葉でも、知りたいのが「手順」なのか「比較」なのか「料金」なのかで、上位に出るページの形は変わります。お客さんが求めている形と違うページは、内容がよくても上がりにくいです。",
+    [kw ? `シークレットウィンドウで「${kw}」を検索し、上位10ページを開く` : "ねらう言葉で検索し、上位10ページを開く",
+      "上位に多い形(手順・一覧・比較表・料金・事例)と、よく出てくる見出しをメモする",
+      "このページに足りない形・論点を足す(上位の文章をまねるのではなく、自分の経験や数字で答える)"], "1時間", "定番の打ち手");
+  // 3. 中身の厚み・一次情報
+  if (bad("depth") || bad("first-party") || bad("coverage")) {
+    push("高", "上位ページにない「このページだけの情報」を足す",
+      "ほかと同じことしか書いていないページは、Google が上位に並べる理由がありません。自分で試した結果・自社の数字・実際の画面は、まねされにくい一番の強みです。",
+      [now("depth"), now("first-party"), now("coverage"),
+        "読者が次に聞きそうな質問(費用は?どれくらいかかる?失敗例は?)を3つ選び、それぞれ見出しを立てて答える",
+        "数字には条件と時期を書く(例:「2026年10月に5社で試した結果」)"], "半日〜", "このページで見つかった課題");
+  }
+  // 4. 内部リンク
+  push(bad("internal-links") ? "高" : "中", "サイトの中から、このページへリンクを集める",
+    "サイトの中でたくさんリンクされているページは「このサイトで大事なページ」と伝わります。図書館で、たくさんの本の巻末に「くわしくはこの本」と書かれている本ほど目立つのと同じです。",
+    [now("internal-links"),
+      kw ? `サイト内で「${kw}」に触れている記事を探す(Google で「site:${final.host} ${kw}」と検索)` : `Google で「site:${final.host}」と検索して関連する記事を探す`,
+      "見つけた記事の本文から、このページへリンクを張る。リンクの文字は「こちら」ではなく、内容がわかる言葉にする",
+      "トップページやカテゴリページなど、よく見られるページからも1クリックで来られるようにする"], "30分", bad("internal-links") ? "このページで見つかった課題" : "定番の打ち手");
+  // 5. 信頼(E-E-A-T)
+  if (bad("entity") || bad("byline")) {
+    push("中", "誰が書いたか・どんな会社かをはっきり見せる",
+      "知らない人の話より、名前と経歴がわかる人の話のほうが信用されます。Google もお金や健康などの大事なテーマほど、書き手の信頼を重く見ます。",
+      [bad("byline") && "記事の上か下に、書いた人の名前・経歴・プロフィールページへのリンクを出す", now("entity"),
+        "運営者情報ページに、会社名・所在地・連絡先・実績をまとめ、公式SNSとつなげる"], "1時間", "このページで見つかった課題");
+  }
+  // 6. 鮮度
+  if (bad("date")) {
+    push("中", "内容を見直して、更新日を新しくする",
+      "古い地図より新しい地図が信用されるのと同じで、情報が古いページは新しいページに抜かれていきます。",
+      [now("date"), "数字・料金・画面・リンク切れを確かめて直し、本文の更新日と構造化データの dateModified を新しくする", "日付だけ変えて中身を変えないのは逆効果なのでやらない"], "1時間", "このページで見つかった課題");
+  }
+  // 7. 表示の速さ・スマホ
+  const ux = ["speed", "viewport", "https", "html-size"].filter(bad);
+  if (ux.length) {
+    push("中", "スマホで速く、安全に見られるようにする",
+      "Google はスマホで見たときのページで評価します。表示が遅い・崩れるページは、見た人がすぐ戻ってしまい、評価も下がりやすくなります。",
+      [...ux.map((id) => `${st[id].label}: ${st[id].detail}`), `PageSpeed Insights(https://pagespeed.web.dev/)で ${final.href} を測り、「改善できる項目」の上から直す`], "要調査", "このページで見つかった課題");
+  }
+  // 8. Search Console で「あと一歩」を伸ばす
+  push("高", "「あと一歩」のキーワードを Search Console で見つけて伸ばす",
+    "順位が8〜20位の言葉は、少し手を入れるだけで1ページ目・上位に上がりやすい「伸びしろ」です。一番効率のよい順位アップの方法です。",
+    ["Search Console の「検索パフォーマンス」→「ページ」でこのURLを選び、「クエリ」を表示する", "「平均掲載順位」が8〜20位で、表示回数が多い言葉を3つ選ぶ",
+      "その言葉の答えを、見出し(h2・h3)と本文に足す", "4週間後に同じ画面で順位とクリック数を比べる"], "30分・月1回", "定番の打ち手");
+  // 9. 外部からの評価
+  push("中", "ほかのサイトから紹介(被リンク)される材料を作る",
+    "ほかのサイトからのリンクは「このページはおすすめです」という推薦状のようなもので、順位に大きく効きます。ただし、お金で買ったリンクは Google の違反になるので使いません。",
+    ["独自の調査データ・無料のテンプレート・わかりやすい図など、紹介したくなるものをこのページに置く", "取引先・業界団体・地域のサイトに、紹介してもらえる実績ページがないか確かめる", "業界メディアへの寄稿や取材対応で、名前とURLを出してもらう"], "継続", "定番の打ち手");
+  const order = { 最優先: 0, 高: 1, 中: 2, 低: 3 };
+  return out.sort((a, b) => order[a.priority] - order[b.priority]);
+}
+
 // ------------------------------------------------------------------ 診断
 const len = (s) => (s ? [...s].length : 0);
 
@@ -951,6 +1035,7 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes, http
           goals: (FIX_PLAN[c.id] || { goals: [] }).goals, effort: (FIX_PLAN[c.id] || {}).effort || "" }))
         .sort((x, y) => "高中低".indexOf(x.impact) - "高中低".indexOf(y.impact) || (x.status === "ng" ? -1 : 0) - (y.status === "ng" ? -1 : 0)),
       growth: okStatus && h ? growthActions(pageType, h, final) : [],
+      rank: rankActions(pageType, h, final, checks),
       goals: GOALS,
     },
     raw,

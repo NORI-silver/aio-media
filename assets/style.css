@@ -509,3 +509,11 @@ td.ok{color:var(--ok)}td.ng{color:var(--ng);font-weight:700}td.warn{color:var(--
 .fig .f-numt{fill:#fff;font-size:13px;font-weight:700}
 .fig .f-ar{stroke:var(--muted);stroke-width:2;fill:none}
 .fig .f-ah{fill:var(--muted)}
+
+/* 順位を上げるためのアクション */
+.cr-rank{background:#f3fbf5;border-color:#bbe5c8}
+.cr-rank .cr-rank-list{grid-template-columns:1fr}
+.cr-rank-n{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--gc);color:#fff;font-weight:800;font-size:.8rem;margin-right:2px}
+.imp-最優先{background:#991b1b}
+.cr-from{font-size:.72rem;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:1px 8px;background:#fff}
+.cr-rank-note{margin:14px 0 0;font-size:.82rem}

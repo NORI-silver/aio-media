@@ -253,6 +253,7 @@
       pri.appendChild(el("p", "cr-allgood", "大きな問題は見つかりませんでした。次は、質問にずばり答える文章や一次情報(実際に試した結果・数字)を増やすと、AIに引用されやすくなります。"));
     }
     out.appendChild(pri);
+    if (r.plan && r.plan.rank && r.plan.rank.length) out.appendChild(rankSection(r.plan.rank));
     if (r.plan) out.appendChild(planSection(r.plan));
 
     // 3. 全項目
@@ -346,6 +347,32 @@
   }
 
   // 強化プラン: 目的(表示回数・クリック率・順位・AI引用)ごとに絞り込める
+  // 順位を上げるためのアクション(このページの中身から作った具体的な行動)
+  function rankSection(list) {
+    var sec = el("section", "cr-plan cr-rank g-rank");
+    sec.appendChild(el("h2", "cr-h", "順位を上げるためのアクション"));
+    sec.appendChild(el("p", "cr-sub", "このページの中身から、検索順位を上げるためにやることを、効きやすい順に並べました。上から1つずつ進めてください。"));
+    var ol = el("ol", "cr-growth cr-rank-list");
+    list.forEach(function (x, i) {
+      var li = el("li", "cr-grow g-rank");
+      var head = el("div", "cr-grow-h");
+      head.appendChild(el("span", "cr-rank-n", String(i + 1)));
+      head.appendChild(el("span", "cr-impact imp-" + x.priority, x.priority === "最優先" ? "最優先" : "効果 " + x.priority));
+      if (x.from) head.appendChild(el("span", "cr-from", x.from));
+      if (x.effort) head.appendChild(el("span", "cr-effort", "⏱ " + x.effort));
+      li.appendChild(head);
+      li.appendChild(el("strong", "cr-grow-t", x.title));
+      li.appendChild(el("p", null, x.why));
+      var steps = el("ol", "cr-steps-n");
+      x.steps.forEach(function (st) { steps.appendChild(el("li", null, st)); });
+      li.appendChild(steps);
+      ol.appendChild(li);
+    });
+    sec.appendChild(ol);
+    sec.appendChild(el("p", "cr-sub cr-rank-note", "実際の順位は、このツールでは測れません。Search Console の「検索パフォーマンス」で、直す前と4週間後を比べてください。"));
+    return sec;
+  }
+
   function planSection(plan) {
     var sec = el("section", "cr-plan");
     sec.appendChild(el("h2", "cr-h", "強化プラン"));
