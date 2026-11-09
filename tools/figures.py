@@ -184,4 +184,61 @@ for i,(cls,t,lines) in enumerate(steps):
         f.arrow(W/2, y2+2, W/2, y2+22)
     y = y2 + 26
 f.save()
+# ---- 9. 広告アカウントの構成(Google広告とMeta広告)
+f = Fig("ads-account-structure", "Google広告とMeta広告のアカウント構成の比較:Google広告はアカウント、キャンペーン、広告グループ、広告とキーワード。Meta広告はアカウント、キャンペーン、広告セット、広告")
+cw = (W-16*2-12)/2
+x1, x2 = 16, 16+cw+12
+f.box(x1, 6, cw, 38, "f-b"); f.ctext(x1+cw/2, 31, "Google広告", "f-t")
+f.box(x2, 6, cw, 38, "f-p"); f.ctext(x2+cw/2, 31, "Meta広告", "f-t")
+rows = [("アカウント", "支払い・計測", "アカウント", "支払い・ピクセル"),
+        ("キャンペーン", "種類・予算・入札", "キャンペーン", "目的・予算"),
+        ("広告グループ", "キーワードのまとまり", "広告セット", "オーディエンス・配置"),
+        ("広告", "見出し・説明文", "広告", "画像・動画・文章")]
+y = 58
+for i,(a,a2,b,b2) in enumerate(rows):
+    h = 52
+    for x,t,sub in ((x1,a,a2),(x2,b,b2)):
+        f.box(x, y, cw, h, "f-w")
+        f.ctext(x+cw/2, y+22, t, "f-t2"); f.ctext(x+cw/2, y+41, sub, "f-s2")
+        if i < len(rows)-1:
+            f.arrow(x+cw/2, y+h+2, x+cw/2, y+h+16)
+    y += h + 20
+f.text(x1, y+8, "▸ 予算は主にキャンペーン、", "f-l")
+f.text(x1, y+26, "   誰に出すかは広告グループ / 広告セットで決める", "f-l")
+f.h = y + 30
+f.save()
+
+# ---- 10. コンバージョン計測のしくみ
+f = Fig("ads-conversion-flow", "コンバージョン計測のしくみ:広告のクリック、サイトでの成果、ブラウザのタグとサーバーからの送信の2つの経路、広告媒体での重複排除、自動入札の学習の流れ")
+y = 6
+for i,(cls,t,lines) in enumerate([("f-b", "広告をクリック", ["クリックの情報が付いてサイトへ"]),
+                                  ("f-b", "サイトで成果", ["購入・問い合わせの完了"])]):
+    h = 34 + 18*len(lines) + 6
+    f.box(16, y, W-32, h, cls, t, lines, num=i+1)
+    f.arrow(W/2, y+h+2, W/2, y+h+22)
+    y += h + 26
+cw = (W-16*2-12)/2
+x1, x2 = 16, 16+cw+12
+for x,t,l1,l2 in ((x1,"ブラウザのタグ","Googleタグ","Metaピクセル"),(x2,"サーバー・入力情報","拡張コンバージョン","コンバージョンAPI")):
+    f.box(x, y, cw, 74, "f-w")
+    f.ctext(x+cw/2, y+24, t, "f-t2"); f.ctext(x+cw/2, y+44, l1, "f-s2"); f.ctext(x+cw/2, y+62, l2, "f-s2")
+    f.arrow(x+cw/2, y+76, x+cw/2, y+96)
+y += 100
+f.box(16, y, W-32, 58, "f-p", "広告媒体(Google・Meta)", ["同じ成果は1件にまとめる(重複排除)"], num=3)
+f.arrow(W/2, y+60, W/2, y+80)
+y += 84
+f.box(16, y, W-32, 76, "f-g", "自動入札の学習・レポート", ["計測がずれると、AIは", "「ずれた成果」を増やそうとする"], num=4)
+f.save()
+
+# ---- 11. 広告予算の逆算
+f = Fig("ads-budget-calc", "広告予算の逆算:目標の件数20件と許容CPA1万円を掛けると月の広告予算20万円。許容CPAは1件の利益と成約率から決める")
+cw = (W-16*2-36)/2
+x1, x2 = 16, 16+cw+36
+f.box(x1, 6, cw, 84, "f-b"); f.ctext(x1+cw/2, 30, "目標の件数(月)", "f-s2"); f.ctext(x1+cw/2, 60, "20件", "f-t"); f.ctext(x1+cw/2, 80, "問い合わせなど", "f-s2")
+f.ctext(W/2, 56, "×", "f-t")
+f.box(x2, 6, cw, 84, "f-b"); f.ctext(x2+cw/2, 30, "許容CPA", "f-s2"); f.ctext(x2+cw/2, 60, "1万円", "f-t"); f.ctext(x2+cw/2, 80, "1件の上限", "f-s2")
+f.arrow(W/2, 94, W/2, 118)
+f.box(16, 122, W-32, 70, "f-g"); f.ctext(W/2, 146, "月の広告予算", "f-s2"); f.ctext(W/2, 172, "20万円(1日 約6,600円)", "f-t")
+f.box(16, 204, W-32, 78, "f-w", "許容CPAの決め方", ["1件の成約で残る利益 × 成約する割合", "例:5万円 × 20% = 1万円(数字は例)"])
+f.save()
 print(sorted(os.listdir(OUT)))

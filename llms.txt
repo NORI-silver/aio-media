@@ -33,6 +33,25 @@
 - [llms.txtとは?書き方の例とGoogleの見解、置くべきかを解説](https://aio.shiokonbu.com/glossary/llms-txt/): llms.txtは、サイトの概要と主なページをMarkdownでまとめてAIに伝えるためのファイルです。仕様の中身、実際の書き方の例、Googleの見解、置くべきサイトの判断基準を解説します。
 - [MCPとは?AIとツールをつなぐ仕組みをSEO・AIOの実例で図解](https://aio.shiokonbu.com/glossary/mcp/): MCP(Model Context Protocol)は、AIアプリと外部のツールやデータをつなぐ共通の決まりです。仕組みを図解し、Search ConsoleやGA4をAIから使う実例、安全な使い方、サイトのMCP対応の意味を解説します。
 
+## 広告運用
+- [広告アカウントの構成とは?Google広告とMeta広告の作り方](https://aio.shiokonbu.com/ads/account-structure/): Google広告とMeta広告のアカウント構成(キャンペーン・広告グループ・広告セット・広告)の違いを図で解説。どこで予算やターゲットを決めるか、分けすぎない設計の考え方、命名ルールの例まで紹介します。
+- [広告運用のよくある失敗10選|Google広告・Meta広告](https://aio.shiokonbu.com/ads/ad-mistakes/): Google広告・Meta広告でよくある失敗10個と、その直し方をまとめました。計測の設定ミス、成果の選び方、構成の分けすぎ、学習中の触りすぎ、指名検索の混在など、成果が出ないときに上から順に確かめられるチェックリストです。
+- [広告とSEO・AIOの関係とは?AI検索時代の正しい使い分け](https://aio.shiokonbu.com/ads/ads-seo-aio/): 検索広告とSEO・AIOの関係を解説。広告はSEOの順位に影響するのか、どう使い分けるか、広告のデータをSEOとAIOに生かす方法、AI Overviews・AIモード・ChatGPTの広告の最新状況まで公式情報でまとめます。
+- [Google広告とは?仕組み・種類・費用の基本をやさしく解説](https://aio.shiokonbu.com/ads/google-ads-basics/): Google広告の仕組み(オークションと広告ランク)、検索・P-MAX・動画などのキャンペーンの種類、費用の決まり方と予算の上限、始める前に準備することを、公式ヘルプの根拠つきで解説します。
+- [Meta広告とは?Facebook・Instagram広告の仕組みと始め方](https://aio.shiokonbu.com/ads/meta-ads-basics/): Meta広告(Facebook広告・Instagram広告)の仕組み、Google広告との違い、6つのキャンペーンの目的の選び方、予算と学習期間、始める前の準備を、公式の情報をもとに初心者から上級者向けに解説します。
+- [Advantage+とは?Meta広告の自動化キャンペーンの使い方](https://aio.shiokonbu.com/ads/meta-advantage-plus/): Meta広告のAdvantage+(アドバンテージプラス)の仕組みを解説。オーディエンス・配置・予算の3つの自動化、旧Advantage+ショッピングからの変更点、人が決めること、既存顧客の扱いなど上級者向けの注意点まで紹介します。
+- [P-MAXとは?Google広告の使い方と失敗しない設定](https://aio.shiokonbu.com/ads/performance-max/): Google広告のP-MAX(パフォーマンス マックス)の仕組み、向いている会社と向いていない会社、アセットの入稿ルール、除外キーワードやチャネル別レポートなど2025年以降に増えた管理機能、失敗しない設定の手順を解説します。
+- [Google広告の自動入札とは?4つの種類と選び方・学習期間](https://aio.shiokonbu.com/ads/smart-bidding/): Google広告の自動入札(スマート自動入札)の種類と選び方を解説。目標コンバージョン単価・目標広告費用対効果・コンバージョン数の最大化の違い、学習期間の正しい理解、成果の評価のしかたまで公式ヘルプをもとに紹介します。
+
+## 成果改善・分析
+- [コンバージョン計測の設定方法|Google広告とMeta広告](https://aio.shiokonbu.com/analytics/conversion-tracking/): Google広告とMeta広告のコンバージョン計測の設定方法を解説。何を成果にするか、Googleタグ・Metaピクセルの入れ方、拡張コンバージョンとコンバージョンAPI、重複の防ぎ方、外部送信規律への対応までまとめます。
+
+## LP・クリエイティブ
+- [広告クリエイティブの作り方|検索広告とMeta広告の基本](https://aio.shiokonbu.com/lp-creative/ad-creative/): Google広告のレスポンシブ検索広告とMeta広告の画像・動画クリエイティブの作り方を解説。見出しの文字数ルール、訴求の切り口の出し方、広告とLPをそろえる方法、AIに任せる時代の素材の増やし方と検証のしかたまで紹介します。
+
+## 費用・外注先の選び方
+- [広告予算の決め方|Google広告・Meta広告の費用と逆算方法](https://aio.shiokonbu.com/cost/ad-budget/): Google広告・Meta広告の予算の決め方を、許容CPAから逆算する方法で解説。課金のしくみ、日予算が多めに使われるルール、学習に必要な件数から見た最低ライン、代理店手数料の考え方まで、計算例つきで紹介します。
+
 ## ニュース・仕様変更
 - [AI学習を一括で断るrobots.txt共通ルール|Google・Bing対応へ](https://aio.shiokonbu.com/news/shared-ai-training-opt-out/): Google・Microsoft(Bing)・OpenAIが、robots.txtの「__usage_ai-training」でAI学習の可否を一括で伝える共通ルールへの対応を発表。書き方、各社の時期、AI検索への影響を解説します。
 

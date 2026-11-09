@@ -120,7 +120,8 @@
             "/aio/aio-llmo-geo-aeo-difference/",
             "/aio/ai-overviews/",
             "/aio/how-search-and-ai-work/",
-            "/aio/ai-vs-human-access/"
+            "/aio/ai-vs-human-access/",
+            "/ads/ads-seo-aio/"
           ],
           "links": []
         }
@@ -258,7 +259,8 @@
           "checks": [],
           "articles": [
             "/seo/search-console-start/",
-            "/glossary/mcp/"
+            "/glossary/mcp/",
+            "/analytics/conversion-tracking/"
           ],
           "links": [
             [
