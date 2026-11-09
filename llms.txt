@@ -6,6 +6,9 @@
 - [運営者情報](https://aio.shiokonbu.com/about/): 運営者と連絡先
 - [編集方針](https://aio.shiokonbu.com/editorial-policy/): 情報源・検証・更新のルール
 
+## AIO・LLMO・GEO対策
+- [AIO・LLMO・GEO・AEOの違いとは?呼び方別の意味とやるべき対策](https://aio.shiokonbu.com/aio/aio-llmo-geo-aeo-difference/): AIO・LLMO・GEO・AEOは、どれもAI検索で自社の情報が引用・紹介されるための取り組みです。4つの呼び方の由来と違い、Googleの公式見解、今日からやるべき対策を出典つきで整理します。
+
 ## Optional
 - [全記事の本文](https://aio.shiokonbu.com/llms-full.txt)
 - [サイトマップ](https://aio.shiokonbu.com/sitemap.xml)
