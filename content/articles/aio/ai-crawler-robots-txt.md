@@ -1,68 +1,95 @@
 ---
 title: AIクローラーのrobots.txt設定|GPTBotなどの許可とブロック方法
-description: GPTBot・OAI-SearchBot・ClaudeBot・PerplexityBot・Google-Extendedなど主なAIクローラーの役割と、robots.txtで許可・ブロックする書き方を公式情報をもとに整理します。
+description: GPTBot・OAI-SearchBot・ClaudeBot・PerplexityBotなどAIのボットの役割と、robots.txtで許可・おことわりする書き方を、入口の張り紙のたとえと図でやさしく解説します。
 date: 2026-11-09
 updated: 2026-11-09
-summary: AIクローラーは「AIの学習用」「AI検索の索引用」「ユーザーの質問に応じて読みに来るもの」の3種類に分かれます。AI検索で引用されたいなら、少なくとも検索用のクローラー(OAI-SearchBot・Claude-SearchBot・PerplexityBot)はブロックしないのが基本です。
+summary: AIのボット(クローラー)は「AIの勉強用」「AI検索の準備用」「人に頼まれてその場で読みに来るもの」の3種類に分かれます。AI検索で紹介されたいなら、少なくとも検索用のボット(OAI-SearchBot・Claude-SearchBot・PerplexityBot)はおことわりしないのが基本です。
 ---
-AIクローラーへの対応は、**「AIの学習に使わせるか」と「AI検索に出るか」を分けて考える**のがポイントです。OpenAI・Anthropic・Perplexity・Google はどれも用途ごとにクローラー(ボット)の名前を分けていて、robots.txt でそれぞれ別々に許可・ブロックできます。学習用だけを止めて、AI検索には出る、という設定もできます。
+robots.txt(ロボッツ・テキスト)は、**サイトの入口に貼る「張り紙」** のようなファイルです。ページを自動で読みに来るプログラム(ボット)に向けて、「このボットは入ってOK」「このボットは入らないで」とお願いを書けます。
 
-この記事では、主なAIクローラーの役割と robots.txt の書き方を、各社の公式ドキュメント(2026年11月時点で確認)をもとに整理します。AIO(AI検索最適化)という言葉の意味は「[AIO・LLMO・GEO・AEOの違い](/aio/aio-llmo-geo-aeo-difference/)」で解説しています。
+AI のボットは、**「AI の勉強(学習)のために読むもの」と「AI 検索で紹介するために読むもの」で名前が分かれています**。だから、「AI の勉強には使われたくないけれど、AI 検索では紹介されたい」という設定もできます。
 
-## AIクローラーにはどんな種類がある? [初級]
+この記事では、主な AI のボットの役割と、robots.txt の書き方を、各社の公式の説明(2026年11月9日に確認)をもとに、図を使って説明します。
 
-まず言葉を2つ押さえておきましょう。
+## robots.txtってなに? [初級]
 
-- **クローラー**:Web のページを自動で読んで回るプログラムです。「ボット」とも呼ばれます。Google 検索の Googlebot が代表例です。
-- **robots.txt**:サイトに置くテキストファイルで、「このクローラーはここを読んでよい・読まないで」とお願いするためのものです。
+{{figure:robots-door|図1 robots.txtは、ボットごとに「どうぞ」「おことわり」を書ける入口の張り紙}}
 
-主なAIクローラーは、目的で3つに分けると整理しやすくなります。
+まず、言葉を2つ覚えておきましょう。
 
-| 会社 | 学習用 | AI検索の索引用 | ユーザーの質問に応じて読みに来る |
+- **ボット(クローラー)**:ネット上のページを、自動で次々に読んで回るプログラムです。Google 検索のための「Googlebot(グーグルボット)」が有名です。
+- **robots.txt**:サイトのいちばん上の場所に置く、ただの文字だけのファイルです。ボットに「ここは読んでいい」「読まないで」とお願いします。
+
+大事なのは、robots.txt は **「お願い」であって「カギ」ではない** ことです。ちゃんとした会社のボットはお願いを守りますが、見られて困るページは、パスワードなどで守る必要があります。
+
+## AIのボットにはどんな種類がある? [初級]
+
+{{figure:crawler-3types|図2 AIのボットは、目的によって3種類に分かれる}}
+
+AI のボットは、目的で3つに分けるとわかりやすくなります。
+
+1. **覚えるために集める(学習用)**:AI を作るときの勉強の材料として、ページを集めます。
+2. **検索の準備をする(検索用)**:AI の検索で紹介するページを、前もって集めておきます。
+3. **頼まれてその場で読む**:人が AI に質問したときや、「このページを要約して」と頼んだときに、そのページを読みに来ます。
+
+| 会社 | ① 学習用 | ② 検索用 | ③ 頼まれてその場で |
 |---|---|---|---|
 | OpenAI(ChatGPT) | GPTBot | OAI-SearchBot | ChatGPT-User |
 | Anthropic(Claude) | ClaudeBot | Claude-SearchBot | Claude-User |
 | Perplexity | (なし) | PerplexityBot | Perplexity-User |
-| Google(Gemini など) | Google-Extended(※) | Googlebot(通常の検索と同じ) | — |
+| Google(Gemini など) | Google-Extended(※) | Googlebot(ふつうの検索と同じ) | — |
 
-※ Google-Extended は実際に巡回するクローラーではなく、robots.txt に書くための「名前(トークン)」です。詳しくは後半で説明します。
+※ Google-Extended は、実際に見に来るボットではなく、robots.txt に書くための「名前」です。くわしくは後で説明します。
 
 出典:[OpenAI「Overview of OpenAI Crawlers」](https://developers.openai.com/api/docs/bots)、[Anthropic ヘルプセンター](https://support.claude.com/en/articles/8896518)、[Perplexity「Perplexity Crawlers」](https://docs.perplexity.ai/docs/resources/perplexity-crawlers.md)、[Google「Google's common crawlers」](https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers)(いずれも2026年11月9日に確認)。
 
-## 各社のクローラーはそれぞれ何をする? [中級]
+## 結局、AIのボットは入れていい? [初級]
+
+AI 検索から問い合わせや知名度を得たいなら、**少なくとも②の検索用(OAI-SearchBot・Claude-SearchBot・PerplexityBot)は「どうぞ」にする** のがおすすめです。ここを止めると、ChatGPT・Claude・Perplexity の検索で紹介される入口がなくなります。
+
+①の学習用(GPTBot・ClaudeBot・Google-Extended)を入れるかどうかは、会社の考え方しだいです。有料の記事や独自のデータを売っている会社なら、おことわりする判断もありえます。多くの中小企業のサイトのように「知ってもらうこと」が目的なら、止める理由は大きくありません。
+
+ボットを入れるのは、AI に紹介されるための入口にすぎません。読まれたあとに紹介されるかは、最初に答えを書いているか、自分だけの情報があるか、といった中身で決まります(「[AIO・LLMO・GEO・AEOの違い](/aio/aio-llmo-geo-aeo-difference/)」の「今日から何をすればいい?」)。
+
+## 各社のボットはそれぞれ何をする? [中級]
 
 ### OpenAI(ChatGPT)
 
-- **GPTBot**:AIモデルの学習に使われる可能性のあるコンテンツを集めます。ブロックすると「このサイトの内容を学習に使わないでほしい」という意思表示になります。
-- **OAI-SearchBot**:ChatGPT の検索機能にサイトを表示するためのクローラーです。OpenAI は「OAI-SearchBot をブロックしたサイトは ChatGPT の検索の回答に表示されない」と説明しています。robots.txt を変えてから反映までは **約24時間** かかるとされています。
-- **ChatGPT-User**:ユーザーが ChatGPT に質問したときなどに、その場でページを読みに来ます。ユーザーの操作がきっかけなので、OpenAI は「robots.txt のルールが適用されない場合がある」としています。
+- **GPTBot**:AI の学習に使うかもしれないページを集めます。おことわりすると「このサイトの内容を学習に使わないで」という意思表示になります。
+- **OAI-SearchBot**:ChatGPT の検索にサイトを出すためのボットです。OpenAI は「OAI-SearchBot をおことわりしたサイトは、ChatGPT の検索の答えに出ない」と説明しています。robots.txt を変えてから反映まで **約24時間** かかるとされています。
+- **ChatGPT-User**:人が ChatGPT に質問したときなどに、その場でページを読みに来ます。人の操作がきっかけなので、OpenAI は「robots.txt のルールが当てはまらないことがある」としています。
 
 ### Anthropic(Claude)
 
-- **ClaudeBot**:AIモデルの学習用のデータを集めます。ブロックすると、今後のサイトの内容を学習データから外すという意思表示になります。Anthropic は非標準の `Crawl-delay`(巡回の間隔指定)にも対応しています。
-- **Claude-SearchBot**:検索結果の質を上げるためにサイトを読みます。ブロックすると、検索用の索引に入らず、Claude の検索結果での見え方が下がる可能性があると説明されています。
-- **Claude-User**:ユーザーの質問に答えるためにページを読みに来ます。ブロックすると、ユーザーの質問に応じてサイトの内容を取得できなくなります。
+- **ClaudeBot**:AI の学習用のデータを集めます。おことわりすると、これからの内容を学習データから外すという意思表示になります。Anthropic は、読みに来る間かくを指定する `Crawl-delay` にも対応しています(標準のルールではありません)。
+- **Claude-SearchBot**:検索の質を上げるためにサイトを読みます。おことわりすると、検索用の登録に入らず、Claude の検索で見えにくくなる可能性があると説明されています。
+- **Claude-User**:人の質問に答えるためにページを読みに来ます。おことわりすると、人の質問に応じてページを読めなくなります。
 
 ### Perplexity
 
-- **PerplexityBot**:Perplexity の検索結果にサイトを表示・リンクするためのクローラーです。AIモデルの学習用ではないとされ、Perplexity は許可することを推奨しています。
-- **Perplexity-User**:ユーザーの質問に答えるためにページを読みに来ます。Perplexity は「通常は robots.txt を無視する」と明記しています。反映には最大24時間かかるとされています。
+- **PerplexityBot**:Perplexity の検索結果にサイトを出してリンクするためのボットです。学習用ではないとされ、Perplexity は「どうぞ」にすることをすすめています。
+- **Perplexity-User**:人の質問に答えるためにページを読みに来ます。Perplexity は「ふつうは robots.txt を無視する」と書いています。
 
-## Google-ExtendedをブロックするとAI Overviewsから消える? [中級]
+### Google-Extendedを止めるとAI Overviewsから消える?
 
-消えません。ここはよく誤解されるところです。
+消えません。よくある誤解です。
 
-Google-Extended は、Google がクロールした内容を **Gemini の今後のモデルの学習と、Gemini アプリ・Vertex AI での回答の根拠(グラウンディング)に使うか** を決めるための robots.txt 上の名前です。Google は「Google-Extended は Google 検索への掲載に影響せず、ランキングの要因にもならない」と書いています([Google's common crawlers](https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers)、2026年10月30日更新)。
+Google-Extended は、Google が集めた内容を **Gemini の今後の学習や、Gemini アプリなどの答えに使うか** を決めるための名前です。Google は「Google-Extended は Google 検索への掲載に影響せず、順位にも関係しない」と書いています([Google's common crawlers](https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers)、2026年10月30日更新)。
 
-Google 検索の [AI Overviews(AIによる概要)](/aio/ai-overviews/) や AI モードに出るかどうかは、通常の検索と同じ **Googlebot** と、`nosnippet` などのスニペット制御で決まります([AI features and your website](https://developers.google.com/search/docs/appearance/ai-features))。AI Overviews に出たくない場合に Google-Extended を止めても効果はない、ということです。
+Google 検索の [AI Overviews(AIによる概要)](/aio/ai-overviews/) や AIモードに出るかどうかは、ふつうの検索と同じ **Googlebot** と、`nosnippet`(説明文を出さない設定)などで決まります([AI features and your website](https://developers.google.com/search/docs/appearance/ai-features))。
 
 ## robots.txtはどう書く? [中級]
 
-robots.txt はサイトの一番上(`https://example.com/robots.txt`)に置くテキストファイルです。サブドメインごとに別のファイルが必要です。
+robots.txt は、サイトのいちばん上(`https://example.com/robots.txt`)に置きます。`blog.example.com` のようなサブドメインには、それぞれべつのファイルが必要です。
 
-### すべて許可する(このサイトの設定)
+書き方の決まりはかんたんです。
 
-このサイト(AIO対策ナビ)は、AI検索に引用されることを目指しているので、学習用も含めてすべて許可しています。実際の [robots.txt](/robots.txt) は次のとおりです(一部省略)。
+- `User-agent:` のあとに、ボットの名前を書く(`*` は「すべてのボット」)
+- `Allow:` は「どうぞ」、`Disallow:` は「おことわり」。そのあとに場所(`/` はサイト全体)を書く
+
+### すべて「どうぞ」にする(このサイトの設定)
+
+このサイト(AIO対策ナビ)は AI 検索で紹介されることを目指しているので、学習用もふくめてすべて「どうぞ」にしています。実際の [robots.txt](/robots.txt) はこうです(一部省略)。
 
 ```
 User-agent: *
@@ -89,11 +116,9 @@ Allow: /
 Sitemap: https://aio.shiokonbu.com/sitemap.xml
 ```
 
-本来、`User-agent: *` で全体を許可していれば個別に書く必要はありません。それでも名前を並べているのは、「AIクローラーを許可している」ことを人が見てもわかるようにするためと、うっかり `*` の設定を変えたときの保険です。
+本当は、`User-agent: *` で全部を「どうぞ」にしていれば、名前を1つずつ書く必要はありません。それでも並べているのは、人が見ても「AI のボットを入れている」とわかるようにするためと、うっかり `*` の設定を変えたときの保険です。
 
-### 学習用だけ止めて、AI検索には出る
-
-「学習には使われたくないが、AI検索では紹介されたい」場合の例です。
+### 学習用だけおことわりして、AI検索には出る
 
 ```
 User-agent: GPTBot
@@ -109,36 +134,36 @@ User-agent: *
 Allow: /
 ```
 
-OAI-SearchBot・Claude-SearchBot・PerplexityBot は `*` のルールに従うので、許可されたままになります。ただし OpenAI は「GPTBot と OAI-SearchBot の両方を許可している場合、片方のクロール結果を両方の目的に使うことがある」としています。学習用を止めた場合はこの共有はされません。
+OAI-SearchBot・Claude-SearchBot・PerplexityBot は `*` のルールに従うので、「どうぞ」のままです。なお OpenAI は「GPTBot と OAI-SearchBot の両方を入れている場合、片方が集めた内容を両方の目的に使うことがある」としています。学習用を止めた場合は、この使い回しはされません。
 
-### 一部のフォルダだけ止める
+### 一部の場所だけおことわりする
 
 ```
 User-agent: GPTBot
 Disallow: /members/
 ```
 
-会員ページや社内向けの資料など、特定の場所だけ止めることもできます。ただし robots.txt は「お願い」であって鍵ではありません。見られて困るページは、ログインやパスワードで守ってください。
+会員ページなど、決まった場所だけ止めることもできます。
 
-## 設定するときの注意点は? [中級]
+## 設定するときに気をつけることは? [中級]
 
-### 個別に書いたクローラーは「*」のルールを読まない
+### 名前を書いたボットは「*」のルールを読まなくなる
 
-robots.txt では、クローラーは **自分の名前が書かれたグループだけ** に従い、`User-agent: *` のグループは読まなくなります(Google の [robots.txt の仕様](https://developers.google.com/search/docs/crawling-indexing/robots/robots_txt) も同じ考え方です)。
+robots.txt では、ボットは **自分の名前が書かれた部分だけ** に従い、`User-agent: *` の部分は読まなくなります(Google の [robots.txt の仕様](https://developers.google.com/search/docs/crawling-indexing/robots/robots_txt) も同じ考え方です)。
 
-たとえば `*` で `/admin/` を止めていても、`User-agent: GPTBot` のグループを別に作って `Allow: /` だけ書くと、GPTBot には `/admin/` の禁止が効きません。個別のグループを作るときは、止めたい場所をそのグループにも書き直してください。
+たとえば `*` で `/admin/` をおことわりしていても、`User-agent: GPTBot` の部分を別に作って `Allow: /` だけ書くと、GPTBot には `/admin/` のおことわりが効きません。名前ごとの部分を作るときは、止めたい場所をそこにも書き直してください。
 
-### ブロックしても、すでに学習・索引されたものは消えない
+### おことわりしても、すでに集められたものは消えない
 
-学習用クローラーのブロックは「今後のデータ」についての意思表示です。過去に集められたデータが消えるわけではありません。
+学習用ボットのおことわりは「これから」のデータについての意思表示です。前に集められたデータが消えるわけではありません。
 
-### 「ユーザーの質問で読みに来るボット」は止められないことがある
+### 「頼まれてその場で読むボット」は止められないことがある
 
-ChatGPT-User と Perplexity-User は、robots.txt が適用されない場合があると各社が明記しています。ユーザーが URL を貼って「このページを要約して」と頼んだときなどに読みに来ます。
+ChatGPT-User と Perplexity-User は、robots.txt が当てはまらないことがあると各社が書いています。
 
-### CDNやセキュリティ設定でブロックされていないか確認する
+### サーバーの守りの設定でも止まっていないか確かめる
 
-robots.txt で許可していても、CDN(コンテンツ配信サービス)や WAF(ファイアウォール)のボット対策機能で、AIクローラーがまとめて止められていることがあります。AI検索に出たいのに引用されない場合は、robots.txt だけでなくこちらの設定も確認してください。
+robots.txt で「どうぞ」にしていても、CDN(サイトを速く配るためのサービス)や WAF(サイトを守るファイアウォール)のボット対策で、AI のボットがまとめて止められていることがあります。AI 検索で紹介されないときは、こちらの設定も確かめてください。
 
 ## ルールの優先順位と本物の見分け方は? [上級]
 
@@ -156,42 +181,38 @@ Allow: /blog/public/
 
 ### 大文字・小文字の扱い
 
-Google の仕様では、`User-agent` の値(クローラー名)は大文字・小文字を区別しません。一方、`Disallow: /Admin/` のような **パスは区別します**。`/admin/` と `/Admin/` は別物として扱われます。
+Google の仕様では、`User-agent` の値(ボット名)は大文字・小文字を区別しません。一方、`Disallow: /Admin/` のような **パスは区別します**。
 
 ### 名乗っているボットが本物か確かめる
 
-User-Agent の文字列はだれでも偽れます。アクセスログで「GPTBot」を名乗るアクセスを見つけても、本物とは限りません。
+User-Agent(アクセスしてきたプログラムの名乗り)はだれでも偽れます。アクセスログで「GPTBot」を名乗るアクセスを見つけても、本物とは限りません。
 
-- **OpenAI**:クローラーごとの IP アドレスの一覧を公開しています(`openai.com/gptbot.json`、`openai.com/searchbot.json`、`openai.com/chatgpt-user.json`)。ログの IP がこの範囲に入っているかで確かめられます。
+- **OpenAI**:ボットごとの IP アドレスの一覧を公開しています(`openai.com/gptbot.json`、`openai.com/searchbot.json`、`openai.com/chatgpt-user.json`)。ログの IP がこの範囲に入っているかで確かめられます。
 - **Anthropic**:IP アドレスでのブロックは「正しく働かない、または確実なオプトアウトにならない可能性がある」として、robots.txt での指定をすすめています。
-- **Google**:Googlebot が本物かどうかは、IP アドレスの逆引き(DNS)で確かめる方法を Google が案内しています。なお Google-Extended は独自のクローラーではないため、ログに「Google-Extended」という名前のアクセスは現れません。
+- **Google**:Googlebot が本物かどうかは、IP アドレスの逆引き(DNS)で確かめる方法を Google が案内しています。Google-Extended は独自のボットではないため、ログに「Google-Extended」という名前のアクセスは現れません。
 
 ### サーバーの負荷が気になるときは
 
-AIクローラーのアクセスが多くてサーバーが重い場合、すぐに全部ブロックするより、まず負荷の原因になっているボットを特定します。Anthropic(ClaudeBot)は `Crawl-delay`(アクセスの間隔の指定)に対応していますが、これは標準の仕様ではなく、Google は `Crawl-delay` を使いません。
-
-## 結局、AIクローラーは許可すべき? [初級]
-
-AI検索から問い合わせや認知を得たいサイトなら、**少なくとも検索用(OAI-SearchBot・Claude-SearchBot・PerplexityBot)は許可する** のがおすすめです。ここを止めると、ChatGPT や Claude、Perplexity の検索で引用される入口がなくなります。
-
-学習用(GPTBot・ClaudeBot・Google-Extended)を許可するかは、会社の方針次第です。有料記事や独自のデータを売っている会社は止める判断もありえます。一方、多くの中小企業のサイトのように「知ってもらうこと」が目的なら、止める理由は大きくありません。
-
-AIクローラーの許可は AIO の入り口にすぎません。読まれたあとに引用されるかどうかは、冒頭で結論を言い切っているか、一次情報があるかなど中身で決まります。AIエージェント向けのファイル「[llms.txt](/glossary/llms-txt/)」や、ページの意味をAIと検索エンジンに伝える「[構造化データ](/seo/structured-data/)」もあわせて確認してください。
+AI のボットのアクセスが多くてサーバーが重い場合、すぐに全部おことわりするより、まず負荷の原因になっているボットを特定します。Anthropic(ClaudeBot)は `Crawl-delay` に対応していますが、これは標準の仕様ではなく、Google は `Crawl-delay` を使いません。AI と人のアクセスの見分け方は「[AIのアクセスと人のアクセスの違い](/aio/ai-vs-human-access/)」で説明しています。
 
 ## よくある質問
 
-### GPTBotをブロックするとChatGPTの検索に出なくなる?
+### GPTBotをおことわりするとChatGPTの検索に出なくなる?
 
-OpenAI の説明では、ChatGPT の検索に表示されるかどうかは OAI-SearchBot で決まります。GPTBot は学習用なので、GPTBot だけをブロックしても、OAI-SearchBot を許可していれば ChatGPT の検索に出る可能性は残ります。
+OpenAI の説明では、ChatGPT の検索に出るかどうかは OAI-SearchBot で決まります。GPTBot は学習用なので、GPTBot だけおことわりしても、OAI-SearchBot を「どうぞ」にしていれば ChatGPT の検索に出る可能性は残ります。
 
 ### robots.txtを変えたらいつ反映される?
 
-OpenAI(OAI-SearchBot)と Perplexity は、反映まで約24時間かかるとしています。Google は robots.txt を「通常、最大24時間キャッシュする」と説明しています。すぐに変わらなくても慌てずに待ちましょう。
+OpenAI(OAI-SearchBot)と Perplexity は、反映まで約24時間かかるとしています。Google は robots.txt を「ふつうは最大24時間おぼえておく(キャッシュする)」と説明しています。すぐに変わらなくても、あわてずに待ちましょう。
 
-### AIクローラーが本当に来ているか確かめる方法は?
+### AIのボットが本当に来ているか確かめる方法は?
 
-サーバーのアクセスログで、User-Agent に GPTBot・ClaudeBot・PerplexityBot などの名前が含まれるアクセスを探します。OpenAI などは自社クローラーの IP アドレスの一覧も公開しているので、名前を偽ったアクセスと見分けたいときに使えます。
+サーバーのアクセスログ(だれがいつ来たかの記録)で、GPTBot・ClaudeBot・PerplexityBot などの名前をさがします。くわしくは「[AIのアクセスと人のアクセスの違い](/aio/ai-vs-human-access/)」をご覧ください。
 
-### Bingをブロックしても大丈夫?
+### Bingのボットをおことわりしても大丈夫?
 
-おすすめしません。Microsoft の Copilot など、Bing の検索結果を土台にしているAIサービスがあるためです。このサイトでは Bingbot も許可し、IndexNow で更新を Bing に知らせています。
+おすすめしません。Microsoft の Copilot など、Bing の検索結果を土台にしている AI サービスがあるためです。このサイトでは Bing のボットも「どうぞ」にし、IndexNow というしくみで更新を Bing に知らせています。
+
+### llms.txtやサイトマップとは何がちがう?
+
+robots.txt は「入っていい場所」のお願い、サイトマップは「全ページの一覧表」、llms.txt は「AI 向けのおすすめ案内板」です。くわしくは「[llms.txtとは?](/glossary/llms-txt/)」をご覧ください。

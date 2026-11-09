@@ -12,10 +12,10 @@
 
 ## AIO・LLMO・GEO対策
 - [AIに引用されているか調べる方法|ChatGPT・AI Overviews](https://aio.shiokonbu.com/aio/ai-citation-tracking/): 自社のサイトがChatGPT・Perplexity・GoogleのAI Overviewsに引用されているかを調べる方法を解説します。質問リストの作り方、記録表のテンプレート、GA4でAIからの流入を見る方法、実際のデータまで紹介します。
-- [AIクローラーのrobots.txt設定|GPTBotなどの許可とブロック方法](https://aio.shiokonbu.com/aio/ai-crawler-robots-txt/): GPTBot・OAI-SearchBot・ClaudeBot・PerplexityBot・Google-Extendedなど主なAIクローラーの役割と、robots.txtで許可・ブロックする書き方を公式情報をもとに整理します。
-- [AI Overviews(AIによる概要)とは?表示の仕組みとサイト側の対策](https://aio.shiokonbu.com/aio/ai-overviews/): GoogleのAI Overviews(AIによる概要)とAIモードの仕組み、表示される条件、特別な対策は必要か、表示を止める方法、Search Consoleでの確認方法をGoogle公式情報をもとに解説します。
-- [AIのアクセスと人のアクセスの違いを図解|ログとGA4での見え方](https://aio.shiokonbu.com/aio/ai-vs-human-access/): サイトへのアクセスは、人の閲覧・AIクローラー・AIがユーザーの代わりに取りに来るアクセス・AIの回答から来た人の4種類に分けられます。ページの読み方、サーバーログとGA4での見え方の違いを図解します。
-- [AIO・LLMO・GEO・AEOの違いとは?呼び方別の意味とやるべき対策](https://aio.shiokonbu.com/aio/aio-llmo-geo-aeo-difference/): AIO・LLMO・GEO・AEOは、どれもAI検索で自社の情報が引用・紹介されるための取り組みです。4つの呼び方の由来と違い、Googleの公式見解、今日からやるべき対策を出典つきで整理します。
+- [AIクローラーのrobots.txt設定|GPTBotなどの許可とブロック方法](https://aio.shiokonbu.com/aio/ai-crawler-robots-txt/): GPTBot・OAI-SearchBot・ClaudeBot・PerplexityBotなどAIのボットの役割と、robots.txtで許可・おことわりする書き方を、入口の張り紙のたとえと図でやさしく解説します。
+- [AI Overviews(AIによる概要)とは?表示の仕組みとサイト側の対策](https://aio.shiokonbu.com/aio/ai-overviews/): GoogleのAI Overviews(AIによる概要)は、検索結果の上にAIの答えと出典リンクを出す機能です。しくみ、出る条件、特別な対策は必要か、出したくないときの方法を図解でやさしく解説します。
+- [AIのアクセスと人のアクセスの違いを図解|ログとGA4での見え方](https://aio.shiokonbu.com/aio/ai-vs-human-access/): サイトへのアクセスは、人の閲覧・AIクローラー・AIがその場で読みに来るアクセス・AIの答えから来た人の4種類。お店のたとえと図で、読み方のちがいとログ・GA4での見え方をやさしく解説します。
+- [AIO・LLMO・GEO・AEOの違いとは?呼び方別の意味とやるべき対策](https://aio.shiokonbu.com/aio/aio-llmo-geo-aeo-difference/): AIO・LLMO・GEO・AEOは、どれもAIの答えの中で自社のサイトを紹介してもらうための取り組みです。4つの呼び方の違い、Googleの見解、今日からやる5つの対策を図解でやさしく解説します。
 - [AIに引用される文章の書き方|冒頭で答える型と見出し・FAQ](https://aio.shiokonbu.com/aio/answer-first-writing/): AI検索や検索結果で引用されやすい文章の型を解説します。冒頭で結論を言い切る書き方、問いの形の見出し、FAQの作り方、GEO研究でわかった効く書き方と効かない書き方まで実例つきでまとめます。
 - [SEOとAIOの仕組みを図解|Google検索とAI検索が答えを選ぶ流れ](https://aio.shiokonbu.com/aio/how-search-and-ai-work/): Google検索とAI検索がページをえらぶしくみを、図書館と司書さんのたとえと9枚の図で、はじめての人にもわかるように解説。SEOとAIOのちがいと共通点、ページが出てこない理由も紹介します。
 - [JavaScriptのサイトはAIに読まれる?SSRの必要性と確かめ方](https://aio.shiokonbu.com/aio/javascript-ai-crawlers/): JavaScriptで本文を表示するサイトは、GooglebotとAIクローラーで読まれ方が違います。CSRとSSRの違い、実験で確かめた結果、AIクローラーの調査データ、自分のサイトの確かめ方と対策を解説します。
@@ -30,7 +30,7 @@
 - [XMLサイトマップとは?作り方とSearch Consoleへの送信方法](https://aio.shiokonbu.com/seo/xml-sitemap/): XMLサイトマップは、サイトのページの一覧を検索エンジンに伝えるファイルです。必要なサイト、書き方の実例、上限、lastmodの正しい使い方、Search Consoleへの送信方法をGoogleの公式情報で解説します。
 
 ## 用語集
-- [llms.txtとは?書き方の例とGoogleの見解、置くべきかを解説](https://aio.shiokonbu.com/glossary/llms-txt/): llms.txtは、サイトの概要と主なページをMarkdownでまとめてAIに伝えるためのファイルです。仕様の中身、実際の書き方の例、Googleの見解、置くべきサイトの判断基準を解説します。
+- [llms.txtとは?書き方の例とGoogleの見解、置くべきかを解説](https://aio.shiokonbu.com/glossary/llms-txt/): llms.txtは、サイトの概要と主なページをまとめてAIに伝える「案内板」のようなファイルです。robots.txtとのちがい、書き方の例、Googleの見解、置くべきサイトを図解でやさしく解説します。
 - [MCPとは?AIとツールをつなぐ仕組みをSEO・AIOの実例で図解](https://aio.shiokonbu.com/glossary/mcp/): MCPは、AIとほかの道具やデータをつなぐ「みんなで決めた共通のつなぎ方」です。USB-Cのたとえと7枚の図で、しくみ、Search ConsoleをAIから使う実例、安全な使い方をやさしく解説します。
 
 ## 広告運用
