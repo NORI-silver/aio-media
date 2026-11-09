@@ -99,6 +99,7 @@ for (const p of ["https://aio.shiokonbu.com/old/", "https://aio.shiokonbu.com/ai
   console.log("\n==", p, "→", j.finalUrl, "score", j.score, j.grade, j.counts);
   for (const c of j.checks) console.log(` [${c.status}] ${c.label}: ${c.detail}`);
   assert.ok(j.score >= 85, "このサイト自身は A 判定のはず");
+  assert.ok(j.plan.growth.length >= 6, "高得点でも強化プランの次の一手を出す");
 }
 server.close();
 

@@ -33,4 +33,6 @@ draft: (true にすると公開しない)
 
 使える書き方:`## 見出し` `### 小見出し`、`- 箇条書き`、`1. 番号`、`| 表 |`、`> 引用`、```` ``` ```` コード、`**太字**`、`[リンク](URL)`、`![説明](/assets/img/xxx.png)`。
 
+記事を足したら `content/roadmap.json` の関係するステップの `articles` にパスを足す(記事の末尾に「ロードマップの STEP n の解説です・次にやること」が出る)。
+
 書いたら `python3 tools/build.py . && python3 tools/seo_check.py .`。

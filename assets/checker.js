@@ -40,6 +40,20 @@
     "date": "いつの情報かがわかると、AIは新しく正確な情報を選びやすくなります。",
     "headings": "見出しは本の目次のようなものです。h1 がページの題名、h2 が章の見出し。AIは見出しを手がかりに、質問の答えになる部分を探します。",
     "text": "多くのAIロボットは、JavaScript を動かさずにページを読みます。後から JavaScript で文章を表示するサイトだと、AIには中身が空っぽに見えることがあります。",
+    "http-redirect": "http:// と https:// の両方で同じページが見られると、検索エンジンが別のページと考えて評価が分かれることがあります。",
+    "hsts": "ブラウザに「このサイトは必ず https で開いて」と覚えさせる指定です。安全性が上がり、無駄な転送も減ります。",
+    "soft-404": "ないページを開いたときに「ありません(404)」と返さないと、中身のないページが大量に検索エンジンに登録されてしまうことがあります。",
+    "viewport": "スマホの画面幅に合わせて表示するための指定です。Google はスマホで見たときのページを基準に評価します。",
+    "img-alt": "alt は画像の説明文です。目の見えない方の読み上げ、画像検索、AIが図の意味を理解するのに使われます。",
+    "in-sitemap": "サイトマップに入っているページは、検索エンジンに見つけてもらいやすくなります。",
+    "breadcrumb": "「ホーム > カテゴリ > このページ」という位置情報です。検索結果にも表示され、サイトの構造が伝わります。",
+    "question-headings": "人はAIや検索に「〇〇とは?」「〇〇のやり方は?」と質問します。見出しが同じ形だと、その見出しの下が答えとして選ばれやすくなります。",
+    "answer-first": "AIや検索結果の要約は、ページの最初のほうの文を使うことが多いです。最初に結論を書くと、そのまま引用されやすくなります。",
+    "faq": "記事の最後に「よくある質問」をまとめると、関連する細かい質問の検索からも見つけてもらえます。",
+    "lists-tables": "手順は番号付きの箇条書き、比較は表にすると、人にもAIにも要点が伝わりやすくなります。",
+    "internal-links": "サイトの中のページ同士をリンクでつなぐと、検索エンジンが関連を理解し、評価がサイト全体に回ります。",
+    "citations": "数字や仕様の根拠となる公式ページへのリンクがあると、信頼できる記事だと判断されやすくなります。",
+    "html-size": "HTMLが大きすぎると、ロボットが途中までしか読まなかったり、表示が遅くなったりします。",
     "speed": "サーバーの応答が遅いと、ロボットが途中であきらめたり、読む量を減らしたりします。訪問者の離脱にもつながります。"
   };
   // 中級者・上級者向け: 直し方の例
@@ -58,10 +72,17 @@
     "structured-data": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Article\",\n  \"headline\": \"記事のタイトル\",\n  \"datePublished\": \"2026-11-09\",\n  \"dateModified\": \"2026-11-09\",\n  \"author\": {\"@type\": \"Organization\", \"name\": \"会社名\", \"url\": \"https://example.com/about/\"}\n}\n</script>",
     "entity": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Organization\",\n  \"name\": \"会社名\",\n  \"url\": \"https://example.com/\",\n  \"logo\": \"https://example.com/logo.png\",\n  \"sameAs\": [\"https://x.com/example\"]\n}\n</script>",
     "date": "<p>公開 <time datetime=\"2026-11-09\">2026年11月9日</time> ・ 更新 <time datetime=\"2026-11-20\">2026年11月20日</time></p>",
+    "viewport": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
+    "img-alt": "<img src=\"chart.png\" alt=\"2026年の月別アクセス数の推移。10月に前月比1.5倍\" width=\"800\" height=\"450\">",
+    "breadcrumb": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"BreadcrumbList\",\n  \"itemListElement\": [\n    {\"@type\": \"ListItem\", \"position\": 1, \"name\": \"ホーム\", \"item\": \"https://example.com/\"},\n    {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"記事\", \"item\": \"https://example.com/blog/\"}\n  ]\n}\n</script>",
+    "answer-first": "<h1>AIO対策とは?</h1>\n<p>AIO対策とは、ChatGPT や Google の AI による概要などのAI検索で、自社の情報が引用されるように整えることです。</p>",
+    "faq": "<h2>よくある質問</h2>\n<h3>費用はどれくらい?</h3>\n<p>月5万円〜が目安です。内容により変わります。</p>",
+    "http-redirect": "# .htaccess(Apache)の例\nRewriteEngine On\nRewriteCond %{HTTPS} off\nRewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]",
+    "hsts": "# レスポンスヘッダーの例\nStrict-Transport-Security: max-age=31536000; includeSubDomains",
     "headings": "<h1>AIO対策とは?</h1>\n<h2>AIO対策で何が変わる?</h2>\n<h2>今日からできる5つの手順は?</h2>\n<h2>よくある質問</h2>"
   };
   var VERDICT = {
-    A: "AI検索に読まれるための土台は、しっかり整っています。あとは中身(一次情報・具体的な答え)で差がつきます。",
+    A: "土台はしっかり整っています。ただし点数は「土台」の評価です。表示回数・クリック・順位・AIでの引用は、下の「強化プラン」でさらに伸ばせます。",
     B: "土台はおおむね整っています。「まずやること」を直すと、AIにさらに読まれやすくなります。",
     C: "いくつか大事な設定が抜けています。「まずやること」から順に直していきましょう。",
     D: "AI検索に出るのを妨げている設定があります。まず「NG」の項目を直してください。"
@@ -92,6 +113,7 @@
     var todo = r.checks.filter(function (c) { return c.status === "ng" || c.status === "warn"; })
       .sort(function (x, y) { return (x.status === y.status ? 0 : x.status === "ng" ? -1 : 1) || (y.weight || 0) - (x.weight || 0); })
       .slice(0, 3);
+    if (r.plan) todo = r.plan.fixes.slice(0, 3);
     var pri = el("section", "cr-todo");
     pri.appendChild(el("h2", null, todo.length ? "まずやること" : "まずやること:ありません"));
     if (todo.length) {
@@ -109,6 +131,7 @@
       pri.appendChild(el("p", null, "大きな問題は見つかりませんでした。次は、質問にずばり答える文章や一次情報(実際に試した結果・数字)を増やすと、AIに引用されやすくなります。"));
     }
     out.appendChild(pri);
+    if (r.plan) out.appendChild(planSection(r.plan));
 
     // 表示の切り替え
     var bar = el("div", "cr-bar");
@@ -170,6 +193,74 @@
     var note = el("p", "small", "結果は " + new Date(r.checkedAt).toLocaleString("ja-JP") + " 時点です。同じURLの結果は10分間キャッシュされます。");
     out.appendChild(note);
     out.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  // 強化プラン: 目的(表示回数・クリック率・順位・AI引用)ごとに絞り込める
+  function planSection(plan) {
+    var sec = el("section", "cr-plan");
+    sec.appendChild(el("h2", null, "強化プラン"));
+    sec.appendChild(el("p", "small", "点数が高くても、ここから伸ばせます。目的を選ぶと、それに効く打ち手だけを表示します。"));
+    var tabs = el("div", "cr-tabs");
+    var keys = ["all"].concat(Object.keys(plan.goals));
+    var buttons = [];
+    keys.forEach(function (k) {
+      var b = el("button", "cr-tab" + (k === "all" ? " on" : ""), k === "all" ? "すべて" : plan.goals[k]);
+      b.type = "button";
+      b.addEventListener("click", function () {
+        buttons.forEach(function (x) { x.classList.remove("on"); });
+        b.classList.add("on");
+        sec.querySelectorAll("[data-goals]").forEach(function (item) {
+          item.hidden = k !== "all" && item.getAttribute("data-goals").split(" ").indexOf(k) < 0;
+        });
+      });
+      buttons.push(b);
+      tabs.appendChild(b);
+    });
+    sec.appendChild(tabs);
+    function chips(goals) {
+      var c = el("span", "cr-chips");
+      goals.forEach(function (g) { c.appendChild(el("span", "cr-chip g-" + g, plan.goals[g])); });
+      return c;
+    }
+    if (plan.fixes.length) {
+      sec.appendChild(el("h3", null, "このページで直すこと(" + plan.fixes.length + "件)"));
+      var ol = el("ol", "cr-fixes");
+      plan.fixes.forEach(function (f) {
+        var li = el("li");
+        li.setAttribute("data-goals", f.goals.join(" "));
+        var head = el("div");
+        var link = el("a", null, f.label);
+        link.href = "#cr-" + f.id;
+        head.appendChild(el("span", "cr-impact imp-" + f.impact, "効果 " + f.impact));
+        head.appendChild(link);
+        if (f.effort) head.appendChild(el("span", "small", " ・ 目安 " + f.effort));
+        li.appendChild(head);
+        li.appendChild(el("p", null, f.advice));
+        li.appendChild(chips(f.goals));
+        ol.appendChild(li);
+      });
+      sec.appendChild(ol);
+    }
+    if (plan.growth && plan.growth.length) {
+      sec.appendChild(el("h3", null, "さらに伸ばすための次の一手"));
+      var ul = el("ul", "cr-growth");
+      plan.growth.forEach(function (g) {
+        var li = el("li");
+        li.setAttribute("data-goals", g.goal);
+        var head = el("div");
+        head.appendChild(el("span", "cr-chip g-" + g.goal, plan.goals[g.goal]));
+        head.appendChild(el("strong", null, g.title));
+        if (g.effort) head.appendChild(el("span", "small", " ・ 目安 " + g.effort));
+        li.appendChild(head);
+        li.appendChild(el("p", null, g.why));
+        var steps = el("ol", "cr-steps");
+        g.steps.forEach(function (st) { steps.appendChild(el("li", null, st)); });
+        li.appendChild(steps);
+        ul.appendChild(li);
+      });
+      sec.appendChild(ul);
+    }
+    return sec;
   }
 
   function codeBlock(text) {
@@ -278,6 +369,7 @@
           return fail(r.error);
         }
         render(r);
+        window.dispatchEvent(new CustomEvent("aio:checked", { detail: r })); // 履歴とロードマップ(progress.js)
         var host = "";
         try { host = new URL(r.finalUrl).hostname; } catch (e) {}
         track("aio_check", { check_domain: host, check_score: r.score, check_grade: r.grade });
