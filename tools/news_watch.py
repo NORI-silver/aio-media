@@ -25,6 +25,20 @@ UA = "Mozilla/5.0 (compatible; AIOTaisakuNaviNewsWatch/1.0; +https://aio.shiokon
 NOW = dt.datetime.now(dt.timezone.utc)
 
 
+def matches(text, kws):
+    """keywords のどれかを含むか。英語の語は単語単位で見る(search が research に当たらないように)"""
+    if not kws:
+        return True
+    low = text.lower()
+    for k in kws:
+        if re.fullmatch(r"[\x00-\x7f]+", k):
+            if re.search(r"(?<![a-z0-9])" + re.escape(k) + r"(?![a-z0-9])", low):
+                return True
+        elif k in low:
+            return True
+    return False
+
+
 def get(url):
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/rss+xml, application/atom+xml, application/xml, text/xml, text/html;q=0.8, */*;q=0.5"})
     with urllib.request.urlopen(req, timeout=25) as r:
@@ -124,7 +138,7 @@ def main():
         kws = [k.lower() for k in s.get("keywords", [])]
         n = 0
         for it in items:
-            if kws and not any(k in (it["title"] + " " + it["summary"]).lower() for k in kws):
+            if not matches(it["title"] + " " + it["summary"], kws):
                 continue
             pub = it["published"] or NOW
             if (NOW - pub).days > KEEP_DAYS:
@@ -138,6 +152,10 @@ def main():
             added += 1
         status[s["id"]] = {"ok": err is None, "feed": used, "items": n} if err is None else {"ok": False, "error": err}
         print(f"{'OK ' if err is None else 'NG '} {s['id']}: {n} 件" + ("" if err is None else f"  {err}"))
+    # 絞り込み(keywords)を後から変えたときに、合わなくなった古い新着を消す
+    kw_of = {s["id"]: [k.lower() for k in s.get("keywords", [])] for s in sources}
+    known = {u: i for u, i in known.items() if i["source"] in kw_of and
+             matches(i["title"] + " " + i["summary"], kw_of[i["source"]])}
     cutoff = (NOW - dt.timedelta(days=KEEP_DAYS)).strftime("%Y-%m-%dT%H:%M:%SZ")
     items = sorted((i for i in known.values() if i["published"] >= cutoff), key=lambda i: i["published"], reverse=True)[:KEEP_MAX]
     changed = added > 0 or len(items) != len(old.get("items", [])) or status != old.get("sources")
