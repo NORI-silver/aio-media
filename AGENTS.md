@@ -45,7 +45,7 @@
 - llms.txt / llms-full.txt も build.py が記事一覧から作る。
 - 記事のない柱のカテゴリページは noindex(薄いページを索引させない)。
 - **公開前モード**:`site.json` の `launched` が false の間は全ページ noindex、IndexNow も送らない。Nori さんの「公開して」で true にする。
-- GA4:全ページに `G-ZYX17VBTWB`(shiokonbu.com 総合、全サブドメイン共通。消さない)。aio 単体のプロパティを作ったら `site.json` の `ga` に足す。
+- GA4:全ページに `G-ZYX17VBTWB`(shiokonbu.com 総合、全サブドメイン共通。消さない)。aio 単体は `G-RXE6WT6C07`(プロパティ「AIO対策ナビ」、2026-11-09 作成)。
 
 ## 変更のしかた
 
