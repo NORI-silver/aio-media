@@ -1,0 +1,11 @@
+# AIOラボ
+
+> AI検索時代のSEO・AIO・デジタル広告の実務メディア。中小企業のマーケティング担当者・SEO担当者向けに、一次情報と検証データをもとに解説するメディアです。
+
+## 運営者と方針
+- [運営者情報](https://aio.shiokonbu.com/about/): 運営者と連絡先
+- [編集方針](https://aio.shiokonbu.com/editorial-policy/): 情報源・検証・更新のルール
+
+## Optional
+- [全記事の本文](https://aio.shiokonbu.com/llms-full.txt)
+- [サイトマップ](https://aio.shiokonbu.com/sitemap.xml)

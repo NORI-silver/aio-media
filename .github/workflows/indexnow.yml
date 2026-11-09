@@ -1,0 +1,28 @@
+name: IndexNow
+# main に入った変更ページを Bing など(IndexNow 対応の検索エンジン)にすぐ知らせる。
+# ChatGPT の検索は Bing の索引も使うので、AIOでも効く。公開前(site.json の launched=false)は何もしない。
+# 鍵はルートの32桁の .txt(IndexNow の仕組み上、公開してよい値)。
+on:
+  push:
+    branches: [main]
+    paths: ['**.html', 'sitemap.xml']
+  workflow_dispatch:
+    inputs:
+      all:
+        description: 'sitemap.xml の全URLを送る'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Send changed URLs
+        env:
+          BEFORE: ${{ github.event.before }}
+          ALL: ${{ inputs.all }}
+        run: python3 tools/indexnow.py "$BEFORE" "$ALL"
