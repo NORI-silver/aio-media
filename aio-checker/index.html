@@ -6,7 +6,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RXE6WT6C07"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-ZYX17VBTWB");gtag("config","G-RXE6WT6C07");</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,follow">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <title>AIO診断ツール|URLを入れるだけでAI検索対策を無料チェック</title>
 <meta name="description" content="サイトのURLを入れるだけで、AIクローラーへの公開設定・llms.txt・構造化データ・見出し・表示速度など、AI検索(AIO)とSEOの対策状況を無料で診断します。登録は不要です。">
 <link rel="canonical" href="https://aio.shiokonbu.com/aio-checker/">
@@ -27,14 +27,14 @@
 </head>
 <body>
 <header class="site"><div class="wrap"><a class="brand" href="/">AIO対策ナビ</a>
-<nav aria-label="カテゴリ"><a href="/aio/">AIO・LLMO・GEO対策</a><a href="/seo/">SEO実務</a><a href="/glossary/">用語集</a><a href="/ads/">広告運用</a><a href="/about/">運営者</a></nav></div></header>
+<nav aria-label="カテゴリ"><a href="/aio/">AIO・LLMO・GEO対策</a><a href="/seo/">SEO実務</a><a href="/glossary/">用語集</a><a href="/ads/">広告運用</a><a href="/aio-checker/">AIO診断</a><a href="/about/">運営者</a></nav></div></header>
 <main class="wrap">
 <nav class="crumbs" aria-label="パンくず"><a href="/">ホーム</a> › <span>AIO診断ツール</span></nav>
-<article><h1>AIO診断ツール</h1><p class="lead">サイトのURLを入れるだけで、AIクローラーへの公開設定・llms.txt・構造化データ・見出し・表示速度など、AI検索(AIO)とSEOの対策状況を無料で診断します。登録は不要です。</p><form class="checker" id="checker" data-api="">
+<article><h1>AIO診断ツール</h1><p class="lead">サイトのURLを入れるだけで、AIクローラーへの公開設定・llms.txt・構造化データ・見出し・表示速度など、AI検索(AIO)とSEOの対策状況を無料で診断します。登録は不要です。</p><form class="checker" id="checker" data-api="https://aio-checker.mothership0018.workers.dev">
 <label for="checker-url">診断したいページのURL</label>
-<div class="row"><input id="checker-url" name="url" type="text" inputmode="url" autocomplete="url" placeholder="https://example.com/" required maxlength="2000" disabled>
-<button type="submit" disabled>診断する</button></div>
-<p class="small">診断用のサーバーを準備中です。もうしばらくお待ちください。</p>
+<div class="row"><input id="checker-url" name="url" type="text" inputmode="url" autocomplete="url" placeholder="https://example.com/" required maxlength="2000">
+<button type="submit">診断する</button></div>
+<p class="small">入力したURLと結果は保存しません。診断には10秒ほどかかることがあります。</p>
 </form>
 <div id="checker-result" aria-live="polite"></div>
 <noscript><p>診断ツールを使うには JavaScript を有効にしてください。</p></noscript>
@@ -61,6 +61,7 @@
 <p>いいえ。このツールが確かめるのは「AIに読まれ、理解されるための土台」です。引用されるかどうかは、内容が質問に的確に答えているか、一次情報や信頼できる出典があるかで大きく変わります。Google も、AI検索のために特別な対策は必要なく、通常のSEOの基本がそのまま当てはまるとしています。</p>
 <h3 id="社内サイトやログインが必要なページも診断できる">社内サイトやログインが必要なページも診断できる?</h3>
 <p>できません。インターネットに公開されていて、ログインなしで見られるページだけを診断できます。安全のため、IPアドレスで指定したURL、80番・443番以外のポート、社内向けのドメインは受け付けません。</p></div></article>
+<script src="/assets/checker.js" defer></script>
 </main>
 <footer class="site"><div class="wrap">
 <ul class="cats"><li><a href="/aio/">AIO・LLMO・GEO対策</a></li><li><a href="/seo/">SEO実務</a></li><li><a href="/glossary/">用語集</a></li><li><a href="/ads/">広告運用</a></li><li><a href="/analytics/">成果改善・分析</a></li><li><a href="/lp-creative/">LP・クリエイティブ</a></li><li><a href="/cost/">費用・外注先の選び方</a></li><li><a href="/news/">ニュース・仕様変更</a></li></ul>
