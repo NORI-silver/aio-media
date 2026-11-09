@@ -21,6 +21,8 @@ Google 広告ヘルプ「[About Smart Bidding](https://support.google.com/google
 
 人が手で入札額を決める場合、これらを組み合わせて1回ずつ判断することはできません。AI に任せる意味はここにあります。
 
+{{figure:ads-smart-bidding|図1 自動入札が検索のたびにしていること}}
+
 ## 4つの入札戦略はどう選ぶ? [初級]
 
 | 入札戦略 | 増やすもの | 向いている場合 |
