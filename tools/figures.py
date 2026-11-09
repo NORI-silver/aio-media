@@ -645,4 +645,112 @@ steps_fig("ads-check-order", "広告の成果が出ないときに確かめる�
     ("f-g", "広告とページは合っている?", ["検索語句・広告文・ページの最初の画面"]),
 ])
 
+# ---- AIOの基本記事の図(ド素人向けのたとえ)
+def cards_fig(name, label, cards, numbered=True, gap=10):
+    f = Fig(name, label)
+    y = 6
+    for i,(cls,t,lines) in enumerate(cards):
+        h = 34 + 18*len(lines) + 6
+        f.box(16, y, W-32, h, cls, t, lines, num=(i+1) if numbered else None)
+        y += h + gap
+    f.save()
+
+def pair_fig(name, label, left, right, rows, lcls="f-o", rcls="f-b"):
+    """左右2列のたとえ表。rows = [(左1行目, 左2行目, 右1行目, 右2行目)]"""
+    f = Fig(name, label)
+    cw = (W-32-28)/2
+    x1, x2 = 16, 16+cw+28
+    f.box(x1, 6, cw, 40, lcls); f.ctext(x1+cw/2, 31, left, "f-t")
+    f.box(x2, 6, cw, 40, rcls); f.ctext(x2+cw/2, 31, right, "f-t")
+    y = 56
+    for a1, a2, b1, b2 in rows:
+        h = 50
+        f.box(x1, y, cw, h, "f-w"); f.box(x2, y, cw, h, "f-w")
+        for x, t1, t2 in ((x1, a1, a2), (x2, b1, b2)):
+            if t2:
+                f.ctext(x+cw/2, y+22, t1, "f-t2"); f.ctext(x+cw/2, y+40, t2, "f-s2")
+            else:
+                f.ctext(x+cw/2, y+31, t1, "f-t2")
+        f.ctext(W/2, y+31, "=", "f-t")
+        y += h + 8
+    f.h = y - 8
+    f.save()
+
+# A1. 4つの呼び方は同じゴール
+f = Fig("aio-names", "AIO・LLMO・GEO・AEOの4つの呼び方は、どれも「AIの答えの中で自分のサイトを紹介してもらう」という同じゴールを指している")
+cw = (W-32-8)/2
+names = [("AIO", "AI最適化(日本でよく使う)"), ("LLMO", "AIのもとの頭脳むけ"), ("GEO", "研究から生まれた言葉"), ("AEO", "答えを返す検索むけ")]
+for i,(n,d) in enumerate(names):
+    x = 16 + (i%2)*(cw+8); y = 6 + (i//2)*70
+    f.box(x, y, cw, 60, "f-b"); f.ctext(x+cw/2, y+27, n, "f-t"); f.ctext(x+cw/2, y+47, d, "f-s2")
+for i in range(2):
+    x = 16 + i*(cw+8)
+    f.path(f"M{x+cw/2} 138 L{W/2} 168")
+f.box(16, 172, W-32, 58, "f-g", "ゴールはどれも同じ", ["AIの答えの中で、自分のサイトを紹介してもらう"])
+f.save()
+
+# A2. 今日からやる5つ
+cards_fig("aio-first-steps", "AI検索で紹介されるために今日からやる5つ:AIのボットを止めない、最初に答えを書く、数字に出典を書く、だれが書いたかを見せる、自分だけの情報を書く", [
+    ("f-b", "AIのボットを止めない", ["ページを読みに来るプログラムを", "入口で追い返していないか確かめる"]),
+    ("f-b", "最初に答えを書く", ["質問への答えを、ページの1〜2文目に"]),
+    ("f-p", "数字には出典と日付", ["「どこで・いつ調べたか」をそえる"]),
+    ("f-p", "だれが書いたかを見せる", ["会社名・運営者・連絡先をのせる"]),
+    ("f-g", "自分だけの情報を書く", ["試した結果・実際の数字・失敗した話"]),
+])
+
+# A3. AI Overviewsの画面
+f = Fig("ai-overviews-screen", "Google検索の画面で、AI Overviews(AIによる概要)は検索結果のリンクの上に出て、AIの答えと出典のリンクを表示する")
+f.box(16, 6, W-32, 40, "f-w"); f.text(32, 31, "AIO対策 何から始める", "f-s")
+f.box(16, 58, W-32, 150, "f-p")
+f.text(30, 82, "AIによる概要(AI Overviews)", "f-t2")
+for i,wid in enumerate([290, 270, 280, 180]):
+    f.add(f'<rect class="f-w" x="30" y="{94+i*16}" width="{wid}" height="8" rx="4"/>')
+cw = (W-60-8)/2
+for i in range(2):
+    x = 30 + i*(cw+8)
+    f.add(f'<rect class="f-g" x="{x}" y="164" width="{cw}" height="30" rx="15"/>')
+    f.ctext(x+cw/2, 184, "出典のリンク" if i == 0 else "出典のリンク", "f-s2")
+f.text(16, 232, "▼ その下に、いつもの検索結果", "f-l")
+for i in range(3):
+    y = 242 + i*42
+    f.box(16, y, W-32, 34, "f-w"); f.text(30, y+22, f"{i+1}位のページ", "f-s2")
+f.save()
+
+# A4. robots.txtは入口の張り紙
+f = Fig("robots-door", "robots.txtはお店の入口の張り紙のようなもの。ボットごとに「どうぞ」「おことわり」を書ける。学習用だけおことわりにして、検索用はどうぞにすることもできる")
+f.box(16, 6, W-32, 70, "f-o", "robots.txt = 入口の張り紙", ["「このボットは入ってOK/入らないで」", "とボットごとにお願いを書ける"])
+rows = [("GPTBot", "AIの学習用", "おことわり", "f-w"), ("OAI-SearchBot", "ChatGPTの検索用", "どうぞ", "f-g"),
+        ("ClaudeBot", "AIの学習用", "おことわり", "f-w"), ("PerplexityBot", "Perplexityの検索用", "どうぞ", "f-g")]
+f.text(16, 102, "例:学習はおことわり、検索はどうぞ", "f-l")
+y = 112
+for n, d, ok, cls in rows:
+    f.box(16, y, W-32, 46, "f-w")
+    f.text(30, y+20, n, "f-t2"); f.text(30, y+38, d, "f-s2")
+    f.add(f'<rect class="{cls if ok=="どうぞ" else "f-o"}" x="{W-120}" y="{y+9}" width="90" height="28" rx="14"/>')
+    f.ctext(W-75, y+28, ok, "f-t2")
+    y += 54
+f.save()
+
+# A5. AIのボット3種類
+cards_fig("crawler-3types", "AIのボットは3種類:覚えるために集める学習用、検索の準備をする検索用、人に頼まれてその場で読みに来るもの", [
+    ("f-o", "覚えるために集める(学習用)", ["AIを作るときの勉強に使う", "例:GPTBot・ClaudeBot"]),
+    ("f-g", "検索の準備をする(検索用)", ["AIの検索で紹介するページを集める", "例:OAI-SearchBot・PerplexityBot"]),
+    ("f-p", "頼まれてその場で読む", ["人がAIに質問したときに読みに来る", "例:ChatGPT-User・Claude-User"]),
+])
+
+# A6. サイトに置く3つのファイル
+pair_fig("site-files", "サイトに置く3つのファイルをお店にたとえると:robots.txtは入口の張り紙、sitemap.xmlは全部の部屋の一覧表、llms.txtはAI向けのおすすめ案内板", "お店では", "サイトでは", [
+    ("入口の張り紙", "入っていい場所", "robots.txt", "ボットへのお願い"),
+    ("部屋の一覧表", "どこに何があるか", "sitemap.xml", "全ページの一覧"),
+    ("おすすめ案内板", "まずここを見て", "llms.txt", "AI向けの案内"),
+])
+
+# A7. アクセス4種類をお店にたとえると
+pair_fig("access-shop-analogy", "サイトへのアクセス4種類をお店にたとえると:人の閲覧はお客さん、AIクローラーはガイドブックの取材の人、AIのユーザー代理の取得はお使いの人、AI経由の人はガイドブックを見て来たお客さん", "お店では", "サイトでは", [
+    ("お客さん", "自分で来て見る", "人の閲覧", "ブラウザで見る"),
+    ("取材の人", "ガイドブックのため", "AIクローラー", "学習・検索の準備"),
+    ("お使いの人", "人に頼まれて来る", "AIのその場の取得", "質問されて読みに来る"),
+    ("紹介で来た人", "ガイドブックを見て", "AI経由の人", "AIの答えのリンクから"),
+])
+
 print(sorted(os.listdir(OUT)))
