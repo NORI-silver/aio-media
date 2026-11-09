@@ -1,19 +1,53 @@
 {
   "name": "AIO対策ナビ",
-  "tagline": "AI検索・SEO・デジタル広告の実務メディア",
+  "tagline": "AIO・LLMO・GEO対策とSEO・広告の実務メディア",
   "url": "https://aio.shiokonbu.com",
   "lang": "ja",
   "launched": false,
-  "ga": ["G-ZYX17VBTWB"],
+  "ga": [
+    "G-ZYX17VBTWB"
+  ],
   "publisher": "AIO対策ナビ編集部",
   "categories": [
-    {"slug": "aio", "name": "AIO(AI検索最適化)", "desc": "ChatGPT・Perplexity・Google AI Overviews などのAI検索で引用されるための実務。"},
-    {"slug": "seo", "name": "SEO実務", "desc": "AIOの土台になるSEOの実務。内部リンク、構造化データ、Search Console など。"},
-    {"slug": "glossary", "name": "用語集", "desc": "広告・SEO・AIの用語を1語ずつ短く解説。"},
-    {"slug": "ads", "name": "広告運用", "desc": "Google広告・Meta広告・Yahoo!広告・TikTok広告などの媒体別の運用ガイド。"},
-    {"slug": "analytics", "name": "成果改善・分析", "desc": "GA4、CV計測、CPA改善など、成果を測って改善する方法。"},
-    {"slug": "lp-creative", "name": "LP・クリエイティブ", "desc": "LPの作り方、LPO、広告文とバナー。"},
-    {"slug": "cost", "name": "費用・外注先の選び方", "desc": "広告・SEO・AIO対策の費用相場と、外注先の選び方。"},
-    {"slug": "news", "name": "ニュース・仕様変更", "desc": "Googleアップデート、AI検索の新機能、広告媒体の仕様変更。"}
+    {
+      "slug": "aio",
+      "name": "AIO・LLMO・GEO対策",
+      "desc": "ChatGPT・Perplexity・Gemini・Google AI Overviews などのAI検索で引用・紹介されるための実務。AIO・LLMO・GEO・AEOと呼び方が分かれる同じ領域をまとめて扱います。"
+    },
+    {
+      "slug": "seo",
+      "name": "SEO実務",
+      "desc": "AIOの土台になるSEOの実務。内部リンク、構造化データ、Search Console など。"
+    },
+    {
+      "slug": "glossary",
+      "name": "用語集",
+      "desc": "広告・SEO・AIの用語を1語ずつ短く解説。"
+    },
+    {
+      "slug": "ads",
+      "name": "広告運用",
+      "desc": "Google広告・Meta広告・Yahoo!広告・TikTok広告などの媒体別の運用ガイド。"
+    },
+    {
+      "slug": "analytics",
+      "name": "成果改善・分析",
+      "desc": "GA4、CV計測、CPA改善など、成果を測って改善する方法。"
+    },
+    {
+      "slug": "lp-creative",
+      "name": "LP・クリエイティブ",
+      "desc": "LPの作り方、LPO、広告文とバナー。"
+    },
+    {
+      "slug": "cost",
+      "name": "費用・外注先の選び方",
+      "desc": "広告・SEO・AIO対策の費用相場と、外注先の選び方。"
+    },
+    {
+      "slug": "news",
+      "name": "ニュース・仕様変更",
+      "desc": "Googleアップデート、AI検索の新機能、広告媒体の仕様変更。"
+    }
   ]
 }
