@@ -15,7 +15,7 @@
 
 | 場所 | 中身 |
 |---|---|
-| `site.json` | サイト名・URL・カテゴリ(柱)・GA4・公開前フラグ(`launched`) |
+| `site.json` | サイト名・URL・カテゴリ(柱)・GA4・公開前フラグ(`launched`)・Search Console の確認用メタタグ(`google_site_verification` に content の値を配列で) |
 | `content/articles/<カテゴリ>/<スラッグ>.md` | 記事の元。書き方は `docs/writing.md` |
 | `content/pages/*.md` | 運営者情報・編集方針・プライバシーポリシー |
 | `tools/build.py` | 元データから全ページ・sitemap.xml・feed.xml・robots.txt・llms.txt・llms-full.txt を作る |
