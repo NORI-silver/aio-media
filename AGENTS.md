@@ -21,7 +21,8 @@
 | `tools/build.py` | 元データから全ページ・sitemap.xml・feed.xml・robots.txt・llms.txt・llms-full.txt を作る |
 | `tools/seo_check.py` `.github/workflows/seo-check.yml` | SEO・AIOの自動チェック(PRごと。ビルドし忘れも赤くなる) |
 | `tools/indexnow.py` `.github/workflows/indexnow.yml` `<32桁>.txt` | main の変更ページを IndexNow(Bing など)に送る。.txt は鍵(公開してよい値)なので消さない |
-| `assets/` | CSS・OGP画像・ロゴ |
+| `worker/` `.github/workflows/deploy-worker.yml` | AIO診断ツール(`/aio-checker/`)のAPI。Cloudflare Workers。main に入ると自動デプロイ。説明は `worker/README.md`。URL は `site.json` の `checker_api`(空のあいだ診断ページは noindex・準備中) |
+| `assets/` | CSS・OGP画像・ロゴ・診断ツールの画面(`checker.js`) |
 | ルートの `*.html` `*/index.html` `sitemap.xml` `feed.xml` `robots.txt` `llms*.txt` | **生成物。直接直さない**(build.py が上書きする) |
 
 `CNAME`・`.nojekyll` は GitHub Pages 用なので消さない。

@@ -4,7 +4,7 @@
 使い方: python3 tools/build.py [リポジトリのフォルダ]
 
 元データ
-  site.json                         サイト名・URL・カテゴリ・GA4
+  site.json                         サイト名・URL・カテゴリ・GA4・診断APIのURL(checker_api)
   content/articles/<カテゴリ>/<スラッグ>.md   記事(先頭に --- で囲んだ項目、本文は Markdown)
   content/pages/<スラッグ>.md               固定ページ(運営者情報など)
 
@@ -235,7 +235,7 @@ def head(title, desc, path, extra_ld=(), og_type="website", noindex=False):
 </head>
 <body>
 <header class="site"><div class="wrap"><a class="brand" href="/">{esc(SITE['name'])}</a>
-<nav aria-label="カテゴリ">{''.join(f'<a href="/{c["slug"]}/">{esc(c["name"].split("(")[0])}</a>' for c in SITE['categories'][:4])}<a href="/about/">運営者</a></nav></div></header>
+<nav aria-label="カテゴリ">{''.join(f'<a href="/{c["slug"]}/">{esc(c["name"].split("(")[0])}</a>' for c in SITE['categories'][:4])}{'<a href="/aio-checker/">AIO診断</a>' if SITE.get("checker_api") else ''}<a href="/about/">運営者</a></nav></div></header>
 <main class="wrap">
 """
 
@@ -361,23 +361,59 @@ def build_home(arts):
         items = [a for a in arts if a["cat"] == c["slug"]][:6]
         lst = ('<ul class="cards">' + "".join(card(a) for a in items) + "</ul>") if items else '<p class="empty">記事を準備しています。</p>'
         secs.append(f'<section class="pillar"><h2><a href="/{c["slug"]}/">{esc(c["name"])}</a></h2><p>{esc(c["desc"])}</p>{lst}</section>')
+    hero_cta = ('<p class="cta"><a href="/aio-checker/">あなたのサイトのAIO対策を無料で診断する</a> '
+                '<span class="small">URLを入れるだけ。AIクローラーへの公開設定・構造化データなど19項目</span></p>') if checker_ready() else ""
     latest = ('<section><h2>新着記事</h2><ul class="cards">' + "".join(card(a) for a in arts[:9]) + "</ul></section>") if arts else ""
     page = head(f'{SITE["name"]}|{SITE["tagline"]}', SITE["tagline"] + "。中小企業のマーケ担当者・SEO担当者向けに、一次情報と検証データで解説します。",
-                "/", [website, ORG]) + f"""<section class="hero"><h1>{esc(SITE['name'])}</h1><p>{esc(SITE['tagline'])}</p></section>
+                "/", [website, ORG]) + f"""<section class="hero"><h1>{esc(SITE['name'])}</h1><p>{esc(SITE['tagline'])}</p>{hero_cta}</section>
 {latest}
 {''.join(secs)}
 """ + foot()
     write("/", page)
 
 
+def checker_ready():
+    return bool(SITE.get("checker_api"))
+
+
+def page_noindex(p):
+    """診断ツールのページは、診断API(site.json の checker_api)ができるまで noindex"""
+    return p.get("template") == "checker" and not checker_ready()
+
+
+CHECKER_FORM = """<form class="checker" id="checker" data-api="{api}">
+<label for="checker-url">診断したいページのURL</label>
+<div class="row"><input id="checker-url" name="url" type="text" inputmode="url" autocomplete="url" placeholder="https://example.com/" required maxlength="2000"{disabled}>
+<button type="submit"{disabled}>診断する</button></div>
+<p class="small">{note}</p>
+</form>
+<div id="checker-result" aria-live="polite"></div>
+<noscript><p>診断ツールを使うには JavaScript を有効にしてください。</p></noscript>
+"""
+
+
 def build_page(p):
-    body, _, _ = markdown(p["body"])
+    body, _, faq = markdown(p["body"])
     bc_html, bc_ld = crumbs([(p["title"], p["path"])])
     typ = {"about": "AboutPage", "contact": "ContactPage"}.get(p["slug"], "WebPage")
-    page = head(f'{p["title"]}|{SITE["name"]}', p.get("description", ""), p["path"],
-                [{"@type": typ, "name": p["title"], "url": BASE + p["path"]}, bc_ld]) + f"""{bc_html}
-<article><h1>{esc(p['title'])}</h1><div class="body">{body}</div></article>
-""" + foot()
+    lds = [{"@type": typ, "name": p["title"], "url": BASE + p["path"]}, bc_ld]
+    lead, script = "", ""
+    if p.get("template") == "checker":
+        lds[0] = {"@type": "WebApplication", "name": p["title"], "url": BASE + p["path"], "description": p.get("description", ""),
+                  "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "inLanguage": "ja",
+                  "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "JPY"}, "publisher": ORG}
+        ready = checker_ready()
+        lead = f'<p class="lead">{esc(p.get("description", ""))}</p>' + CHECKER_FORM.format(
+            api=esc(SITE.get("checker_api", "")), disabled="" if ready else " disabled",
+            note="入力したURLと結果は保存しません。診断には10秒ほどかかることがあります。" if ready else "診断用のサーバーを準備中です。もうしばらくお待ちください。")
+        script = '<script src="/assets/checker.js" defer></script>\n' if ready else ""
+    if faq:
+        lds.append({"@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": ans}} for q, ans in faq]})
+    page = head(p.get("seo_title") or f'{p["title"]}|{SITE["name"]}', p.get("description", ""), p["path"], lds,
+                noindex=page_noindex(p)) + f"""{bc_html}
+<article><h1>{esc(p['title'])}</h1>{lead}<div class="body">{body}</div></article>
+{script}""" + foot()
     write(p["path"], page)
 
 
@@ -395,7 +431,7 @@ def build_feeds(arts, pages):
         if items:
             urls.append((f'/{c["slug"]}/', max(a["updated"] for a in items)))
     urls += [(a["path"], a["updated"]) for a in arts]
-    urls += [(p["path"], p.get("updated", today)) for p in pages]
+    urls += [(p["path"], p.get("updated", today)) for p in pages if not page_noindex(p)]
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     sm += [f"<url><loc>{BASE}{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls]
     sm.append("</urlset>")
@@ -418,6 +454,7 @@ Sitemap: {BASE}/sitemap.xml
 """)
 
     lt = [f"# {SITE['name']}", "", f"> {SITE['tagline']}。中小企業のマーケティング担当者・SEO担当者向けに、一次情報と検証データをもとに解説するメディアです。", "",
+          *([f"## ツール", f"- [AIO診断ツール]({BASE}/aio-checker/): URLを入れると、AIクローラーへの公開設定・llms.txt・構造化データなどAI検索対策の状況を無料で診断する", ""] if checker_ready() else []),
           "## 運営者と方針", f"- [運営者情報]({BASE}/about/): 運営者と連絡先", f"- [編集方針]({BASE}/editorial-policy/): 情報源・検証・更新のルール", ""]
     for c in SITE["categories"]:
         items = [a for a in arts if a["cat"] == c["slug"]]
