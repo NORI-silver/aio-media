@@ -1,0 +1,15 @@
+{
+  "_説明": "tools/news_watch.py が見に行く公式の発表元。feed が読めないときは page から RSS/Atom を自動で探す。keywords があるときは、タイトルか概要にどれかを含むものだけ拾う(大文字小文字は区別しない)。",
+  "sources": [
+    {"id": "google-search-central", "name": "Google 検索セントラル ブログ", "page": "https://developers.google.com/search/blog", "feed": "https://developers.google.com/search/blog/feed.xml"},
+    {"id": "google-search-status", "name": "Google 検索ステータス ダッシュボード", "page": "https://status.search.google.com/", "feed": "https://status.search.google.com/en/feed.atom"},
+    {"id": "google-blog-search", "name": "Google 公式ブログ(検索)", "page": "https://blog.google/products/search/", "feed": "https://blog.google/products/search/rss/"},
+    {"id": "google-ads", "name": "Google 公式ブログ(広告・コマース)", "page": "https://blog.google/products/ads-commerce/", "feed": "https://blog.google/products/ads-commerce/rss/"},
+    {"id": "google-japan-blog", "name": "Google Japan Blog", "page": "https://blog.google/intl/ja-jp/", "feed": "https://blog.google/intl/ja-jp/rss/", "keywords": ["検索", "AI モード", "AIモード", "AI Overviews", "AI による概要", "広告", "Search"]},
+    {"id": "bing-search", "name": "Microsoft Bing Blog", "page": "https://blogs.bing.com/search/", "feed": "https://blogs.bing.com/search/feed", "keywords": ["webmaster", "IndexNow", "Copilot", "crawl", "grounding", "publisher", "search"]},
+    {"id": "bing-webmaster", "name": "Bing Webmaster Blog", "page": "https://blogs.bing.com/webmaster/", "feed": "https://blogs.bing.com/webmaster/feed"},
+    {"id": "openai-news", "name": "OpenAI News", "page": "https://openai.com/news/", "feed": "https://openai.com/news/rss.xml", "keywords": ["search", "crawler", "GPTBot", "publisher", "shopping", "ads", "advertising", "browse", "Atlas", "web"]},
+    {"id": "perplexity-blog", "name": "Perplexity Blog", "page": "https://www.perplexity.ai/hub", "feed": "https://www.perplexity.ai/hub/rss.xml"},
+    {"id": "ietf-aipref", "name": "IETF AIPREF(AI利用の意思表示の標準化)", "page": "https://datatracker.ietf.org/wg/aipref/documents/", "feed": "https://datatracker.ietf.org/feed/group-changes/aipref/"}
+  ]
+}
