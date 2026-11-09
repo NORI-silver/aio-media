@@ -149,6 +149,7 @@
             "internal-links"
           ],
           "articles": [
+            "/aio/answer-first-writing/",
             "/aio/ai-overviews/"
           ],
           "links": []
@@ -185,7 +186,8 @@
             "date"
           ],
           "articles": [
-            "/seo/eeat/"
+            "/seo/eeat/",
+            "/seo/first-party-information/"
           ],
           "links": [
             [
@@ -207,7 +209,9 @@
             "speed",
             "html-size"
           ],
-          "articles": [],
+          "articles": [
+            "/aio/javascript-ai-crawlers/"
+          ],
           "links": [
             [
               "JavaScript SEO の基本(Google)",
@@ -272,7 +276,9 @@
           "checks": [
             "citations"
           ],
-          "articles": [],
+          "articles": [
+            "/seo/first-party-information/"
+          ],
           "links": [
             [
               "有用で信頼性の高いコンテンツの作成(Google)",
@@ -291,6 +297,7 @@
           ],
           "checks": [],
           "articles": [
+            "/aio/ai-citation-tracking/",
             "/aio/ai-overviews/",
             "/aio/aio-llmo-geo-aeo-difference/"
           ],

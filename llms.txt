@@ -10,13 +10,17 @@
 - [編集方針](https://aio.shiokonbu.com/editorial-policy/): 情報源・検証・更新のルール
 
 ## AIO・LLMO・GEO対策
+- [AIに引用されているか調べる方法|ChatGPT・AI Overviews](https://aio.shiokonbu.com/aio/ai-citation-tracking/): 自社のサイトがChatGPT・Perplexity・GoogleのAI Overviewsに引用されているかを調べる方法を解説します。質問リストの作り方、記録表のテンプレート、GA4でAIからの流入を見る方法、実際のデータまで紹介します。
 - [AIクローラーのrobots.txt設定|GPTBotなどの許可とブロック方法](https://aio.shiokonbu.com/aio/ai-crawler-robots-txt/): GPTBot・OAI-SearchBot・ClaudeBot・PerplexityBot・Google-Extendedなど主なAIクローラーの役割と、robots.txtで許可・ブロックする書き方を公式情報をもとに整理します。
 - [AI Overviews(AIによる概要)とは?表示の仕組みとサイト側の対策](https://aio.shiokonbu.com/aio/ai-overviews/): GoogleのAI Overviews(AIによる概要)とAIモードの仕組み、表示される条件、特別な対策は必要か、表示を止める方法、Search Consoleでの確認方法をGoogle公式情報をもとに解説します。
 - [AIO・LLMO・GEO・AEOの違いとは?呼び方別の意味とやるべき対策](https://aio.shiokonbu.com/aio/aio-llmo-geo-aeo-difference/): AIO・LLMO・GEO・AEOは、どれもAI検索で自社の情報が引用・紹介されるための取り組みです。4つの呼び方の由来と違い、Googleの公式見解、今日からやるべき対策を出典つきで整理します。
+- [AIに引用される文章の書き方|冒頭で答える型と見出し・FAQ](https://aio.shiokonbu.com/aio/answer-first-writing/): AI検索や検索結果で引用されやすい文章の型を解説します。冒頭で結論を言い切る書き方、問いの形の見出し、FAQの作り方、GEO研究でわかった効く書き方と効かない書き方まで実例つきでまとめます。
+- [JavaScriptのサイトはAIに読まれる?SSRの必要性と確かめ方](https://aio.shiokonbu.com/aio/javascript-ai-crawlers/): JavaScriptで本文を表示するサイトは、GooglebotとAIクローラーで読まれ方が違います。CSRとSSRの違い、実験で確かめた結果、AIクローラーの調査データ、自分のサイトの確かめ方と対策を解説します。
 
 ## SEO実務
 - [canonical(正規URL)とは?書き方と重複ページの正しい整理方法](https://aio.shiokonbu.com/seo/canonical-url/): canonical(正規URL)は、同じ内容のページが複数あるときに検索に出したいURLを伝える仕組みです。書き方、リダイレクトとの使い分け、よくある間違い、Googleの選んだURLの確かめ方を解説します。
 - [E-E-A-Tとは?Googleが重視する「信頼」の高め方と具体策](https://aio.shiokonbu.com/seo/eeat/): E-E-A-T(経験・専門性・権威性・信頼性)の意味と、ランキング要因ではないというGoogleの公式見解、Who・How・Whyの考え方、著者情報やAI利用の開示など今日からできる具体策を解説します。
+- [一次情報とは?SEOとAIOで評価される作り方と記事への載せ方](https://aio.shiokonbu.com/seo/first-party-information/): 一次情報とは、自分で試した結果・計測した数字・実際の画面など、他から引き写していない情報です。SEOとAI検索でなぜ重要か、中小企業でも作れる一次情報の例、記事への載せ方と注意点を解説します。
 - [Search Consoleの始め方|登録から最初に見るべき画面まで](https://aio.shiokonbu.com/seo/search-console-start/): Google Search Consoleの始め方を、ドメインとURLプレフィックスの選び方、所有権の確認方法、サイトマップ送信、URL検査の見方まで実例つきで解説します。AI Overviewsの成果の確認方法も紹介します。
 - [構造化データとは?JSON-LDの書き方とAI検索時代の役割](https://aio.shiokonbu.com/seo/structured-data/): 構造化データは、ページの内容を検索エンジンに機械が読める形で伝える仕組みです。JSON-LDの書き方の実例、確認ツール、FAQリッチリザルト終了など最新の変更、AI検索での役割を解説します。
 - [タイトルとmeta descriptionの書き方|文字数とGoogleのルール](https://aio.shiokonbu.com/seo/title-meta-description/): 検索結果に出るタイトルと説明文(meta description)の書き方を、Googleの公式ガイドをもとに解説。文字数の考え方、書き換えられる理由、AI検索時代のコツまでまとめます。
