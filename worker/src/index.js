@@ -435,6 +435,10 @@ export function parseHtml(src) {
     tables: (main.match(/<table\b/gi) || []).length,
     headingSkip: skipped,
     mainTextLength: [...stripTags(main)].length,
+    mainText: stripTags(main).slice(0, 60000),
+    mainImgs: (main.match(/<(img|video|svg)\b/gi) || []).length,
+    h3InMain: (main.match(/<h3\b/gi) || []).length,
+    byline: /(執筆者?|著者|監修|書いた人|この記事を書いた|written by|author)\s*[::]?/i.test(stripTags(main).slice(0, 4000) + " " + stripTags(main).slice(-4000)) || /\brel=["']?author\b|class=["'][^"']*\b(author|byline)\b/i.test(main),
   };
 }
 
@@ -516,6 +520,11 @@ const FIX_PLAN = {
   speed: { goals: ["rank"], effort: "要調査" },
   "html-size": { goals: ["rank"], effort: "要調査" },
   hsts: { goals: ["rank"], effort: "15分" },
+  depth: { goals: ["imp", "rank", "ai"], effort: "半日〜" },
+  "first-party": { goals: ["rank", "ai"], effort: "1日〜" },
+  visuals: { goals: ["imp", "ai"], effort: "1時間" },
+  coverage: { goals: ["imp", "ai"], effort: "半日" },
+  byline: { goals: ["rank", "ai"], effort: "30分" },
 };
 
 export const GOALS = {
@@ -746,6 +755,7 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes, http
 
   // ---------------- 3. AIに理解・引用されやすいか(コンテンツ)
   const G3 = "AIに理解・引用されやすい作り";
+  const G5 = "中身の強さ(順位・AI引用に効く)";
   if (h) {
     const ld = ldTypes(h.ld);
     const nodes = ld.nodes;
@@ -784,9 +794,9 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes, http
     const latest = dates.length ? new Date(Math.max(...dates)) : null;
     const ageDays = latest ? Math.floor((now - latest) / 86400000) : null;
     if (pageType === "article" || latest || h.hasTime) {
-      add(G3, "date", "更新日が新しい", !latest ? (h.hasTime ? "warn" : "ng") : ageDays > 365 ? "warn" : "ok",
+      add(G5, "date", "更新日が新しい", !latest ? (h.hasTime ? "warn" : "ng") : ageDays > 730 ? "ng" : ageDays > 180 ? "warn" : "ok",
         latest ? `構造化データの最終更新日: ${latest.toISOString().slice(0, 10)}(${ageDays}日前)` : h.hasTime ? "ページ上に日付はありますが、構造化データに dateModified がありません。" : "公開日・更新日が見つかりません。",
-        !latest ? "datePublished・dateModified を構造化データとページ上の両方に入れましょう。" : ageDays > 365 ? "1年以上更新されていません。情報を見直して更新日を新しくすると、検索でもAIでも選ばれやすくなります。" : "", "", 4);
+        !latest ? "datePublished・dateModified を構造化データとページ上の両方に入れましょう。" : ageDays > 180 ? "半年以上更新されていません。情報を見直して更新日を新しくすると、検索でもAIでも選ばれやすくなります。" : "", "", 4);
     }
     const h1n = h.h1.length;
     const h2n = h.h2.length;
@@ -826,15 +836,48 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes, http
     const linkSet = h.hasMainRegion ? h.mainAnchors : h.allAnchors.map((a) => a.href);
     const internal = new Set(linkSet.filter((x) => isInternal(x) && !/^#/.test(x)).map((x) => new URL(x, final).pathname));
     internal.delete(final.pathname);
-    const needInt = h.hasMainRegion ? 3 : 10;
-    add(G3, "internal-links", "関連ページへの内部リンク", internal.size >= needInt ? "ok" : internal.size >= 1 ? "warn" : "ng",
+    const needInt = h.hasMainRegion ? (pageType === "article" ? 8 : 5) : 15;
+    add(G5, "internal-links", "関連ページへの内部リンク網", internal.size >= needInt ? "ok" : internal.size >= Math.ceil(needInt / 3) ? "warn" : "ng",
       `${h.hasMainRegion ? "本文中" : "ページ全体"}の内部リンク先: ${internal.size} ページ。`,
-      internal.size >= needInt ? "" : "関連する記事やサービスページへ本文からリンクすると、検索エンジンがサイトの構造を理解し、評価がサイト内に回ります。", "", 4);
+      internal.size >= needInt ? "" : `目安は${h.hasMainRegion ? "本文から" : ""}${needInt}ページ以上。関連する記事やサービスページへ本文からリンクすると、検索エンジンがサイトの構造を理解し、評価がサイト内に回ります。同じテーマの記事どうしを相互にリンクし、テーマのまとまり(トピッククラスター)を作りましょう。`, "", 6);
     if (pageType === "article") {
       const ext = new Set(linkSet.filter((x) => /^https?:/i.test(x) && !isInternal(x)).map((x) => { try { return new URL(x).host; } catch { return x; } }));
-      add(G3, "citations", "出典(外部の一次資料)へのリンク", ext.size >= 2 ? "ok" : ext.size === 1 ? "warn" : "ng",
+      add(G5, "citations", "出典(外部の一次資料)へのリンク", ext.size >= 3 ? "ok" : ext.size >= 1 ? "warn" : "ng",
         `本文から外部サイトへのリンク: ${ext.size} サイト${ext.size ? `(${[...ext].slice(0, 5).join("、")})` : ""}。`,
-        ext.size >= 2 ? "" : "数字や仕様には、公的機関・公式ドキュメントなど一次資料へのリンクを付けましょう。信頼性の評価と、AIが「根拠のある情報」として選ぶ理由になります。", ARTICLE.firstParty, 3);
+        ext.size >= 3 ? "" : "目安は3サイト以上。数字や仕様には、公的機関・公式ドキュメントなど一次資料へのリンクを付けましょう。信頼性の評価と、AIが「根拠のある情報」として選ぶ理由になります。", ARTICLE.firstParty, 5);
+    }
+
+    // ---- 中身の強さ: 技術的な土台だけでは満点にならないよう、成果に効く中身を厳しめに見る
+    const isArt = pageType === "article";
+    const body = h.hasMainRegion ? h.mainTextLength : h.textLength;
+    const depthNeed = isArt ? [5000, 2000] : pageType === "top" ? [1500, 600] : [2000, 800];
+    add(G5, "depth", "内容の深さ(本文の厚み)", body >= depthNeed[0] ? "ok" : body >= depthNeed[1] ? "warn" : "ng",
+      `本文は約 ${body.toLocaleString("ja-JP")} 字(よく読まれる${isArt ? "解説記事" : "ページ"}の目安は ${depthNeed[0].toLocaleString("ja-JP")} 字前後)。`,
+      body >= depthNeed[0] ? "" : "上位のページやAIの回答が触れている論点を洗い出し、足りない論点(手順・費用・比較・注意点・事例)を足しましょう。水増しではなく、読者の次の疑問に先回りして答える量が目安です。",
+      ARTICLE.firstParty, isArt ? 10 : 6);
+    const mt = h.mainText || "";
+    const expWords = new Set((mt.match(/実際に|試した|試して|検証|調査|計測|測定|アンケート|インタビュー|事例|当社|弊社|自社|私たち|筆者|お客様|導入前|導入後|ビフォー|アフター|結果は|社内データ/g) || []));
+    const numbers = (mt.match(/\d[\d,.]*\s*(%|％|件|人|社|円|万円|倍|秒|ミリ秒|日|週間|か月|ヶ月|カ月|年|回|位|PV|pt|ポイント|クリック|字)/g) || []).length;
+    const fpScore = (expWords.size >= (isArt ? 5 : 3) ? 1 : 0) + (numbers >= (isArt ? 15 : 5) ? 1 : 0);
+    add(G5, "first-party", "一次情報(自分で試した・調べた結果)", fpScore === 2 ? "ok" : fpScore === 1 || expWords.size || numbers ? "warn" : "ng",
+      `経験・検証を示す言葉 ${expWords.size} 種類${expWords.size ? `(${[...expWords].slice(0, 6).join("、")})` : ""}、単位つきの具体的な数字 ${numbers} 個。`,
+      fpScore === 2 ? "" : "ほかのサイトにない「自分で試した結果・自社のデータ・事例・スクリーンショット」は、Google の評価(E-E-A-T の Experience)でも、AIが引用元を選ぶときにも一番の差になります。数字と条件をそろえて書きましょう。",
+      ARTICLE.firstParty, isArt ? 10 : 5);
+    const imgNeed = isArt ? 3 : 1;
+    add(G5, "visuals", "図・画像・表で説明している", h.mainImgs + h.tables >= imgNeed ? "ok" : h.mainImgs + h.tables > 0 ? "warn" : "ng",
+      `本文の画像・動画 ${h.mainImgs} 個、表 ${h.tables} 個。`,
+      h.mainImgs + h.tables >= imgNeed ? "" : "実際の画面・図解・比較表は、文章だけより理解されやすく、画像検索やAIの回答に使われる入口も増えます。",
+      "", isArt ? 4 : 2);
+    if (isArt) {
+      const sections = h.h2.length + h.h3InMain;
+      add(G5, "coverage", "話題の網羅(見出しの数)", sections >= 10 ? "ok" : sections >= 5 ? "warn" : "ng",
+        `本文の h2 ${h.h2.length} 個 + h3 ${h.h3InMain} 個 = ${sections} 個の論点。`,
+        sections >= 10 ? "" : "検索する人が一緒に知りたい論点(関連する質問)を h2・h3 に分けて足すと、関連キーワードでの表示回数とAIに拾われる場面が増えます。",
+        ARTICLE.answer, 5);
+      add(G5, "byline", "記事内に書き手(著者・監修者)が見える", h.byline ? "ok" : "warn",
+        h.byline ? "本文の近くに著者・執筆者・監修者の表示があります。" : "本文の近くに著者・執筆者の表示が見つかりません。",
+        h.byline ? "" : "記事の上か下に「誰が書いたか(名前・経歴・プロフィールへのリンク)」を出しましょう。構造化データだけでなく、読者に見える形で示すのが大事です。",
+        ARTICLE.eeat, 4);
     }
   }
 
@@ -869,12 +912,23 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes, http
     sitemapXml: { status: sitemapRes?.status ?? null },
   };
 
-  const scored = checks.filter((c) => c.weight > 0);
-  const total = scored.reduce((s, c) => s + c.weight, 0);
-  const got = scored.reduce((s, c) => s + (c.status === "ok" ? c.weight : c.status === "warn" ? c.weight * 0.4 : 0), 0);
-  let score = total ? Math.round((got / total) * 100) : 0;
+  // 点数は3つの柱の合計。技術的な土台が完ぺきでも、中身が平均的なら70点前後にとどまる配分
+  const rate = (list) => {
+    const sc = list.filter((c) => c.weight > 0);
+    const t = sc.reduce((s, c) => s + c.weight, 0);
+    const g = sc.reduce((s, c) => s + (c.status === "ok" ? c.weight : c.status === "warn" ? c.weight * 0.25 : 0), 0);
+    return t ? g / t : 0;
+  };
+  const breakdown = [
+    { key: "base", label: "土台(公開・SEOの基本・速さ)", max: 30, groups: [G1, G2, G4] },
+    { key: "ai", label: "AIに読まれやすい作り", max: 30, groups: [G3] },
+    { key: "content", label: "中身の強さ", max: 40, groups: [G5] },
+  ].map((b) => ({ key: b.key, label: b.label, max: b.max, score: Math.round(rate(checks.filter((c) => b.groups.includes(c.group))) * b.max) }));
+  let score = breakdown.reduce((s, b) => s + b.score, 0);
   // ページ自体が読めない(エラー・HTMLでない)ときは、中身の項目を診断できないので高い点にしない
   if (!okStatus || !h) score = Math.min(score, 30);
+  // 検索に出られない設定(noindex・検索クローラーのブロック)があるときも高い点にしない
+  if (checks.some((c) => (c.id === "indexable" || c.id === "ai-search-bots") && c.status === "ng")) score = Math.min(score, 40);
   return {
     url: target.href,
     finalUrl: final.href,
@@ -882,6 +936,7 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes, http
     score,
     grade: score >= 90 ? "A" : score >= 75 ? "B" : score >= 55 ? "C" : "D",
     pageType,
+    breakdown,
     counts: {
       ok: checks.filter((c) => c.status === "ok").length,
       warn: checks.filter((c) => c.status === "warn").length,
