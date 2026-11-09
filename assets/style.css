@@ -78,6 +78,23 @@ footer.site .cats{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:4px 
 .cr-bots{margin:8px 0 0}
 .cr-bots summary{cursor:pointer;color:var(--accent);font-size:.92rem}
 td.ok{color:#1a7f37}td.ng{color:#c62828;font-weight:700}td.warn{color:#b26a00}
+.cr-verdict{margin:2px 0 4px!important;font-size:.95rem}
+.cr-todo{background:#fff8e6;border:1px solid #f0d9a8;border-radius:10px;padding:4px 16px 8px;margin:16px 0}
+.cr-todo h2{border:0;margin:.6em 0 .2em;font-size:1.1rem}
+.cr-todo ol{margin:.2em 0;padding-left:1.4em}
+.cr-todo li{margin:4px 0}
+.cr-bar{font-size:.9rem;margin:12px 0 0}
+.cr-hide-ok .st-ok,.cr-hide-ok .st-info{display:none}
+.cr-extra{margin-top:6px;font-size:.88rem}
+.cr-extra details{margin:4px 0}
+.cr-extra summary,.cr-tech>summary{cursor:pointer;color:var(--accent)}
+.cr-extra details p{margin:4px 0 0;color:var(--fg);font-weight:400}
+.cr-code{position:relative;margin-top:6px}
+.cr-code pre{margin:0;white-space:pre-wrap;word-break:break-all}
+.cr-copy{font:inherit;font-size:.8rem;margin-top:6px;padding:4px 10px;border:1px solid var(--line);border-radius:6px;background:#fff;cursor:pointer}
+.cr-tech{margin:20px 0;border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.cr-tech th{white-space:nowrap;font-size:.85rem}
+.cr-raw{margin:0;background:none;color:var(--fg);padding:0;font-size:.8rem;white-space:pre-wrap;word-break:break-all}
 .lv{display:inline-block;vertical-align:middle;font-size:.68rem;font-weight:700;line-height:1;padding:4px 7px;border-radius:999px;margin-left:6px;white-space:nowrap}
 .lv-basic{background:#e7f6ec;color:#17663a}
 .lv-mid{background:#e8f0fb;color:#0b5394}

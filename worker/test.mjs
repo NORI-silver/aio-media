@@ -58,7 +58,16 @@ assert.equal(st.text, "ng");
 assert.equal(st.https, "ng");
 assert.equal(st.llms, "warn");
 assert.ok(bad.score < 30, String(bad.score));
-console.log("unit: OK(対策なしサイト score", bad.score + ")");
+const notFound = buildReport({
+  target: new URL("https://ok.example.com/x"),
+  page: { ...resp(404, "not found", "text/plain"), ms: 100, finalUrl: "https://ok.example.com/x" },
+  robotsRes: resp(200, "User-agent: *\nAllow: /\nSitemap: https://ok.example.com/sitemap.xml\n", "text/plain"),
+  llmsRes: resp(200, "# ok\n", "text/plain"),
+  sitemapRes: resp(404, ""),
+});
+assert.ok(notFound.score <= 30, "404 のページは高得点にしない: " + notFound.score);
+assert.ok(notFound.raw && notFound.raw.redirects.length === 1);
+console.log("unit: OK(対策なしサイト score", bad.score + "、404ページ score", notFound.score + ")");
 
 // API(バインディングなし・キャッシュなし)
 const env = { ALLOWED_ORIGINS: "https://aio.shiokonbu.com" };
