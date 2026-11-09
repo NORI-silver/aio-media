@@ -1,6 +1,6 @@
 {
  "_説明": "tools/news_watch.py が自動で作る。手で直さない。",
- "checked": "2026-11-09T09:47:07Z",
+ "checked": "2026-11-09T22:18:35Z",
  "sources": {
   "google-search-central": {
    "ok": true,
@@ -49,6 +49,15 @@
   }
  },
  "items": [
+  {
+   "source": "google-ads",
+   "source_name": "Google 公式ブログ(広告・コマース)",
+   "title": "Holiday 100: Your guide to this year’s top trending gifts",
+   "url": "https://blog.google/products-and-platforms/products/shopping/holiday-100-gift-guide-2026/",
+   "published": "2026-11-09T12:00:00Z",
+   "summary": "Google’s Holiday 100 is here. Shop the gifts that are most popular this year and see the Search trends behind them.",
+   "first_seen": "2026-11-09T22:18:35Z"
+  },
   {
    "source": "google-japan-blog",
    "source_name": "Google Japan Blog",
