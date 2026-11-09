@@ -81,6 +81,22 @@ def level_guide(toc):
     return '<nav class="guide" aria-label="レベル別の読み方"><p>レベル別の読み方</p><ul>' + "".join(rows) + "</ul></nav>"
 
 
+# 図解:本文に {{figure:名前|キャプション}} と1行で書くと content/figures/名前.svg をページに埋め込む
+# (画像ファイルではなくHTMLの中にSVGを入れるので、図の文字も検索エンジンやAIに読まれる)
+def figure(name, caption):
+    path = os.path.join(ROOT, "content", "figures", name + ".svg")
+    if not os.path.exists(path):
+        sys.exit(f"図が見つかりません: content/figures/{name}.svg")
+    svg = open(path, encoding="utf-8").read().strip()
+    svg = re.sub(r"^<\?xml[^>]*>\s*", "", svg)
+    return f'<figure class="fig" id="fig-{name}"><div class="fig-svg">{svg}</div><figcaption>{inline(caption)}</figcaption></figure>'
+
+
+def plain_body(md):
+    """llms-full.txt 用:図の行をキャプションの文章に置きかえる"""
+    return re.sub(r"^\{\{figure:[a-z0-9-]+\|(.+)\}\}$", r"[図] \1", md, flags=re.M)
+
+
 def markdown(md):
     """Markdown を HTML にする。戻り値: (html, 見出しの一覧[(level, id, text)], FAQ[(q, a)])"""
     lines = md.replace("\r\n", "\n").split("\n")
@@ -96,6 +112,11 @@ def markdown(md):
     while i < len(lines):
         line = lines[i]
         if not line.strip():
+            i += 1
+            continue
+        fm = re.fullmatch(r"\{\{figure:([a-z0-9-]+)\|(.+)\}\}", line.strip())
+        if fm:
+            out.append(figure(fm.group(1), fm.group(2).strip()))
             i += 1
             continue
         if line.startswith("```"):
@@ -162,7 +183,7 @@ def markdown(md):
             out.append("<blockquote><p>" + inline(" ".join(buf)) + "</p></blockquote>")
             continue
         buf = []
-        while i < len(lines) and lines[i].strip() and not re.match(r"(#{2,4}\s|```|\||>|\s*([-*]|\d+\.)\s)", lines[i]):
+        while i < len(lines) and lines[i].strip() and not re.match(r"(#{2,4}\s|```|\||>|\{\{figure:|\s*([-*]|\d+\.)\s)", lines[i]):
             buf.append(lines[i].strip())
             i += 1
         p = inline("".join(buf))
@@ -696,7 +717,7 @@ Sitemap: {BASE}/sitemap.xml
 
     full = [f"# {SITE['name']} 全記事", ""]
     for a in arts:
-        full += [f"# {a['title']}", f"URL: {BASE}{a['path']}", f"更新: {a['updated']}", "", a["body"].strip(), "", "---", ""]
+        full += [f"# {a['title']}", f"URL: {BASE}{a['path']}", f"更新: {a['updated']}", "", plain_body(a["body"]).strip(), "", "---", ""]
     write("/llms-full.txt", "\n".join(full))
 
 

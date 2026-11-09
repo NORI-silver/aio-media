@@ -36,3 +36,9 @@ draft: (true にすると公開しない)
 記事を足したら `content/roadmap.json` の関係するステップの `articles` にパスを足す(記事の末尾に「ロードマップの STEP n の解説です・次にやること」が出る)。
 
 書いたら `python3 tools/build.py . && python3 tools/seo_check.py .`。
+
+## 図解を入れる
+
+- 図は `tools/figures.py` で SVG を作り、`content/figures/<名前>.svg` に置く(幅360の縦長。スマホで読める文字の大きさにする)。
+- 本文では1行に `{{figure:名前|図1 キャプション}}` と書くと、build.py が図をそのまま埋め込む。色や文字の大きさは `assets/style.css` の `.fig .f-*` で決まる。
+- 図の中の文字も事実確認の対象。数字や仕様を入れたら本文に出典を書く。

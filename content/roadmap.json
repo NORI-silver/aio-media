@@ -118,7 +118,9 @@
           "checks": [],
           "articles": [
             "/aio/aio-llmo-geo-aeo-difference/",
-            "/aio/ai-overviews/"
+            "/aio/ai-overviews/",
+            "/aio/how-search-and-ai-work/",
+            "/aio/ai-vs-human-access/"
           ],
           "links": []
         }
@@ -255,7 +257,8 @@
           ],
           "checks": [],
           "articles": [
-            "/seo/search-console-start/"
+            "/seo/search-console-start/",
+            "/glossary/mcp/"
           ],
           "links": [
             [
@@ -299,7 +302,8 @@
           "articles": [
             "/aio/ai-citation-tracking/",
             "/aio/ai-overviews/",
-            "/aio/aio-llmo-geo-aeo-difference/"
+            "/aio/aio-llmo-geo-aeo-difference/",
+            "/aio/ai-vs-human-access/"
           ],
           "links": []
         },

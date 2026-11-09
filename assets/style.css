@@ -490,3 +490,22 @@ td.ok{color:var(--ok)}td.ng{color:var(--ng);font-weight:700}td.warn{color:var(--
 .cr-foot{margin-top:16px}
 
 @media print{header.site,footer.site,.hd-cta,.cr-bar,.checker{display:none}.band.tool{background:none;color:var(--fg)}.band.tool h1{color:var(--ink)}}
+
+/* 図解(content/figures/*.svg を build.py が本文に埋め込む) */
+.fig{margin:1.8em auto;max-width:520px;padding:16px 12px 10px;border:1px solid var(--line);border-radius:var(--r);background:var(--soft)}
+.fig-svg svg{display:block;width:100%;height:auto;font-family:var(--font)}
+.fig figcaption{margin-top:8px;font-size:.84rem;line-height:1.6;color:var(--muted);text-align:center}
+.fig .f-b{fill:#ebf1ff;stroke:#b9cbfa}
+.fig .f-p{fill:#f3edff;stroke:#d3c2fb}
+.fig .f-g{fill:var(--ok-bg);stroke:#a9dcbc}
+.fig .f-o{fill:var(--warn-bg);stroke:#f3cf94}
+.fig .f-w{fill:#fff;stroke:var(--line2)}
+.fig .f-t{fill:var(--ink);font-size:15px;font-weight:700}
+.fig .f-t2{fill:var(--ink);font-size:13px;font-weight:700}
+.fig .f-s{fill:var(--fg);font-size:12.5px}
+.fig .f-s2{fill:var(--fg);font-size:12px}
+.fig .f-l{fill:var(--brand);font-size:12px;font-weight:700}
+.fig .f-num{fill:var(--brand)}
+.fig .f-numt{fill:#fff;font-size:13px;font-weight:700}
+.fig .f-ar{stroke:var(--muted);stroke-width:2;fill:none}
+.fig .f-ah{fill:var(--muted)}
