@@ -624,7 +624,9 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes }) {
   const scored = checks.filter((c) => c.weight > 0);
   const total = scored.reduce((s, c) => s + c.weight, 0);
   const got = scored.reduce((s, c) => s + (c.status === "ok" ? c.weight : c.status === "warn" ? c.weight / 2 : 0), 0);
-  const score = total ? Math.round((got / total) * 100) : 0;
+  let score = total ? Math.round((got / total) * 100) : 0;
+  // ページ自体が読めない(エラー・HTMLでない)ときは、中身の項目を診断できないので高い点にしない
+  if (!okStatus || !h) score = Math.min(score, 30);
   return {
     url: target.href,
     finalUrl: final.href,
