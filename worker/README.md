@@ -2,7 +2,7 @@
 
 `https://aio.shiokonbu.com/aio-checker/` の診断を行うAPI。依存パッケージなし。
 
-- `GET /api/check?url=https://example.com/` → 診断結果のJSON(点数・最大33項目・AIクローラーごとの robots.txt 判定・強化プラン(plan))
+- `GET /api/check?url=https://example.com/` → 診断結果のJSON(点数・最大38項目・3つの柱の内訳(breakdown)・AIクローラーごとの robots.txt 判定・強化プラン(plan))
 - 読みに行くもの:入力したページ、`/robots.txt`、`/llms.txt`、`/sitemap.xml`(User-Agent は `AIOCheckerBot/1.0`)
 - 悪用対策:IPごと1分10回・同じサイトへ1分20回(Rate Limiting バインディング)、結果は10分キャッシュ、http/https・80/443番だけ、IP直書き・社内向けドメイン・プライベートIPに解決される名前は拒否、リダイレクトは1回ずつ確認、サイズ上限とタイムアウト、CORS は aio.shiokonbu.com だけ
 
