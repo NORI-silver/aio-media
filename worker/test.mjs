@@ -91,6 +91,12 @@ const avg = buildReport({
 assert.equal(avg.pageType, "article");
 assert.ok(avg.score >= 55 && avg.score <= 75, "平均的な記事は60〜70点台: " + avg.score + " " + JSON.stringify(avg.breakdown));
 assert.equal(avg.breakdown.reduce((s, b) => s + b.max, 0), 100);
+// 順位を上げるためのアクション: ページの中身から具体的に出す
+assert.ok(avg.plan.rank.length >= 5, "順位のアクションを5つ以上出す");
+assert.ok(avg.plan.rank.some((x) => x.steps.some((t) => t.includes("ホームページ制作会社"))), "ねらうキーワードをページから読み取る");
+assert.ok(avg.plan.rank.every((x) => x.title && x.why && x.steps.length && x.priority));
+assert.equal(bad.plan.rank[0].priority, "最優先", "検索に出られないページは、まずそれを直す");
+if (process.env.SHOW_RANK) console.log(JSON.stringify(avg.plan.rank, null, 1));
 console.log("unit: OK(対策なしサイト score", bad.score + "、404ページ score", notFound.score + "、平均的な記事 score", avg.score + ")");
 
 // API(バインディングなし・キャッシュなし)
