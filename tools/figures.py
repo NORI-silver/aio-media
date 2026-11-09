@@ -655,7 +655,8 @@ def cards_fig(name, label, cards, numbered=True, gap=10):
         y += h + gap
     f.save()
 
-def pair_fig(name, label, left, right, rows, lcls="f-o", rcls="f-b"):
+def pair_fig(name, label, left, right, rows, lcls="f-o", rcls="f-b", sep="="):
+    """sep: 左右が「同じもの」なら =、「くらべる」なら vs"""
     """左右2列のたとえ表。rows = [(左1行目, 左2行目, 右1行目, 右2行目)]"""
     f = Fig(name, label)
     cw = (W-32-28)/2
@@ -671,7 +672,7 @@ def pair_fig(name, label, left, right, rows, lcls="f-o", rcls="f-b"):
                 f.ctext(x+cw/2, y+22, t1, "f-t2"); f.ctext(x+cw/2, y+40, t2, "f-s2")
             else:
                 f.ctext(x+cw/2, y+31, t1, "f-t2")
-        f.ctext(W/2, y+31, "=", "f-t")
+        f.ctext(W/2, y+31, sep, "f-t" if sep == "=" else "f-s2")
         y += h + 8
     f.h = y - 8
     f.save()
@@ -910,6 +911,72 @@ pair_fig("first-vs-second", "一次情報と二次情報のちがいを、お店
     ("自分で行って", "食べた感想", "口コミを", "まとめたもの"),
     ("自分で試した", "結果・数字", "ほかのサイトの", "説明の言いかえ"),
     ("ここにしか", "ない", "どこにでも", "ある"),
-], lcls="f-g", rcls="f-w")
+], lcls="f-g", rcls="f-w", sep="vs")
+
+# ---- SEOの基本記事の図(ド素人向けのたとえ)
+# C1. 検索結果のタイトルと説明文(本屋の棚)
+f = Fig("search-result-parts", "検索結果の1件を本屋の本にたとえると:タイトルは本の題名、説明文は帯の紹介文、URLは本棚の場所")
+f.box(16, 6, W-32, 116, "f-w")
+f.text(30, 32, "aio.shiokonbu.com › seo", "f-s2")
+f.text(30, 58, "タイトルとmeta descriptionの書き方", "f-l")
+f.text(30, 84, "検索結果に出るタイトルと説明文の書き方を、", "f-s2")
+f.text(30, 102, "Googleの公式ガイドをもとに解説…", "f-s2")
+rows = [("f-b", "URL", "本棚の場所", "どのサイトのどこにあるか"), ("f-p", "タイトル", "本の題名", "何のページかを一言で"), ("f-g", "説明文(meta description)", "帯の紹介文", "読むかどうか決める材料")]
+y = 136
+for cls, a, b, c in rows:
+    f.box(16, y, W-32, 52, cls); f.text(30, y+22, a, "f-t2"); f.text(30, y+41, "= " + b + "(" + c + ")", "f-s2")
+    y += 60
+f.h = y - 8
+f.save()
+
+# C2. canonical(あだ名と本名)
+f = Fig("canonical-nicknames", "canonicalのたとえ:同じページにURLがいくつもあるのは、同じ人にあだ名がいくつもあるようなもの。canonicalは名簿にのせる本名を1つ決めること")
+urls = ["example.com/page", "www.example.com/page", "example.com/page/?utm_source=mail"]
+y = 6
+f.text(16, y+14, "同じページなのに、URLがいくつもある(=あだ名)", "f-l")
+y += 22
+for u in urls:
+    f.box(16, y, W-32, 36, "f-w"); f.text(30, y+23, u, "f-s2")
+
+    y += 42
+f.arrow(W/2, y+2, W/2, y+26)
+f.box(16, y+30, W-32, 70, "f-g", "代表のURL(=名簿にのせる本名)", ["https://example.com/page/", "これを canonical で伝える"])
+f.save()
+
+# C3. サイトマップ(部屋の一覧表)
+f = Fig("sitemap-floor", "サイトマップのたとえ:Googleは廊下(リンク)をたどって部屋(ページ)を見つけるが、どこからも廊下がつながっていない部屋は見落としやすい。部屋の一覧表(サイトマップ)をわたすと見つけてもらいやすい")
+f.text(16, 20, "廊下(リンク)をたどって部屋をさがす", "f-l")
+cw = (W-32-24)/4
+for i,lab in enumerate(["トップ", "記事A", "記事B", "記事C"]):
+    x = 16 + i*(cw+8)
+    f.box(x, 30, cw, 44, "f-b" if i < 3 else "f-o"); f.ctext(x+cw/2, 57, lab, "f-t2")
+    if i < 2:
+        f.arrow(x+cw+1, 52, x+cw+7, 52)
+f.text(16, 96, "▸ 記事Cはどこからもつながっていない → 見落としやすい", "f-s2")
+f.box(16, 112, W-32, 92, "f-g", "部屋の一覧表(サイトマップ)", ["トップ・記事A・記事B・記事C …", "「この建物にはこの部屋があります」と", "まとめてわたす"])
+f.save()
+
+# C4. Search Console(通知表)
+cards_fig("search-console-report", "Search Consoleはサイトの通知表のようなもの:検索に何回出たか、何回クリックされたか、何番目に出たか、困っていることはないかがわかる", [
+    ("f-b", "検索に何回出た?(表示回数)", ["どんな言葉で検索されたときに出たか"]),
+    ("f-b", "何回クリックされた?(クリック数)", ["出たうち、何人が選んでくれたか"]),
+    ("f-p", "何番目に出た?(平均掲載順位)", ["上から数えて何番目くらいか"]),
+    ("f-o", "困っていることはない?", ["Googleに登録されていないページ・エラー"]),
+])
+
+# C5. E-E-A-T(工務店えらび)
+pair_fig("eeat-builder", "E-E-A-Tのたとえ:家の修理をたのむお店をえらぶときに見ることと同じ。経験は直した実例の写真、専門性は知識や資格、権威性はまわりの評判、信頼性は住所や見積もりがはっきりしていること", "修理のお店えらび", "E-E-A-T", [
+    ("直した実例の写真", "", "経験", "Experience"),
+    ("知識・資格", "", "専門性", "Expertise"),
+    ("まわりの評判", "", "権威性", "Authoritativeness"),
+    ("住所・見積もりが明確", "", "信頼性(いちばん大事)", "Trust"),
+], lcls="f-o", rcls="f-g")
+
+# C6. 構造化データ(作文と履歴書)
+pair_fig("structured-data-resume", "構造化データのたとえ:ふつうの本文は自由に書いた作文、構造化データは名前や日付の欄が決まった履歴書。決まった欄に書くと、機械が読み取りやすい", "人に向けて", "機械に向けて", [
+    ("自由に書いた作文", "(ふつうの本文)", "決まった欄の履歴書", "(構造化データ)"),
+    ("「11月9日に", "編集部が書きました」", "公開日:2026-11-09", "著者:編集部"),
+    ("読めばわかるが", "読み取りに手間", "欄を見れば", "すぐわかる"),
+], lcls="f-w", rcls="f-g", sep="vs")
 
 print(sorted(os.listdir(OUT)))
