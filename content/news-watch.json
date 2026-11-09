@@ -1,6 +1,6 @@
 {
  "_説明": "tools/news_watch.py が自動で作る。手で直さない。",
- "checked": "2026-11-09T09:45:34Z",
+ "checked": "2026-11-09T09:47:07Z",
  "sources": {
   "google-search-central": {
    "ok": true,
@@ -40,11 +40,7 @@
   "openai-news": {
    "ok": true,
    "feed": "https://openai.com/news/rss.xml",
-   "items": 51
-  },
-  "perplexity-blog": {
-   "ok": false,
-   "error": "https://www.perplexity.ai/hub/rss.xml: HTTPError: HTTP Error 403: Forbidden / discover: HTTPError: HTTP Error 403: Forbidden"
+   "items": 14
   },
   "ietf-aipref": {
    "ok": true,
@@ -72,30 +68,12 @@
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Franklin Templeton uses OpenAI to support investment research",
-   "url": "https://openai.com/index/franklin-templeton",
-   "published": "2026-11-05T00:00:00Z",
-   "summary": "Starting with equity research, Franklin Templeton is developing AI workflows to help portfolio managers compare research views and examine investment risks.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
    "source": "google-search-central",
    "source_name": "Google 検索セントラル ブログ",
    "title": "Search Central Live in Zurich is back!",
    "url": "https://developers.google.com/search/blog/2026/11/search-central-live-zurich-2026",
    "published": "2026-11-04T00:00:00Z",
    "summary": "Search Central Live is coming to Zurich on December 4, 2026!",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Rewarding defenders with bigger bug bounties",
-   "url": "https://openai.com/index/rewarding-defenders-with-bigger-bug-bounties",
-   "published": "2026-11-02T18:00:00Z",
-   "summary": "OpenAI is raising Security Bug Bounty rewards and introducing report quality, loyalty, and priority campaign bonuses for independent security researchers.",
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
@@ -162,57 +140,12 @@
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "How Check Point accelerates vulnerability research with Daybreak",
-   "url": "https://openai.com/index/check-point-daybreak",
-   "published": "2026-10-27T00:00:00Z",
-   "summary": "With OpenAI Daybreak, Check Point speeds up the research behind new security protections, enabling its analysts to turn vulnerability intelligence into customer defenses faster.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Working with academic communities to build scientific understanding",
-   "url": "https://openai.com/index/building-scientific-understanding-with-academic-communities",
-   "published": "2026-10-26T14:30:00Z",
-   "summary": "OpenAI shares model results on the Kakeya conjecture, Exponential Time Hypothesis, and quantum chromodynamics—and how researchers can verify and build on them.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
    "source": "ietf-aipref",
    "source_name": "IETF AIPREF(AI利用の意思表示の標準化)",
    "title": "sent scheduled notification for IETF-127 - Liz Flynn",
    "url": "https://datatracker.ietf.org/wg/aipref/about/",
    "published": "2026-10-23T19:14:50Z",
    "summary": "sent scheduled notification for IETF-127",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)",
-   "url": "https://openai.com/index/scaling-storage-one-billion-users-part-two",
-   "published": "2026-10-23T17:00:00Z",
-   "summary": "Learn how OpenAI scaled Habitat with reliable multi-tenancy, global caching, and Azure Cosmos DB to deliver 12× faster reads for ChatGPT.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "OpenAI and Poland’s NASK partner to advance AI safety and security",
-   "url": "https://openai.com/index/openai-nask-ai-safety-security-partnership",
-   "published": "2026-10-23T00:00:00Z",
-   "summary": "OpenAI and Poland’s NASK are partnering on AI safety, security, and technical research to strengthen safeguards and support a more resilient digital ecosystem.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Uber brings ChatGPT Work to all employees with OpenAI",
-   "url": "https://openai.com/index/uber-chatgpt-work-rollout",
-   "published": "2026-10-22T00:00:00Z",
-   "summary": "Uber is rolling out ChatGPT Work to more than 30,000 employees, helping teams research, analyze data, create presentations, and complete complex workflows.",
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
@@ -236,28 +169,10 @@
   {
    "source": "openai-news",
    "source_name": "OpenAI News",
-   "title": "Patch the Planet: global response coordination as agents uncover critical vulnerabilities",
-   "url": "https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities",
-   "published": "2026-10-21T07:00:00Z",
-   "summary": "Patch the Planet connects security researchers, maintainers, and incident responders to help address critical vulnerabilities across open source.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
    "title": "How we built ChatGPT’s novel ad stack for user trust and relevance",
    "url": "https://openai.com/index/building-chatgpt-ad-stack",
    "published": "2026-10-21T07:00:00Z",
    "summary": "Learn how OpenAI built ChatGPT’s LLM-powered ad stack to understand conversational intent, keep ads separate from answers, and deliver relevant ads at scale.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Using thousands of AI agents to uncover new leads in biological data",
-   "url": "https://openai.com/index/scaling-ai-research-for-complex-biological-data",
-   "published": "2026-10-21T04:50:00Z",
-   "summary": "See how OpenAI, PerturbAI, and Scripps Research used distributed AI agents to uncover promising research leads in data from millions of brain cells.",
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
@@ -276,15 +191,6 @@
    "url": "https://blog.google/products-and-platforms/products/search/fashion-capital-style-searches/",
    "published": "2026-10-19T16:00:00Z",
    "summary": "We took a look at Google Trends to see what people in seven major fashion capitals are searching for to give them that je ne sais quoi when it comes to their sartorial s…",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Bringing GPT-Rosalind to academic research labs",
-   "url": "https://openai.com/index/introducing-the-rosalind-academic-plan",
-   "published": "2026-10-15T19:00:00Z",
-   "summary": "Introducing the Rosalind Academic Plan, offering eligible academic labs sponsored access to GPT-Rosalind and tools to advance life sciences research.",
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
@@ -351,15 +257,6 @@
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "How Third Moment Research runs 10,000 agents for 36+ hours",
-   "url": "https://openai.com/index/third-moment-research",
-   "published": "2026-10-14T07:00:00Z",
-   "summary": "With GPT-6 Astra and GPT-6.1 Sol, Codex, and Daybreak for cybersecurity, this AI lab builds agents that focus for days and improve with use.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
    "source": "google-ads",
    "source_name": "Google 公式ブログ(広告・コマース)",
    "title": "Build your data strength with October’s Demand Gen drop.",
@@ -389,15 +286,6 @@
   {
    "source": "openai-news",
    "source_name": "OpenAI News",
-   "title": "Asana cuts model costs 76x in browser tests with GPT-6.1 Sol",
-   "url": "https://openai.com/index/asana-browser-agent",
-   "published": "2026-10-09T07:00:00Z",
-   "summary": "Using GPT-6 Astra in Codex, Asana made its browser agent 76x cheaper and 5x faster in tests to offer customers more capable models.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
    "title": "Pollo AI turns creative ideas into campaigns with OpenAI",
    "url": "https://openai.com/index/pollo-ai",
    "published": "2026-10-08T12:00:00Z",
@@ -414,48 +302,12 @@
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Atlassian and OpenAI expand partnership to turn enterprise knowledge into action",
-   "url": "https://openai.com/index/atlassian-partnership",
-   "published": "2026-10-06T16:00:00Z",
-   "summary": "Atlassian and OpenAI are expanding their partnership to connect frontier models with enterprise knowledge and help teams plan, build, and deliver work.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "How Jump Trading is scaling quant research with ChatGPT",
-   "url": "https://openai.com/index/jump-trading",
-   "published": "2026-10-06T12:00:00Z",
-   "summary": "Jump Trading uses OpenAI to expand quantitative research. See how longer-running AI workflows combine multiple data sources with human review.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Sharing AI progress in mathematics",
-   "url": "https://openai.com/index/sharing-ai-progress-in-mathematics",
-   "published": "2026-10-06T12:00:00Z",
-   "summary": "OpenAI publishes new results on open problems in mathematics from an internal frontier model and shares Lean proof formalizations and research details on GitHub.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
    "source": "google-search-central",
    "source_name": "Google 検索セントラル ブログ",
    "title": "New learning paths: curated YouTube playlists for Search fundamentals and Technical SEO",
    "url": "https://developers.google.com/search/blog/2026/10/seo-learning-paths",
    "published": "2026-10-06T00:00:00Z",
    "summary": "Over the years, the Search Central YouTube channel has published hundreds of videos across various series, from Search for Beginners and Ask Googlebot to Search Console Training and Search Off the Record. While our series structure works well for deep dives and episodic updates,…",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Our approach to EU text provenance rules",
-   "url": "https://openai.com/index/eu-text-provenance",
-   "published": "2026-10-05T15:00:00Z",
-   "summary": "How OpenAI is approaching text watermarking under EU rules. Learn where watermarks apply, how detection works, and why access starts with researchers.",
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
@@ -513,30 +365,12 @@
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "How we will do better for Australia",
-   "url": "https://openai.com/index/how-we-will-do-better-for-australia",
-   "published": "2026-09-28T19:00:00Z",
-   "summary": "OpenAI apologises for incidents involving Australian government websites and outlines stronger safeguards and support to strengthen Australia’s cyber defences.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
    "source": "google-japan-blog",
    "source_name": "Google Japan Blog",
    "title": "Google Japan 25 周年 : 日本の皆さまへ、25 年分の「ありがとう」を込めて",
    "url": "https://blog.google/intl/ja-jp/company-news/outreach-initiatives/google-japan-25-25/",
    "published": "2026-09-28T11:51:00Z",
    "summary": "2001 年 9 月、渋谷のシェアオフィスの一角に、Google として初の海外拠点となるオフィスを開設した当時、日本で提供していたのは Google 検索 だけでした。そこから今日までの Google を支えてくれたのは、皆さまの声でした。日本で発明された絵文字や独自のネットカルチャー、世界でも類を見ないほど複雑な路線図――こうした日…",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Are you a Codex Original?",
-   "url": "https://openai.com/form/codex-originals",
-   "published": "2026-09-28T00:00:00Z",
-   "summary": "We’re collecting real stories of builders, tinkerers, researchers, and creators who are using Codex to do incredible things. If you want to be a part of the next chapter of the Codex Originals program, tell us more about your story and project below.",
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
@@ -558,15 +392,6 @@
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Ringg’s AI agents resolve up to 65% of customer calls with OpenAI",
-   "url": "https://openai.com/index/ringg",
-   "published": "2026-09-23T12:00:00Z",
-   "summary": "Using GPT-5.6, Ringg powers multilingual agents across voice, chat, WhatsApp, and web for 90% less cost vs. GPT-4.1.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
    "source": "google-ads",
    "source_name": "Google 公式ブログ(広告・コマース)",
    "title": "We’re bringing AI Brief to more languages and adding a new AI Max reporting feature.",
@@ -582,15 +407,6 @@
    "url": "https://openai.com/index/chatgpt-ads-expands-southeast-asia-taiwan",
    "published": "2026-09-23T02:00:00Z",
    "summary": "ChatGPT Ads is expanding to Southeast Asia and Taiwan, giving eligible businesses new ways to reach people across more than 60 countries.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Parallel cut research time and cost in half with GPT‑6 Astra",
-   "url": "https://openai.com/index/parallel-cuts-time-and-cost-with-astra",
-   "published": "2026-09-22T12:00:00Z",
-   "summary": "GPT‑6 Astra allowed Parallel’s agents to research and synthesize labor-market data in half the time and at half the cost vs. prior models.",
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
@@ -648,15 +464,6 @@
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "How workers are unlocking new ways of working",
-   "url": "https://openai.com/index/unlocking-new-ways-of-working",
-   "published": "2026-09-16T09:00:00Z",
-   "summary": "New OpenAI Economic Research shows how workers use AI beyond traditional roles and which new activities become recurring parts of their work.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
    "source": "google-search-central",
    "source_name": "Google 検索セントラル ブログ",
    "title": "Search Central Live Deep Dive Europe 2026: Meet the community speakers",
@@ -684,30 +491,12 @@
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules",
-   "url": "https://openai.com/index/using-codex-chatgpt-to-search-for-new-antimicrobials",
-   "published": "2026-09-10T16:00:00Z",
-   "summary": "César de la Fuente’s lab uses Codex and ChatGPT to search living and extinct genomes for antimicrobial candidates to fight drug-resistant infections.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
    "source": "google-ads",
    "source_name": "Google 公式ブログ(広告・コマース)",
    "title": "Drive profitable growth with new data and measurement tools",
    "url": "https://blog.google/products/ads-commerce/data-strength-updates/",
    "published": "2026-09-10T13:00:00Z",
    "summary": "New capabilities across our measurement suite can help you make better, faster decisions that drive business growth.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Introducing ChatGPT for Financial Services",
-   "url": "https://openai.com/index/introducing-chatgpt-financial-services",
-   "published": "2026-09-10T07:00:00Z",
-   "summary": "Introducing ChatGPT for Financial Services, combining built-in financial data and GPT-6 Astra for research, modeling, and client-ready materials.",
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
@@ -720,24 +509,6 @@
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "How GPT-5.6 Sol helps run quantum computing experiments",
-   "url": "https://openai.com/index/codex-quantum-computing-experiments",
-   "published": "2026-09-08T17:00:00Z",
-   "summary": "See how an MIT researcher uses GPT-5.6 Sol with Codex to autonomously run quantum computing experiments, analyze results, and calibrate qubits.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Funding grants for new research into AI and teen development",
-   "url": "https://openai.com/index/teen-development-research-grants",
-   "published": "2026-09-08T09:00:00Z",
-   "summary": "Apply now for OpenAI’s $5 million grant program supporting independent research on how generative AI affects teen development, well-being, and safety.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
    "source": "google-search-central",
    "source_name": "Google 検索セントラル ブログ",
    "title": "Search Central Live is coming to Bogota and Ciudad de México",
@@ -747,48 +518,12 @@
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Research acceleration: The view inside OpenAI",
-   "url": "https://openai.com/index/research-acceleration-view-inside-openai",
-   "published": "2026-09-06T08:00:00Z",
-   "summary": "Inside OpenAI, coding agents are reshaping AI research. Explore early data on agent usage, experiment velocity, task complexity, and research acceleration.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
    "source": "google-ads",
    "source_name": "Google 公式ブログ(広告・コマース)",
    "title": "Build a measurement stack you can rely on to steer your campaigns.",
    "url": "https://blog.google/products/ads-commerce/ads-decoded-podcast-measurement-stack/",
    "published": "2026-09-02T17:00:00Z",
    "summary": "In this Ads Decoded episode, we discuss how to assess marketing campaigns with attribution, incrementality, and media mix models.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "ATV Big Air Tour turned 3 days of work into 3 hours with ChatGPT",
-   "url": "https://openai.com/index/atv-big-air-tour",
-   "published": "2026-09-02T12:00:00Z",
-   "summary": "ATV Big Air Tour uses ChatGPT Work to speed up marketing, merchandising, and more. It even turned merchandise photos into an inventory website in 15 minutes.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Healthcare organizations can now connect EHR and additional industry data to ChatGPT",
-   "url": "https://openai.com/index/chatgpt-connects-health-records-and-healthcare-sources",
-   "published": "2026-09-01T12:00:00Z",
-   "summary": "ChatGPT can now connect to trusted healthcare data, helping clinicians securely access patient context, medical research, and more.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Polimill builds Japan's next-generation public AI infrastructure",
-   "url": "https://openai.com/index/polimill",
-   "published": "2026-08-31T07:00:00Z",
-   "summary": "Polimill uses OpenAI GPT models and Codex to help municipalities search and use administrative knowledge while accelerating development.",
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
@@ -875,46 +610,10 @@
   {
    "source": "openai-news",
    "source_name": "OpenAI News",
-   "title": "From assistance to execution: How enterprises put AI to work",
-   "url": "https://openai.com/index/how-enterprises-put-ai-to-work",
-   "published": "2026-08-12T06:00:00Z",
-   "summary": "OpenAI research reveals how enterprises are adopting agentic AI, using ChatGPT and Codex, and how frontier firms are pulling ahead in AI adoption.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
    "title": "Testing ads in ChatGPT",
    "url": "https://openai.com/index/testing-ads-in-chatgpt",
    "published": "2026-08-11T10:00:00Z",
    "summary": "OpenAI begins testing ads in ChatGPT to support free access, with clear labeling, answer independence, strong privacy protections, and user control.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Model ML completes finance work more efficiently with GPT-5.6 Sol",
-   "url": "https://openai.com/index/model-ml",
-   "published": "2026-08-10T12:00:00Z",
-   "summary": "Model ML uses GPT-5.6 Sol to carry finance work from research and analysis through editable, traceable PowerPoint decks and Excel workbooks.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Expanding Daybreak as the Cyber Defense Window Narrows",
-   "url": "https://openai.com/index/expanding-daybreak-as-the-cyber-defense-window-narrows",
-   "published": "2026-08-10T10:00:00Z",
-   "summary": "Meet GPT-5.6-Cyber, OpenAI’s cybersecurity-specific model available through Daybreak Red for authorized vulnerability research, exploit validation, and security testing.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Virgin Atlantic sharpens customer journeys with ChatGPT Work",
-   "url": "https://openai.com/index/virgin-atlantic/chatgpt-work",
-   "published": "2026-08-10T00:00:00Z",
-   "summary": "Virgin Atlantic is accelerating research, product planning, and decision-making with ChatGPT Work, helping teams connect signals across the customer journey.",
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
@@ -924,24 +623,6 @@
    "url": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-july-2026/",
    "published": "2026-08-04T13:00:00Z",
    "summary": "Here are Google’s latest AI updates from July 2026",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "New ways to learn and teach with ChatGPT Work and Codex",
-   "url": "https://openai.com/index/learn-teach-chatgpt-work-codex",
-   "published": "2026-08-04T00:00:00Z",
-   "summary": "Explore new education plugins for ChatGPT Work and Codex that help K–12 teachers, college educators, and students learn, teach, research, and build.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "Accelerating scientific discovery with ChatGPT for Academic Researchers",
-   "url": "https://openai.com/index/chatgpt-for-academic-researchers",
-   "published": "2026-07-29T10:00:00Z",
-   "summary": "OpenAI is giving 100,000 academic researchers free access to ChatGPT's most advanced AI models to accelerate scientific research, collaboration, and discovery.",
    "first_seen": "2026-11-09T09:45:34Z"
   },
   {
@@ -974,28 +655,10 @@
   {
    "source": "openai-news",
    "source_name": "OpenAI News",
-   "title": "How AI is expanding what people do at work",
-   "url": "https://openai.com/index/how-ai-is-expanding-what-people-do-at-work",
-   "published": "2026-07-27T03:30:00Z",
-   "summary": "New OpenAI research shows how AI is expanding what workers do, with ChatGPT users taking on tasks across roles and reshaping job boundaries.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
    "title": "How news organizations are using AI to advance their vital missions",
    "url": "https://openai.com/index/how-news-organizations-are-using-ai",
    "published": "2026-07-22T13:00:00Z",
    "summary": "News organizations are using AI to strengthen reporting, grow audiences, and improve business operations, with OpenAI tools supporting journalists and publishers worldwide.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "openai-news",
-   "source_name": "OpenAI News",
-   "title": "How Cars24 scales conversations and builds faster with OpenAI",
-   "url": "https://openai.com/index/cars24",
-   "published": "2026-07-16T00:00:00Z",
-   "summary": "Cars24 uses OpenAI-powered voice and chat agents to handle 1M+ monthly conversation minutes, recover 12% of lost leads, and bring agentic workflows to teams across the company.",
    "first_seen": "2026-11-09T09:45:34Z"
   }
  ]
