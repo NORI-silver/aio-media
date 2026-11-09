@@ -43,6 +43,9 @@ const ARTICLE = {
   title: "/seo/title-meta-description/",
   canonical: "/seo/canonical-url/",
   eeat: "/seo/eeat/",
+  answer: "/aio/answer-first-writing/",
+  js: "/aio/javascript-ai-crawlers/",
+  firstParty: "/seo/first-party-information/",
 };
 
 // ------------------------------------------------------------------ 入口
@@ -797,14 +800,14 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes, http
       const ratio = h2n ? q / h2n : 0;
       add(G3, "question-headings", "見出しが「読者の質問」の形になっている", ratio >= 0.5 ? "ok" : ratio > 0 ? "warn" : "ng",
         `h2 ${h2n} 個のうち、質問・疑問の形は ${q} 個。`,
-        ratio >= 0.5 ? "" : "「〇〇とは?」「〇〇のやり方は?」のように、読者がAIや検索に打ち込む質問を見出しにすると、その部分が答えとして引用されやすくなります。", ARTICLE.basics, 4);
+        ratio >= 0.5 ? "" : "「〇〇とは?」「〇〇のやり方は?」のように、読者がAIや検索に打ち込む質問を見出しにすると、その部分が答えとして引用されやすくなります。", ARTICLE.answer, 4);
       const fp = h.firstParagraph ? len(h.firstParagraph) : 0;
       add(G3, "answer-first", "冒頭で結論を言い切っている", fp >= 40 && fp <= 220 ? "ok" : "warn",
         h.firstParagraph ? `最初の段落(${fp}字):「${h.firstParagraph.slice(0, 80)}${fp > 80 ? "…" : ""}」` : "h1 の後に段落が見つかりません。",
-        fp >= 40 && fp <= 220 ? "" : "タイトルの問いへの答えを、最初の1〜2文(40〜200字)で言い切りましょう。AI Overviews や ChatGPT はこの部分をそのまま要約に使いがちです。", ARTICLE.basics, 5);
+        fp >= 40 && fp <= 220 ? "" : "タイトルの問いへの答えを、最初の1〜2文(40〜200字)で言い切りましょう。AI Overviews や ChatGPT はこの部分をそのまま要約に使いがちです。", ARTICLE.answer, 5);
       const faq = ld.types.includes("FAQPage") || h.h2.some((t) => /よくある質問|FAQ|Q&A/i.test(t));
       add(G3, "faq", "よくある質問(FAQ)がある", faq ? "ok" : "warn", faq ? "FAQの見出しまたは FAQPage があります。" : "FAQ が見つかりません。",
-        faq ? "" : "読者が次に聞きそうな質問と短い答えを最後にまとめると、関連する質問の検索やAIの回答で拾われる入口が増えます。", "", 3);
+        faq ? "" : "読者が次に聞きそうな質問と短い答えを最後にまとめると、関連する質問の検索やAIの回答で拾われる入口が増えます。", ARTICLE.answer, 3);
     }
     add(G3, "lists-tables", "箇条書き・表で整理されている", h.lists + h.tables >= 2 ? "ok" : h.lists + h.tables === 1 ? "warn" : pageType === "article" ? "ng" : "warn",
       `本文の箇条書き ${h.lists} 個、表 ${h.tables} 個。`,
@@ -817,7 +820,7 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes, http
       `本文(${h.hasMainRegion ? "article/main の中" : "ページ全体"})は約 ${base.toLocaleString("ja-JP")} 字。` + (jsShell ? "JavaScriptで後から表示するつくりの可能性があります。" : ""),
       jsShell ? "多くのAIクローラーはJavaScriptを実行しません。本文を最初のHTMLに入れる(SSR・静的生成)と読まれやすくなります。"
         : base < need[1] ? `${pageType === "article" ? "記事" : "このページ"}としては少なめです。読者の疑問に答える具体的な説明・数字・手順・事例を足しましょう(文字数そのものより、答えの網羅が大事です)。` : "",
-      "", 8);
+      ARTICLE.js, 8);
     // リンク
     const isInternal = (href) => { try { const u = new URL(href, final); return u.host === final.host; } catch { return false; } };
     const linkSet = h.hasMainRegion ? h.mainAnchors : h.allAnchors.map((a) => a.href);
@@ -831,7 +834,7 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes, http
       const ext = new Set(linkSet.filter((x) => /^https?:/i.test(x) && !isInternal(x)).map((x) => { try { return new URL(x).host; } catch { return x; } }));
       add(G3, "citations", "出典(外部の一次資料)へのリンク", ext.size >= 2 ? "ok" : ext.size === 1 ? "warn" : "ng",
         `本文から外部サイトへのリンク: ${ext.size} サイト${ext.size ? `(${[...ext].slice(0, 5).join("、")})` : ""}。`,
-        ext.size >= 2 ? "" : "数字や仕様には、公的機関・公式ドキュメントなど一次資料へのリンクを付けましょう。信頼性の評価と、AIが「根拠のある情報」として選ぶ理由になります。", "", 3);
+        ext.size >= 2 ? "" : "数字や仕様には、公的機関・公式ドキュメントなど一次資料へのリンクを付けましょう。信頼性の評価と、AIが「根拠のある情報」として選ぶ理由になります。", ARTICLE.firstParty, 3);
     }
   }
 
