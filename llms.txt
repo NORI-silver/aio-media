@@ -53,6 +53,9 @@
 - [広告予算の決め方|Google広告・Meta広告の費用と逆算方法](https://aio.shiokonbu.com/cost/ad-budget/): Google広告・Meta広告の予算の決め方を、許容CPAから逆算する方法で解説。課金のしくみ、日予算が多めに使われるルール、学習に必要な件数から見た最低ライン、代理店手数料の考え方まで、計算例つきで紹介します。
 
 ## ニュース・仕様変更
+- [AIモードでレストラン予約検索が日本で開始|飲食店がやること](https://aio.shiokonbu.com/news/ai-mode-restaurant-booking-japan/): 2026年11月6日、Google検索のAIモードで、空席のあるお店をまとめて探せるレストラン予約検索が日本で始まりました。ぐるなび・一休・ebicaと連携。しくみと飲食店がやることを解説します。
+- [AIモードとAI Overviewsのリンクが増加|Googleの5つの変更](https://aio.shiokonbu.com/news/ai-search-more-links-2026-10/): 2026年10月15日、GoogleがAIモードとAI Overviews(AIによる概要)の答えに出すリンクを増やす5つの変更を発表。何が変わったか、サイト運営者がやること、効果の確かめ方を解説します。
+- [Google 2026年9月スパムアップデート完了|影響と確認方法](https://aio.shiokonbu.com/news/september-2026-spam-update/): Googleの2026年9月スパムアップデートは9月24日に始まり10月8日に完了しました。何が起きたか、ふつうのサイトは何もしなくてよい理由、順位が落ちたときの確かめ方を解説します。
 - [情報漏えいとAIの悪用【2026年】狙われる情報と今日からできる対策](https://aio.shiokonbu.com/news/data-breach-ai-2026/): 2026年秋、日本で不正アクセスによる情報漏えいが急増しています。悪い人のAIの使い方、社内のAI利用から漏れるパターン、狙われる情報、マーケ担当が今日からできる対策をやさしく解説します。
 - [AI学習を一括で断るrobots.txt共通ルール|Google・Bing対応へ](https://aio.shiokonbu.com/news/shared-ai-training-opt-out/): Google・Microsoft(Bing)・OpenAIが、robots.txtの「__usage_ai-training」でAI学習の可否を一括で伝える共通ルールへの対応を発表。書き方、各社の時期、AI検索への影響を解説します。
 
