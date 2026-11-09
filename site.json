@@ -1,11 +1,11 @@
 {
-  "name": "AIOラボ",
-  "tagline": "AI検索時代のSEO・AIO・デジタル広告の実務メディア",
+  "name": "AIO対策ナビ",
+  "tagline": "AI検索・SEO・デジタル広告の実務メディア",
   "url": "https://aio.shiokonbu.com",
   "lang": "ja",
   "launched": false,
   "ga": ["G-ZYX17VBTWB"],
-  "publisher": "AIOラボ編集部",
+  "publisher": "AIO対策ナビ編集部",
   "categories": [
     {"slug": "aio", "name": "AIO(AI検索最適化)", "desc": "ChatGPT・Perplexity・Google AI Overviews などのAI検索で引用されるための実務。"},
     {"slug": "seo", "name": "SEO実務", "desc": "AIOの土台になるSEOの実務。内部リンク、構造化データ、Search Console など。"},

@@ -1,6 +1,6 @@
 ---
 title: プライバシーポリシー
-description: AIOラボでのアクセス解析(Google アナリティクス)とCookieの扱いについて。
+description: AIO対策ナビでのアクセス解析(Google アナリティクス)とCookieの扱いについて。
 updated: 2026-11-09
 ---
 ## アクセス解析について

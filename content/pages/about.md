@@ -1,17 +1,17 @@
 ---
 title: 運営者情報
-description: AIOラボの運営者と、メディアの目的・連絡先をまとめたページです。
+description: AIO対策ナビの運営者と、メディアの目的・連絡先をまとめたページです。
 updated: 2026-11-09
 ---
 ## このメディアについて
 
-AIOラボは、ChatGPT・Perplexity・Google AI Overviews などの **AI検索の時代に、検索とAIの両方から選ばれるための実務** を扱うメディアです。AIO(AI検索最適化)を中心に、その土台になるSEOと、デジタル広告の運用・分析・LPまでを解説します。
+AIO対策ナビは、ChatGPT・Perplexity・Google AI Overviews などの **AI検索の時代に、検索とAIの両方から選ばれるための実務** を扱うメディアです。AIO(AI検索最適化)を中心に、その土台になるSEOと、デジタル広告の運用・分析・LPまでを解説します。
 
 主な読者は、中小企業でマーケティングを担当している方、自社サイトやオウンドメディアのSEO担当の方です。
 
 ## 運営者
 
-運営:AIOラボ編集部(shiokonbu.com)
+運営:AIO対策ナビ編集部(shiokonbu.com)
 
 ## このサイト自身がAIOの実験場です
 

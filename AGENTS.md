@@ -1,4 +1,4 @@
-# AGENTS.md — AIOラボ(aio.shiokonbu.com)
+# AGENTS.md — AIO対策ナビ(aio.shiokonbu.com)
 
 このリポジトリで作業するすべてのAI(Claude・Codex・ほかのモデル)と人のための共通ルールです。`CLAUDE.md` はこのファイルを読み込むだけです。
 
@@ -9,7 +9,7 @@
 - デジタル広告・SEO・**AIO(AI検索最適化)** の実務メディア。看板はAIO。目標は月間100万PV(戦略ドキュメント: https://claude.ai/artifact/9CXonpNsHwrsTysKfE3pYG)。
 - 主な読者:中小企業のマーケ担当(兼任)、SEO・Web担当、経営者。量は用語集・入門、将来の売上は「費用・外注先の選び方」とAIOの記事が生む。
 - 今は収益化しない(広告・アフィリエイトなし)。将来はAIO支援・広告運用代行・LP制作の受注につなげる。
-- サイト名「AIOラボ」は仮(`site.json` の name を変えれば全ページが変わる)。
+- サイト名「AIO対策ナビ」(2026-11-09 決定。「AIO対策」の検索語を含み、既存の「AIOラボ」系の名前と区別できるもの)。名前は `site.json` の name。
 
 ## ファイル構成
 
