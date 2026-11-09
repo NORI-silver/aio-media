@@ -11,7 +11,7 @@ AI Overviews(日本語の画面では「**AIによる概要**」)は、**Google 
 
 なお、「AIO」という略語は AI Overviews を指す場合と、AI検索全般への最適化を指す場合があります。この記事では Google の機能は「AI Overviews」と書きます(呼び方の整理は「[AIO・LLMO・GEO・AEOの違い](/aio/aio-llmo-geo-aeo-difference/)」)。
 
-## AI OverviewsとAIモードは何が違う?
+## AI OverviewsとAIモードは何が違う? [初級]
 
 | | AI Overviews(AIによる概要) | AIモード |
 |---|---|---|
@@ -24,7 +24,7 @@ AI Overviews(日本語の画面では「**AIによる概要**」)は、**Google 
 
 Google によると、AI Overviews は「通常の検索結果よりも価値を加えられる」と判断されたときだけ表示されるので、**多くの検索では出ません**。また AI Overviews と AIモードでは使うモデルや手法が違うことがあり、同じ質問でも表示されるリンクが変わることがあります。
 
-## どうやってページが選ばれる?
+## どうやってページが選ばれる? [中級]
 
 Google は、AI Overviews と AIモードが **「クエリ ファンアウト」(query fan-out)** という方法を使うことがあると説明しています。ユーザーの1つの質問から、関連する複数の検索を裏側で同時に行い、回答を作りながら参照するページを探す仕組みです。
 
@@ -32,7 +32,7 @@ Google は、AI Overviews と AIモードが **「クエリ ファンアウト�
 
 Google は、これにより通常の検索より幅広いサイトへのリンクを表示できるとしています。
 
-## 表示されるための条件は?
+## 表示されるための条件は? [初級]
 
 Google が示している条件は、通常の検索と同じです。
 
@@ -42,7 +42,7 @@ Google が示している条件は、通常の検索と同じです。
 
 Google は「AI Overviews や AIモードに表示されるための追加の要件や、特別な最適化は必要ない」と明記しています。AI向けの特別なファイルや、専用の構造化データも不要です。ただし、条件を満たしても表示が保証されるわけではありません。
 
-## 表示されやすくするために何をする?
+## 表示されやすくするために何をする? [中級]
 
 特別な裏ワザはありませんが、Google は次のような通常のSEOの基本を挙げています([AI features and your website](https://developers.google.com/search/docs/appearance/ai-features)、[Optimizing your website for generative AI features](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide))。
 
@@ -70,7 +70,7 @@ Google は「AI Overviews や AIモードに表示されるための追加の要
 
 実際に AI Overviews に引用されるかは、インデックスが進んでから Search Console で計測し、結果をこのサイトで報告します。
 
-## AI Overviewsに表示させない方法は?
+## AI Overviewsに表示させない方法は? [中級]
 
 自社のページを AI Overviews や AIモードに出したくない場合は、通常の検索と同じ方法で制御します。
 
@@ -85,13 +85,37 @@ Google は「AI Overviews や AIモードに表示されるための追加の要
 
 タグを入れても表示が続く場合、Google は Search Console の URL 検査ツールでタグが読まれているかを確かめ、再クロールを待つように案内しています。反映には数日から数か月かかることがあります。
 
-## 効果はどうやって確かめる?
+## 効果はどうやって確かめる? [中級]
 
 Google の説明では、AI Overviews や AIモードからの表示回数・クリックは、**Search Console の「検索パフォーマンス」レポートの「ウェブ」に含まれて集計** されます。
 
 さらに Google は2026年6月、Search Console に生成AI機能向けのパフォーマンスレポートを追加したと[発表](https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports)しています。Google のガイドでも、生成AI機能での成果はこのレポートで確認するよう勧めています。一方で、「Google の内部のランキングやAIのシステムにアクセスできる外部ツールはない」とも書いており、市販の「AI Overviews 順位チェックツール」の数字は参考程度に見るのが安全です。
 
 なお Google は、AI Overviews からのクリックは質が高く、ユーザーがサイトに長く滞在する傾向があるとしています。
+
+## ページの一部だけAIに使わせないには? [上級]
+
+Google の [robots メタタグの仕様](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag)(2026年11月9日に確認)では、スニペットの制御が AI Overviews と AIモードにもはっきり適用されると書かれています。
+
+- `nosnippet`:スニペットを出さないだけでなく、AI Overviews と AIモードの **直接の入力として使われることも止まる**
+- `max-snippet:[数]`:AI Overviews と AIモードで直接の入力として使える量も、その文字数までに制限される。`max-snippet:0` は `nosnippet` と同じ、`max-snippet:-1` は Google に任せる
+
+ページ全体ではなく一部だけを除きたいときは、`data-nosnippet` を使います。使えるのは `span`・`div`・`section` の3つの要素だけです。
+
+```
+<p>この商品の特長は…(ここは使われてよい)</p>
+<div data-nosnippet>
+  会員向けの価格表(ここはスニペットやAIの直接の入力に使わせない)
+</div>
+```
+
+PDF や画像のように HTML ではないファイルには、メタタグの代わりに HTTP ヘッダーの `X-Robots-Tag` で同じ指定ができます。
+
+### クエリ ファンアウトを意識したサイトの作り方
+
+AI Overviews は、1つの質問を小さな問いに分けて検索します。そのため、1ページに全部を詰め込むより、**「大きなテーマの解説ページ」と「細かい問いに答えるページ」を内部リンクでつなぐ** 構成が理にかなっています。このサイトでも、[AIO・LLMO・GEO・AEOの違い](/aio/aio-llmo-geo-aeo-difference/) を全体の入口にして、robots.txt、llms.txt、構造化データといった細かい問いを別の記事で答える形にしています。
+
+ただし Google は、検索のたびに少しずつ言い回しを変えただけのページを量産することは「大量生成コンテンツの乱用」になりうるとしています。分けるのは、本当に別の問いに答えるときだけにしてください。
 
 ## よくある質問
 

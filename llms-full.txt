@@ -8,7 +8,12 @@ AIクローラーへの対応は、**「AIの学習に使わせるか」と「AI
 
 この記事では、主なAIクローラーの役割と robots.txt の書き方を、各社の公式ドキュメント(2026年11月時点で確認)をもとに整理します。AIO(AI検索最適化)という言葉の意味は「[AIO・LLMO・GEO・AEOの違い](/aio/aio-llmo-geo-aeo-difference/)」で解説しています。
 
-## AIクローラーにはどんな種類がある?
+## AIクローラーにはどんな種類がある? [初級]
+
+まず言葉を2つ押さえておきましょう。
+
+- **クローラー**:Web のページを自動で読んで回るプログラムです。「ボット」とも呼ばれます。Google 検索の Googlebot が代表例です。
+- **robots.txt**:サイトに置くテキストファイルで、「このクローラーはここを読んでよい・読まないで」とお願いするためのものです。
 
 主なAIクローラーは、目的で3つに分けると整理しやすくなります。
 
@@ -23,7 +28,7 @@ AIクローラーへの対応は、**「AIの学習に使わせるか」と「AI
 
 出典:[OpenAI「Overview of OpenAI Crawlers」](https://developers.openai.com/api/docs/bots)、[Anthropic ヘルプセンター](https://support.claude.com/en/articles/8896518)、[Perplexity「Perplexity Crawlers」](https://docs.perplexity.ai/docs/resources/perplexity-crawlers.md)、[Google「Google's common crawlers」](https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers)(いずれも2026年11月9日に確認)。
 
-## 各社のクローラーはそれぞれ何をする?
+## 各社のクローラーはそれぞれ何をする? [中級]
 
 ### OpenAI(ChatGPT)
 
@@ -42,7 +47,7 @@ AIクローラーへの対応は、**「AIの学習に使わせるか」と「AI
 - **PerplexityBot**:Perplexity の検索結果にサイトを表示・リンクするためのクローラーです。AIモデルの学習用ではないとされ、Perplexity は許可することを推奨しています。
 - **Perplexity-User**:ユーザーの質問に答えるためにページを読みに来ます。Perplexity は「通常は robots.txt を無視する」と明記しています。反映には最大24時間かかるとされています。
 
-## Google-ExtendedをブロックするとAI Overviewsから消える?
+## Google-ExtendedをブロックするとAI Overviewsから消える? [中級]
 
 消えません。ここはよく誤解されるところです。
 
@@ -50,7 +55,7 @@ Google-Extended は、Google がクロールした内容を **Gemini の今後�
 
 Google 検索の [AI Overviews(AIによる概要)](/aio/ai-overviews/) や AI モードに出るかどうかは、通常の検索と同じ **Googlebot** と、`nosnippet` などのスニペット制御で決まります([AI features and your website](https://developers.google.com/search/docs/appearance/ai-features))。AI Overviews に出たくない場合に Google-Extended を止めても効果はない、ということです。
 
-## robots.txtはどう書く?
+## robots.txtはどう書く? [中級]
 
 robots.txt はサイトの一番上(`https://example.com/robots.txt`)に置くテキストファイルです。サブドメインごとに別のファイルが必要です。
 
@@ -114,7 +119,7 @@ Disallow: /members/
 
 会員ページや社内向けの資料など、特定の場所だけ止めることもできます。ただし robots.txt は「お願い」であって鍵ではありません。見られて困るページは、ログインやパスワードで守ってください。
 
-## 設定するときの注意点は?
+## 設定するときの注意点は? [中級]
 
 ### 個別に書いたクローラーは「*」のルールを読まない
 
@@ -134,7 +139,37 @@ ChatGPT-User と Perplexity-User は、robots.txt が適用されない場合が
 
 robots.txt で許可していても、CDN(コンテンツ配信サービス)や WAF(ファイアウォール)のボット対策機能で、AIクローラーがまとめて止められていることがあります。AI検索に出たいのに引用されない場合は、robots.txt だけでなくこちらの設定も確認してください。
 
-## 結局、AIクローラーは許可すべき?
+## ルールの優先順位と本物の見分け方は? [上級]
+
+### 同じグループの中では「長いパス」が勝つ
+
+Google の [robots.txt の仕様](https://developers.google.com/search/docs/crawling-indexing/robots/robots_txt) では、1つの URL に複数のルールが当てはまるとき、**パスが長い(より具体的な)ルール** が使われます。長さが同じで Allow と Disallow がぶつかったときは、**制限の弱いほう(Allow)** が使われます。
+
+```
+User-agent: GPTBot
+Disallow: /blog/
+Allow: /blog/public/
+```
+
+この場合、`/blog/public/a.html` は `Allow: /blog/public/` のほうが長いので読まれ、`/blog/b.html` は読まれません。OpenAI など他社が細かい解釈まで同じとは限らないので、複雑な書き方は避け、できるだけ単純に保つのが安全です。
+
+### 大文字・小文字の扱い
+
+Google の仕様では、`User-agent` の値(クローラー名)は大文字・小文字を区別しません。一方、`Disallow: /Admin/` のような **パスは区別します**。`/admin/` と `/Admin/` は別物として扱われます。
+
+### 名乗っているボットが本物か確かめる
+
+User-Agent の文字列はだれでも偽れます。アクセスログで「GPTBot」を名乗るアクセスを見つけても、本物とは限りません。
+
+- **OpenAI**:クローラーごとの IP アドレスの一覧を公開しています(`openai.com/gptbot.json`、`openai.com/searchbot.json`、`openai.com/chatgpt-user.json`)。ログの IP がこの範囲に入っているかで確かめられます。
+- **Anthropic**:IP アドレスでのブロックは「正しく働かない、または確実なオプトアウトにならない可能性がある」として、robots.txt での指定をすすめています。
+- **Google**:Googlebot が本物かどうかは、IP アドレスの逆引き(DNS)で確かめる方法を Google が案内しています。なお Google-Extended は独自のクローラーではないため、ログに「Google-Extended」という名前のアクセスは現れません。
+
+### サーバーの負荷が気になるときは
+
+AIクローラーのアクセスが多くてサーバーが重い場合、すぐに全部ブロックするより、まず負荷の原因になっているボットを特定します。Anthropic(ClaudeBot)は `Crawl-delay`(アクセスの間隔の指定)に対応していますが、これは標準の仕様ではなく、Google は `Crawl-delay` を使いません。
+
+## 結局、AIクローラーは許可すべき? [初級]
 
 AI検索から問い合わせや認知を得たいサイトなら、**少なくとも検索用(OAI-SearchBot・Claude-SearchBot・PerplexityBot)は許可する** のがおすすめです。ここを止めると、ChatGPT や Claude、Perplexity の検索で引用される入口がなくなります。
 
@@ -172,7 +207,7 @@ AI Overviews(日本語の画面では「**AIによる概要**」)は、**Google 
 
 なお、「AIO」という略語は AI Overviews を指す場合と、AI検索全般への最適化を指す場合があります。この記事では Google の機能は「AI Overviews」と書きます(呼び方の整理は「[AIO・LLMO・GEO・AEOの違い](/aio/aio-llmo-geo-aeo-difference/)」)。
 
-## AI OverviewsとAIモードは何が違う?
+## AI OverviewsとAIモードは何が違う? [初級]
 
 | | AI Overviews(AIによる概要) | AIモード |
 |---|---|---|
@@ -185,7 +220,7 @@ AI Overviews(日本語の画面では「**AIによる概要**」)は、**Google 
 
 Google によると、AI Overviews は「通常の検索結果よりも価値を加えられる」と判断されたときだけ表示されるので、**多くの検索では出ません**。また AI Overviews と AIモードでは使うモデルや手法が違うことがあり、同じ質問でも表示されるリンクが変わることがあります。
 
-## どうやってページが選ばれる?
+## どうやってページが選ばれる? [中級]
 
 Google は、AI Overviews と AIモードが **「クエリ ファンアウト」(query fan-out)** という方法を使うことがあると説明しています。ユーザーの1つの質問から、関連する複数の検索を裏側で同時に行い、回答を作りながら参照するページを探す仕組みです。
 
@@ -193,7 +228,7 @@ Google は、AI Overviews と AIモードが **「クエリ ファンアウト�
 
 Google は、これにより通常の検索より幅広いサイトへのリンクを表示できるとしています。
 
-## 表示されるための条件は?
+## 表示されるための条件は? [初級]
 
 Google が示している条件は、通常の検索と同じです。
 
@@ -203,7 +238,7 @@ Google が示している条件は、通常の検索と同じです。
 
 Google は「AI Overviews や AIモードに表示されるための追加の要件や、特別な最適化は必要ない」と明記しています。AI向けの特別なファイルや、専用の構造化データも不要です。ただし、条件を満たしても表示が保証されるわけではありません。
 
-## 表示されやすくするために何をする?
+## 表示されやすくするために何をする? [中級]
 
 特別な裏ワザはありませんが、Google は次のような通常のSEOの基本を挙げています([AI features and your website](https://developers.google.com/search/docs/appearance/ai-features)、[Optimizing your website for generative AI features](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide))。
 
@@ -231,7 +266,7 @@ Google は「AI Overviews や AIモードに表示されるための追加の要
 
 実際に AI Overviews に引用されるかは、インデックスが進んでから Search Console で計測し、結果をこのサイトで報告します。
 
-## AI Overviewsに表示させない方法は?
+## AI Overviewsに表示させない方法は? [中級]
 
 自社のページを AI Overviews や AIモードに出したくない場合は、通常の検索と同じ方法で制御します。
 
@@ -246,13 +281,37 @@ Google は「AI Overviews や AIモードに表示されるための追加の要
 
 タグを入れても表示が続く場合、Google は Search Console の URL 検査ツールでタグが読まれているかを確かめ、再クロールを待つように案内しています。反映には数日から数か月かかることがあります。
 
-## 効果はどうやって確かめる?
+## 効果はどうやって確かめる? [中級]
 
 Google の説明では、AI Overviews や AIモードからの表示回数・クリックは、**Search Console の「検索パフォーマンス」レポートの「ウェブ」に含まれて集計** されます。
 
 さらに Google は2026年6月、Search Console に生成AI機能向けのパフォーマンスレポートを追加したと[発表](https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports)しています。Google のガイドでも、生成AI機能での成果はこのレポートで確認するよう勧めています。一方で、「Google の内部のランキングやAIのシステムにアクセスできる外部ツールはない」とも書いており、市販の「AI Overviews 順位チェックツール」の数字は参考程度に見るのが安全です。
 
 なお Google は、AI Overviews からのクリックは質が高く、ユーザーがサイトに長く滞在する傾向があるとしています。
+
+## ページの一部だけAIに使わせないには? [上級]
+
+Google の [robots メタタグの仕様](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag)(2026年11月9日に確認)では、スニペットの制御が AI Overviews と AIモードにもはっきり適用されると書かれています。
+
+- `nosnippet`:スニペットを出さないだけでなく、AI Overviews と AIモードの **直接の入力として使われることも止まる**
+- `max-snippet:[数]`:AI Overviews と AIモードで直接の入力として使える量も、その文字数までに制限される。`max-snippet:0` は `nosnippet` と同じ、`max-snippet:-1` は Google に任せる
+
+ページ全体ではなく一部だけを除きたいときは、`data-nosnippet` を使います。使えるのは `span`・`div`・`section` の3つの要素だけです。
+
+```
+<p>この商品の特長は…(ここは使われてよい)</p>
+<div data-nosnippet>
+  会員向けの価格表(ここはスニペットやAIの直接の入力に使わせない)
+</div>
+```
+
+PDF や画像のように HTML ではないファイルには、メタタグの代わりに HTTP ヘッダーの `X-Robots-Tag` で同じ指定ができます。
+
+### クエリ ファンアウトを意識したサイトの作り方
+
+AI Overviews は、1つの質問を小さな問いに分けて検索します。そのため、1ページに全部を詰め込むより、**「大きなテーマの解説ページ」と「細かい問いに答えるページ」を内部リンクでつなぐ** 構成が理にかなっています。このサイトでも、[AIO・LLMO・GEO・AEOの違い](/aio/aio-llmo-geo-aeo-difference/) を全体の入口にして、robots.txt、llms.txt、構造化データといった細かい問いを別の記事で答える形にしています。
+
+ただし Google は、検索のたびに少しずつ言い回しを変えただけのページを量産することは「大量生成コンテンツの乱用」になりうるとしています。分けるのは、本当に別の問いに答えるときだけにしてください。
 
 ## よくある質問
 
@@ -282,7 +341,7 @@ AIO・LLMO・GEO・AEO は、**ChatGPT や Google の AI Overviews などのAI�
 
 なお、このサイト(AIO対策ナビ)では、AI検索への最適化全体を「AIO」と呼んでいます。理由は記事の後半で説明します。
 
-## 4つの呼び方は何が違う?
+## 4つの呼び方は何が違う? [初級]
 
 | 呼び方 | 正式名 | 主に使われる場面 | ひとことで |
 |---|---|---|---|
@@ -293,31 +352,31 @@ AIO・LLMO・GEO・AEO は、**ChatGPT や Google の AI Overviews などのAI�
 
 どの言葉にも、国際的に決まった定義はまだありません(2026年11月時点)。同じ言葉でも、人や会社によって指す範囲が少しずつ違う点に注意してください。
 
-## AIOとは?
+### AIOとは?
 
 AIO は「AI Optimization」の略で、日本では **AI検索全般への最適化を指す言葉** として広く使われています。ChatGPT、Perplexity、Gemini、Google の AI Overviews や AI モードなど、対象を特定のサービスに限らないのが特徴です。
 
 注意したいのは、Google の「**AI Overviews**」も略すと「AIO」になることです。「AIO対策」と言ったとき、AI検索全般の話なのか、Google の AI Overviews に表示される話なのかは、文脈で判断する必要があります。
 
-## LLMOとは?
+### LLMOとは?
 
 LLMO は「Large Language Model Optimization」の略で、ChatGPT などの土台になっている **大規模言語モデル(LLM)に、自社の情報を正しく理解・引用してもらうための最適化** を指します。日本のマーケティング業界でよく使われる呼び方です。
 
 「検索」よりも「AIモデル」に注目した言い方なので、AIの学習データや、AIがWebを検索して答えるときの参照元に入ることを重視する文脈で使われることが多い言葉です。
 
-## GEOとは?
+### GEOとは?
 
 GEO は「Generative Engine Optimization」の略で、**4つの中で唯一、研究論文に由来がはっきりしている言葉** です。プリンストン大学などの研究者による論文「[GEO: Generative Engine Optimization](https://arxiv.org/abs/2311.09735)」(2023年11月に公開、KDD 2024 採択)で提案されました。
 
-この論文では、生成AIが複数の情報源をまとめて答えを作ると、サイト運営者は自分の情報がどう表示されるかをコントロールしにくくなる、という問題を取り上げています。そのうえで、生成AIの回答の中での見え方(visibility)を上げる手法を検証し、**最大で約40%改善した** と報告しています。あわせて、効く手法は分野によって違うことも示しています。
+この論文では、生成AIが複数の情報源をまとめて答えを作ると、サイト運営者は自分の情報がどう表示されるかをコントロールしにくくなる、という問題を取り上げています。そのうえで、生成AIの回答の中での見え方(visibility)を上げる手法を検証し、**最大で約40%改善した** と報告しています。あわせて、効く手法は分野によって違うことも示しています。具体的にどの手法が効いたかは、後半の「[GEO論文では何が効いた?](#geo論文では何が効いた)」で紹介します。
 
 英語圏では、AI検索への最適化を指す言葉として GEO がよく使われています。
 
-## AEOとは?
+### AEOとは?
 
 AEO は「Answer Engine Optimization」の略で、**ユーザーの質問に直接答えを返す検索(アンサーエンジン)への最適化** を指します。生成AIが広まる前から、Google の強調スニペットや音声アシスタントへの対策として使われてきた言葉で、AI検索の広まりとともに再び注目されています。
 
-## Googleは「AI検索への最適化もSEO」としている
+## Googleは「AI検索への最適化もSEO」としている [中級]
 
 呼び方の違いよりも重要なのが、Google の公式見解です。Google は検索セントラルのガイド「[Optimizing your website for generative AI features on Google Search](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)」(2026年7月10日更新)で、AEO と GEO に触れたうえで、**生成AI検索への最適化は検索体験への最適化であり、つまり SEO である** と書いています。
 
@@ -325,7 +384,7 @@ AEO は「Answer Engine Optimization」の略で、**ユーザーの質問に直
 
 つまり、少なくとも Google の AI 機能に関しては、「AIO専用の裏ワザ」を探すより、検索エンジンに正しく読まれ、人の役に立つページを作ることが近道です。
 
-## 今日からやるべき対策は?
+## 今日からやるべき対策は? [中級]
 
 呼び方に関係なく、まずやることは次の5つです。
 
@@ -337,13 +396,34 @@ AEO は「Answer Engine Optimization」の略で、**ユーザーの質問に直
 
 Google の AI 機能の表示状況は、Search Console で確認できるようになっています(詳しくは「[AI Overviewsとは?](/aio/ai-overviews/)」)。ChatGPT や Perplexity での見え方は、狙っている質問を実際に入力して、自社が引用されるかを定期的に確かめるのが確実です。
 
-## llms.txtは必要?
+## llms.txtは必要? [中級]
 
 llms.txt は、サイトの概要と主なページへのリンクを Markdown でまとめ、AIエージェントがサイトを理解しやすくするためのファイルです(書き方の例は「[llms.txtとは?](/glossary/llms-txt/)」)。2024年9月に Jeremy Howard 氏が [llmstxt.org](https://llmstxt.org/) で提案しました。
 
 ただし Google は、先ほどのガイドで **AI向けのテキストファイルを作っても Google 検索では無視されるので、順位にはプラスにもマイナスにもならない** としています。llms.txt はあくまで「Google 以外のAIエージェントが使うかもしれない」補助的なもので、優先度は上の5つより低いと考えてください。
 
 このサイトでは、検証のために llms.txt と全記事の本文をまとめた llms-full.txt を置いています([llms.txt](/llms.txt))。AI検索での効果が確認できたら、記事で報告します。
+
+## GEO論文では何が効いた? [上級]
+
+GEO という言葉を生んだ論文「[GEO: Generative Engine Optimization](https://arxiv.org/abs/2311.09735)」では、ページの書き方を9通りに変えて、生成AIの回答の中での見え方がどう変わるかを比べています(2026年11月9日に論文本文で確認)。
+
+| 手法 | 内容 | 結果 |
+|---|---|---|
+| Quotation Addition | 信頼できる人・組織の発言の引用を足す | 最も効果が大きかった(基準より約41%改善) |
+| Statistics Addition | 具体的な数字・統計を足す | 効果が大きかった |
+| Cite Sources | 信頼できる出典を示す | 効果が大きかった |
+| Keyword Stuffing | 検索キーワードを詰め込む | 基準を下回った(逆効果) |
+
+ほかに「権威的な書き方」「わかりやすく書く」「流ちょうに書く」「専門用語を増やす」「珍しい単語を使う」も試されています。数値は論文の指標(回答の中で、そのページ由来の文章がどれだけ、どれだけ前のほうに使われたか)で比べたものです。実際のサービスである Perplexity でも試し、最大37%の改善を報告しています。
+
+読むときの注意点もあります。
+
+- **2023年の研究**:AI検索の仕組みはその後も変わっており、同じ効果が今も出るとは限りません。
+- **測っているのは「回答の中での見え方」**:サイトへのアクセスや問い合わせが増えるかまでは測っていません。
+- **分野で効き方が違う**:論文自身が、分野ごとに効く手法が違うと書いています。
+
+それでも、「出典・数字・引用で根拠を示す」が効き、「キーワードの詰め込み」が効かないという結果は、Google のガイドが勧める「独自で信頼できる内容」とも合っています。このサイトの記事で出典と確認日を必ず書いているのも、この考え方によるものです。
 
 ## このサイトが「AIO」と呼ぶ理由
 
@@ -384,7 +464,19 @@ llms.txt(エルエルエムズ・テキスト)は、**サイトの名前・概�
 
 ただし、Google は「Google 検索は llms.txt を無視する」と明言しています。置けば AI 検索に出やすくなる、というものではない点に注意してください。
 
-## llms.txtの仕様はどうなっている?
+## llms.txtをひとことで言うと? [初級]
+
+llms.txt は、AIのための **「サイトの案内板」** です。お店の入口にある「1階は食品、2階は衣料品」という案内のように、「このサイトには何があって、大事なページはどこか」をAIにまとめて伝えます。
+
+よく似た名前の robots.txt とは役割が違います。
+
+| ファイル | 役割 | 書く相手 |
+|---|---|---|
+| robots.txt | どこを読んでよいか・読まないでほしいかを伝える | 検索エンジンやAIのクローラー |
+| llms.txt | サイトに何が書いてあるかを案内する | AI(大規模言語モデル) |
+| sitemap.xml | サイトのページの一覧を伝える | 検索エンジン |
+
+## llms.txtの仕様はどうなっている? [中級]
 
 [llmstxt.org](https://llmstxt.org/) の仕様(2026年11月9日に確認)では、ファイルの中身は次の順番で書きます。
 
@@ -396,7 +488,7 @@ llms.txt(エルエルエムズ・テキスト)は、**サイトの名前・概�
 
 置き場所はサイトの一番上(`/llms.txt`)が基本ですが、`/docs/llms.txt` のように特定のフォルダに置くこともできます。仕様では、各ページの Markdown 版(`page.md` など)を用意することも提案されています。
 
-## 実際にはどう書く?
+## 実際にはどう書く? [中級]
 
 このサイト(AIO対策ナビ)では、記事を公開するたびに [llms.txt](/llms.txt) を自動で作り直しています。2026年11月9日時点の中身(一部)はこうです。
 
@@ -425,7 +517,7 @@ llms.txt(エルエルエムズ・テキスト)は、**サイトの名前・概�
 
 「llms-full.txt」は、全記事の本文を1つのファイルにまとめたものです。llmstxt.org の仕様には含まれていませんが、一部のサイトやツールで使われている慣習で、このサイトでも検証のために置いています。
 
-## Googleはllms.txtをどう扱っている?
+## Googleはllms.txtをどう扱っている? [初級]
 
 Google は、生成AI検索への最適化ガイド「[Optimizing your website for generative AI features on Google Search](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)」(2026年7月10日更新)で、次のように書いています。
 
@@ -434,7 +526,7 @@ Google は、生成AI検索への最適化ガイド「[Optimizing your website f
 
 つまり llms.txt は、Google の検索順位にも [AI Overviews(AIによる概要)](/aio/ai-overviews/) への表示にも影響しません。ChatGPT や Claude、Perplexity などの他社サービスが llms.txt を使っているかについては、2026年11月時点で各社の公式ドキュメントに明確な記載は見当たりませんでした。
 
-## llms.txtは置くべき?
+## llms.txtは置くべき? [中級]
 
 優先度は低めですが、置いて困ることはほとんどありません。判断の目安は次のとおりです。
 
@@ -445,6 +537,20 @@ Google は、生成AI検索への最適化ガイド「[Optimizing your website f
 | 会社案内だけの小さなサイト | 後回しでよい |
 
 llms.txt より先にやるべきなのは、AIクローラーをブロックしていないかの確認([robots.txtの設定](/aio/ai-crawler-robots-txt/))と、冒頭で結論を言い切る・一次情報を入れるといった記事の中身です。全体の優先順位は「[AIO・LLMO・GEO・AEOの違い](/aio/aio-llmo-geo-aeo-difference/)」の「今日からやるべき対策」にまとめています。
+
+## 仕様どおりに作り込むなら何をする? [上級]
+
+llmstxt.org の仕様には、llms.txt 本体のほかに、次のような提案も含まれています(2026年11月9日に確認)。
+
+- **各ページの Markdown 版を用意する**:`/page.html` なら `/page.html.md`、末尾が `/` の URL なら `index.html.md` のように、同じ場所に Markdown 版を置きます。HTML からメニューや広告を取り除いた本文だけを、AIが読みやすい形で渡すためです。
+- **link タグで場所を知らせる**:HTML の `<link rel="alternate" type="text/markdown" href="...">` で Markdown 版の場所を、`rel="describedby"` でそのページをカバーする llms.txt の場所を示します。HTTP の `Link:` ヘッダーでも指定できます。
+- **フォルダごとに置ける**:`/docs/llms.txt` のように置くと、その下のページだけを案内する llms.txt になります。複数あるときは、より近い(具体的な)ものを使うとされています。
+
+このサイトはまだ Markdown 版のページや link タグは用意していません。代わりに、全記事の本文をまとめた [llms-full.txt](/llms-full.txt) を置いています。
+
+### 本当に読まれているかを確かめる
+
+効果を語る前に、まずAIが llms.txt を読みに来ているかを確かめます。サーバーのアクセスログで `/llms.txt` へのアクセスを探し、User-Agent(GPTBot・ClaudeBot・PerplexityBot など)を確認します。名前は偽装できるので、本物かどうかの確かめ方は「[robots.txtの設定](/aio/ai-crawler-robots-txt/)」の上級者向けの章を参考にしてください。
 
 ## よくある質問
 
@@ -474,7 +580,7 @@ URL: https://aio.shiokonbu.com/seo/structured-data/
 
 一方で、Google は [AI Overviews(AIによる概要)](/aio/ai-overviews/) などの生成AI機能に出るための特別な構造化データはないとしています。この記事では、構造化データの基本と書き方を、このサイトで実際に使っているコードを例に解説します。
 
-## 構造化データは何のために使う?
+## 構造化データは何のために使う? [初級]
 
 Google 検索セントラルの「[構造化データの仕組みについて](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data)」(2025年12月10日更新)では、目的を次のように説明しています。
 
@@ -483,7 +589,7 @@ Google 検索セントラルの「[構造化データの仕組みについて](h
 
 ただし、構造化データを入れても **リッチリザルトが表示される保証はありません**。また、構造化データそのものが検索順位を直接上げるわけでもありません。
 
-## どの形式で書けばいい?
+## どの形式で書けばいい? [初級]
 
 Google が対応している形式は次の3つで、**JSON-LD が推奨** されています。
 
@@ -495,7 +601,7 @@ Google が対応している形式は次の3つで、**JSON-LD が推奨** さ�
 
 Google は、どの形式でも正しく書かれていれば問題ないとしたうえで、大規模でも実装・管理しやすい JSON-LD をすすめています。
 
-## JSON-LDはどう書く?(このサイトの実例)
+## JSON-LDはどう書く?(このサイトの実例) [中級]
 
 このサイト(AIO対策ナビ)では、記事を書くと構造化データが自動で付くようにしています。実際に「[AIO・LLMO・GEO・AEOの違い](/aio/aio-llmo-geo-aeo-difference/)」の記事に入っている Article(記事)の構造化データは次のとおりです(読みやすく改行しています)。
 
@@ -527,7 +633,7 @@ Google は、どの形式でも正しく書かれていれば問題ないとし�
 
 このサイトでは、全ページに `BreadcrumbList`、記事に `Article`、トップページに `WebSite` と `Organization` を自動で付けています。
 
-## よく使う構造化データの種類は?
+## よく使う構造化データの種類は? [中級]
 
 中小企業のサイトでよく使うのは次のような種類です。
 
@@ -545,7 +651,7 @@ Google は、どの形式でも正しく書かれていれば問題ないとし�
 
 このサイトでは記事の「よくある質問」に FAQPage の構造化データを自動で付けていますが、リッチリザルトのためではなく、質問と答えの組をページの内容どおりに機械が読める形で示すためです。FAQPage は schema.org の語彙としては今も有効です。新しく構造化データを入れる場合は、FAQ のためだけに手間をかける必要はありません。
 
-## 書いたあとはどう確認する?
+## 書いたあとはどう確認する? [中級]
 
 Google は次の2つの方法をすすめています。
 
@@ -554,7 +660,7 @@ Google は次の2つの方法をすすめています。
 
 schema.org の書き方として正しいかを広く確かめたいときは、schema.org が提供する「Schema Markup Validator」も使えます。
 
-## 構造化データで気をつけることは?
+## 構造化データで気をつけることは? [中級]
 
 Google のガイドラインで特に大事なのは次の3点です。
 
@@ -564,11 +670,33 @@ Google のガイドラインで特に大事なのは次の3点です。
 
 ガイドラインに反すると、リッチリザルトの対象外になることがあります。
 
-## AI検索に構造化データは必要?
+## AI検索に構造化データは必要? [初級]
 
 Google の生成AI検索のガイド「[Optimizing your website for generative AI features](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)」(2026年7月10日更新)は、**生成AI検索に構造化データは必須ではなく、追加すべき特別な schema.org のマークアップもない** と明記しています。同時に、リッチリザルトのために構造化データを使い続けるのはよい考えだ、とも書いています。
 
 つまり、AI検索のために特別なことをする必要はなく、**通常の SEO として正しい構造化データを入れておけば十分** です。AI検索への対策の全体像は「[AIO・LLMO・GEO・AEOの違い](/aio/aio-llmo-geo-aeo-difference/)」、AIクローラーの設定は「[robots.txtの設定](/aio/ai-crawler-robots-txt/)」をご覧ください。
+
+## @idでページ同士の情報をつなぐには? [上級]
+
+構造化データが増えてくると、「どのページでも同じ会社のことを書いている」と機械にわかるようにしたくなります。そこで使うのが JSON-LD の `@id` です。`@id` は、その情報(会社・サイト・人など)に付ける **固有の名札** のようなもので、ふつうは URL の形で書きます。
+
+このサイトでは、運営組織に `https://aio.shiokonbu.com/#org`、サイト全体に `https://aio.shiokonbu.com/#website` という `@id` を付けています。トップページで組織の名前やロゴを1回くわしく書き、各記事の `publisher` では同じ `@id` を入れて「この記事の発行者は、トップページに書いたあの組織です」と示しています。
+
+```
+"publisher": {
+  "@type": "Organization",
+  "@id": "https://aio.shiokonbu.com/#org",
+  "name": "AIO対策ナビ編集部"
+}
+```
+
+設計のときに気をつけているのは次の3点です。
+
+- **同じものには、すべてのページで同じ `@id` を使う**:ページごとに変えると、別の組織として扱われるおそれがあります。
+- **`@id` はページの URL と分ける**:ページそのもの(`/about/`)と、そこで説明している組織(`/#org`)は別物なので、`#` を付けて区別しています。
+- **名前やロゴなどの値もそろえる**:`@id` が同じでも、ページによって社名の表記がばらばらだと意味がありません。
+
+`@id` は JSON-LD(W3C の標準)の仕組みです。Google が `@id` をどこまで使っているかは公式には詳しく説明されていないので、「順位が上がる裏ワザ」ではなく、データをきれいに保つための設計と考えてください。
 
 ## よくある質問
 
