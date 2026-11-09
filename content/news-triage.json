@@ -1,5 +1,6 @@
 {
  "_説明": "公式発表(content/news-watch.json の url)をどう扱ったかの記録。毎日の自動作業(docs/news.md)が書き足す。値は written:<news のスラッグ> / merged:<既存記事のパス>(既存記事に追記した) / skipped:<理由>。written の記事は /news/ の一覧で「解説を読む」リンクになる。",
  "https://developers.google.com/search/blog/2026/10/ai-training-control": "written:shared-ai-training-opt-out",
- "https://blogs.bing.com/search/2026/10/your-content-your-choice-clearer-preferences-for-training-and-grounding/": "written:shared-ai-training-opt-out"
+ "https://blogs.bing.com/search/2026/10/your-content-your-choice-clearer-preferences-for-training-and-grounding/": "written:shared-ai-training-opt-out",
+ "https://openai.com/index/helping-websites-express-ai-training-preferences": "written:shared-ai-training-opt-out"
 }
