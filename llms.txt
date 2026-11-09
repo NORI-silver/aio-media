@@ -2,6 +2,9 @@
 
 > AIO・LLMO・GEO対策とSEO・広告の実務メディア。中小企業のマーケティング担当者・SEO担当者向けに、一次情報と検証データをもとに解説するメディアです。
 
+## ツール
+- [AIO診断ツール](https://aio.shiokonbu.com/aio-checker/): URLを入れると、AIクローラーへの公開設定・llms.txt・構造化データなどAI検索対策の状況を無料で診断する
+
 ## 運営者と方針
 - [運営者情報](https://aio.shiokonbu.com/about/): 運営者と連絡先
 - [編集方針](https://aio.shiokonbu.com/editorial-policy/): 情報源・検証・更新のルール
