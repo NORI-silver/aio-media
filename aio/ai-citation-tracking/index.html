@@ -18,6 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://aio.shiokonbu.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b1736">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="alternate" type="application/rss+xml" title="AIO対策ナビ" href="/feed.xml">
 <link rel="stylesheet" href="/assets/style.css">
@@ -26,17 +27,22 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"AIの引用状況を自動で調べるツールはありますか?","acceptedAnswer":{"@type":"Answer","text":"民間の有料ツールはありますが、Google は「Google の内部のランキングやAIのシステムにアクセスできる外部ツールはない」としています。ツールの数字は、ツールが自分で質問した結果の集計だと理解したうえで、参考として使いましょう。"}},{"@type":"Question","name":"毎回答えが変わるのに、記録する意味はありますか?","acceptedAnswer":{"@type":"Answer","text":"あります。1回の結果では判断できませんが、同じ質問を何度も記録すると、「出やすい」「ほとんど出ない」という傾向が見えてきます。記事を直した前後で比べるのにも役立ちます。"}},{"@type":"Question","name":"自社名で質問すると間違った情報が出ます。どうすればいい?","acceptedAnswer":{"@type":"Answer","text":"AIは、Web上の情報をもとに答えています。運営者情報のページや会社概要に、正確な情報(事業内容・所在地・設立年など)をはっきり書き、構造化データ(Organization)でも同じ情報を示しておきましょう。外部のサイト(業界団体、取引先、プレスリリースなど)の情報が古い場合は、更新をお願いするのも有効です。"}},{"@type":"Question","name":"AIに引用されると検索順位にも影響しますか?","acceptedAnswer":{"@type":"Answer","text":"AIに引用されること自体が Google の検索順位を上げる、という公式の説明はありません。ただ、AIに引用されやすいページの条件(冒頭で答える、根拠がある、独自の情報がある)は、通常の検索でも評価されやすいページの条件と重なります。"}}]}</script>
 </head>
 <body>
-<header class="site"><div class="wrap"><a class="brand" href="/">AIO対策ナビ</a>
-<nav aria-label="カテゴリ"><a href="/aio/">AIO・LLMO・GEO対策</a><a href="/seo/">SEO実務</a><a href="/glossary/">用語集</a><a href="/ads/">広告運用</a><a href="/news/">ニュース</a><a href="/aio-checker/">AIO診断</a><a href="/about/">運営者</a></nav></div></header>
-<main class="wrap">
-<nav class="crumbs" aria-label="パンくず"><a href="/">ホーム</a> › <a href="/aio/">AIO・LLMO・GEO対策</a> › <span>AIに引用されているか調べる方法|ChatGPT・AI Overviews</span></nav>
-<article>
-<header class="post"><span class="cat"><a href="/aio/">AIO・LLMO・GEO対策</a></span>
+<a class="skip" href="#main">本文へ移動</a>
+<header class="site"><div class="wrap hd">
+<a class="brand" href="/"><svg class="logo" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="9" fill="#1d4ed8"/><rect width="32" height="32" rx="9" fill="url(#lg)"/><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs><path fill="#fff" fill-rule="evenodd" d="M8.6 24 14.4 8h3.2L23.4 24h-3.3l-1.3-3.7h-5.6L11.9 24zm5-6.5h4.2L15.9 12z"/><circle cx="25" cy="7.5" r="2.2" fill="#a5f3fc"/></svg><span>AIO対策ナビ</span></a>
+<nav class="gnav" aria-label="メインメニュー"><a href="/aio/" aria-current="page">AIO対策</a><a href="/seo/">SEO</a><a href="/glossary/">用語集</a><a href="/ads/">広告運用</a><a href="/news/">ニュース</a><a href="/roadmap/">ロードマップ</a></nav>
+<a class="hd-cta" href="/aio-checker/">無料AIO診断</a>
+</div></header>
+<main id="main">
+<div class="wrap narrow">
+<nav class="crumbs" aria-label="パンくず"><ol><li><a href="/">ホーム</a></li><li><a href="/aio/">AIO・LLMO・GEO対策</a></li><li><span aria-current="page">AIに引用されているか調べる方法|ChatGPT・AI Overviews</span></li></ol></nav>
+<article class="post">
+<header class="post-head c-aio"><a class="chip" href="/aio/">AIO・LLMO・GEO対策</a>
 <h1>AIに引用されているか調べる方法|ChatGPT・AI Overviews</h1>
-<p class="meta">公開 <time datetime="2026-11-09">2026-11-09</time> ・ 更新 <time datetime="2026-11-09">2026-11-09</time> ・ <a href="/about/">AIO対策ナビ編集部</a></p>
+<p class="meta"><span>公開 <time datetime="2026-11-09">2026.11.09</time></span><span>更新 <time datetime="2026-11-09">2026.11.09</time></span><span><a href="/about/">AIO対策ナビ編集部</a></span></p>
 </header>
-<p class="summary"><strong>この記事の結論:</strong>AIに引用されているかを確かめるには、①自社に関係する質問を10〜20個決め、②ChatGPT・Perplexity・GoogleのAI Overviewsで定期的に質問して出典を記録し、③GA4でAIサービスからの流入を見る、の3つを組み合わせます。AIの答えは毎回変わるので、1回ではなく同じ質問を繰り返し記録することが大切です。</p>
-<nav class="guide" aria-label="レベル別の読み方"><p>レベル別の読み方</p><ul><li><span class="lv lv-basic">初級</span><strong>はじめての方</strong>:<a href="#なぜ-調べる-必要がある">なぜ「調べる」必要がある?</a>、<a href="#どんな質問を選べばいい">どんな質問を選べばいい?</a></li><li><span class="lv lv-mid">中級</span><strong>設定・実務をする方</strong>:<a href="#どうやって調べて記録する">どうやって調べて記録する?</a>、<a href="#アクセス解析ではどう見る">アクセス解析ではどう見る?</a></li><li><span class="lv lv-adv">上級</span><strong>もっと深く知りたい方</strong>:<a href="#実際にはどのくらいaiから来ている">実際にはどのくらいAIから来ている?</a></li></ul></nav><nav class="toc" aria-label="目次"><p>目次</p><ol><li><a href="#なぜ-調べる-必要がある">なぜ「調べる」必要がある?</a> <span class="lv lv-basic">初級</span></li><li><a href="#どんな質問を選べばいい">どんな質問を選べばいい?</a> <span class="lv lv-basic">初級</span></li><li><a href="#どうやって調べて記録する">どうやって調べて記録する?</a> <span class="lv lv-mid">中級</span></li><li><a href="#アクセス解析ではどう見る">アクセス解析ではどう見る?</a> <span class="lv lv-mid">中級</span></li><li><a href="#実際にはどのくらいaiから来ている">実際にはどのくらいAIから来ている?</a> <span class="lv lv-adv">上級</span></li><li><a href="#よくある質問">よくある質問</a></li></ol></nav>
+<div class="summary-box"><p class="summary-h">この記事の結論</p><p class="summary">AIに引用されているかを確かめるには、①自社に関係する質問を10〜20個決め、②ChatGPT・Perplexity・GoogleのAI Overviewsで定期的に質問して出典を記録し、③GA4でAIサービスからの流入を見る、の3つを組み合わせます。AIの答えは毎回変わるので、1回ではなく同じ質問を繰り返し記録することが大切です。</p></div>
+<nav class="guide" aria-label="レベル別の読み方"><p>レベル別の読み方</p><ul><li><span class="lv lv-basic">初級</span><strong>はじめての方</strong>:<a href="#なぜ-調べる-必要がある">なぜ「調べる」必要がある?</a>、<a href="#どんな質問を選べばいい">どんな質問を選べばいい?</a></li><li><span class="lv lv-mid">中級</span><strong>設定・実務をする方</strong>:<a href="#どうやって調べて記録する">どうやって調べて記録する?</a>、<a href="#アクセス解析ではどう見る">アクセス解析ではどう見る?</a></li><li><span class="lv lv-adv">上級</span><strong>もっと深く知りたい方</strong>:<a href="#実際にはどのくらいaiから来ている">実際にはどのくらいAIから来ている?</a></li></ul></nav><nav class="toc" aria-label="目次"><p class="toc-h">目次</p><ol><li><a href="#なぜ-調べる-必要がある">なぜ「調べる」必要がある?</a> <span class="lv lv-basic">初級</span></li><li><a href="#どんな質問を選べばいい">どんな質問を選べばいい?</a> <span class="lv lv-basic">初級</span></li><li><a href="#どうやって調べて記録する">どうやって調べて記録する?</a> <span class="lv lv-mid">中級</span></li><li><a href="#アクセス解析ではどう見る">アクセス解析ではどう見る?</a> <span class="lv lv-mid">中級</span></li><li><a href="#実際にはどのくらいaiから来ている">実際にはどのくらいAIから来ている?</a> <span class="lv lv-adv">上級</span></li><li><a href="#よくある質問">よくある質問</a></li></ol></nav>
 <div class="body">
 <p>自社のサイトがAIに引用されているかは、<strong>決めた質問を各AIサービスに定期的に入力して、答えの出典に自社が出るかを記録する方法</strong> と、<strong>アクセス解析でAIサービスからの流入を見る方法</strong> を組み合わせて確かめます。どのAIサービスも、サイト運営者向けに「どの質問で引用されたか」を一覧できる仕組みは、2026年11月時点ではまだ限られています。</p>
 <h2 id="なぜ-調べる-必要がある">なぜ「調べる」必要がある? <span class="lv lv-basic">初級</span></h2>
@@ -71,22 +77,27 @@
 <ol><li>引用されなかった質問について、引用された他社のページを読み、何が書いてあるかを見る(費用の表、手順、具体的な数字など)</li><li>自社のページに、その問いへの答えが冒頭で言い切られているかを確かめる(<a href="/aio/answer-first-writing/">AIに引用される文章の書き方</a>)</li><li>自社にしか書けない一次情報(実績の数字、実際の事例)を足す(<a href="/seo/first-party-information/">一次情報とは?</a>)</li><li>翌月、同じ質問で記録して変化を見る</li></ol>
 <p>このサイトでも、AI検索での引用の記録を続け、結果を記事で報告していきます。</p>
 <h2 id="よくある質問">よくある質問</h2>
-<h3 id="aiの引用状況を自動で調べるツールはありますか">AIの引用状況を自動で調べるツールはありますか?</h3>
+<h3 id="aiの引用状況を自動で調べるツールはありますか" class="faq-q">AIの引用状況を自動で調べるツールはありますか?</h3>
 <p>民間の有料ツールはありますが、Google は「Google の内部のランキングやAIのシステムにアクセスできる外部ツールはない」としています。ツールの数字は、ツールが自分で質問した結果の集計だと理解したうえで、参考として使いましょう。</p>
-<h3 id="毎回答えが変わるのに-記録する意味はありますか">毎回答えが変わるのに、記録する意味はありますか?</h3>
+<h3 id="毎回答えが変わるのに-記録する意味はありますか" class="faq-q">毎回答えが変わるのに、記録する意味はありますか?</h3>
 <p>あります。1回の結果では判断できませんが、同じ質問を何度も記録すると、「出やすい」「ほとんど出ない」という傾向が見えてきます。記事を直した前後で比べるのにも役立ちます。</p>
-<h3 id="自社名で質問すると間違った情報が出ます-どうすればいい">自社名で質問すると間違った情報が出ます。どうすればいい?</h3>
+<h3 id="自社名で質問すると間違った情報が出ます-どうすればいい" class="faq-q">自社名で質問すると間違った情報が出ます。どうすればいい?</h3>
 <p>AIは、Web上の情報をもとに答えています。運営者情報のページや会社概要に、正確な情報(事業内容・所在地・設立年など)をはっきり書き、構造化データ(Organization)でも同じ情報を示しておきましょう。外部のサイト(業界団体、取引先、プレスリリースなど)の情報が古い場合は、更新をお願いするのも有効です。</p>
-<h3 id="aiに引用されると検索順位にも影響しますか">AIに引用されると検索順位にも影響しますか?</h3>
+<h3 id="aiに引用されると検索順位にも影響しますか" class="faq-q">AIに引用されると検索順位にも影響しますか?</h3>
 <p>AIに引用されること自体が Google の検索順位を上げる、という公式の説明はありません。ただ、AIに引用されやすいページの条件(冒頭で答える、根拠がある、独自の情報がある)は、通常の検索でも評価されやすいページの条件と重なります。</p>
 </div>
 </article>
-<section class="related"><h2>あわせて読みたい</h2><ul class="cards"><li class="card"><a href="/aio/ai-crawler-robots-txt/"><span class="cat">AIO・LLMO・GEO対策</span><strong>AIクローラーのrobots.txt設定|GPTBotなどの許可とブロック方法</strong><span class="desc">GPTBot・OAI-SearchBot・ClaudeBot・PerplexityBot・Google-Extendedなど主なAIクローラーの役割と、robots.txtで許可・ブロックする書き方を公式情報をもとに整理します。</span><time datetime="2026-11-09">2026-11-09 更新</time></a></li><li class="card"><a href="/aio/ai-overviews/"><span class="cat">AIO・LLMO・GEO対策</span><strong>AI Overviews(AIによる概要)とは?表示の仕組みとサイト側の対策</strong><span class="desc">GoogleのAI Overviews(AIによる概要)とAIモードの仕組み、表示される条件、特別な対策は必要か、表示を止める方法、Search Consoleでの確認方法をGoogle公式情報をもとに解説します。</span><time datetime="2026-11-09">2026-11-09 更新</time></a></li><li class="card"><a href="/aio/aio-llmo-geo-aeo-difference/"><span class="cat">AIO・LLMO・GEO対策</span><strong>AIO・LLMO・GEO・AEOの違いとは?呼び方別の意味とやるべき対策</strong><span class="desc">AIO・LLMO・GEO・AEOは、どれもAI検索で自社の情報が引用・紹介されるための取り組みです。4つの呼び方の由来と違い、Googleの公式見解、今日からやるべき対策を出典つきで整理します。</span><time datetime="2026-11-09">2026-11-09 更新</time></a></li><li class="card"><a href="/aio/answer-first-writing/"><span class="cat">AIO・LLMO・GEO対策</span><strong>AIに引用される文章の書き方|冒頭で答える型と見出し・FAQ</strong><span class="desc">AI検索や検索結果で引用されやすい文章の型を解説します。冒頭で結論を言い切る書き方、問いの形の見出し、FAQの作り方、GEO研究でわかった効く書き方と効かない書き方まで実例つきでまとめます。</span><time datetime="2026-11-09">2026-11-09 更新</time></a></li><li class="card"><a href="/aio/javascript-ai-crawlers/"><span class="cat">AIO・LLMO・GEO対策</span><strong>JavaScriptのサイトはAIに読まれる?SSRの必要性と確かめ方</strong><span class="desc">JavaScriptで本文を表示するサイトは、GooglebotとAIクローラーで読まれ方が違います。CSRとSSRの違い、実験で確かめた結果、AIクローラーの調査データ、自分のサイトの確かめ方と対策を解説します。</span><time datetime="2026-11-09">2026-11-09 更新</time></a></li></ul></section>
+<aside class="rm-next" aria-label="次にやること"><p class="rm-next-h">このあと何をする?</p><ul><li>この記事は、<a href="/roadmap/">AIO・SEO強化ロードマップ</a>の <a href="/roadmap/#step-ai-citation">STEP 13「AIに実際に引用されているか確かめる」</a> の解説です。<label class="rm-check"><input type="checkbox" data-step="ai-citation"> このステップはできた</label></li><li>次にやること:<a href="/roadmap/#step-recheck">STEP 14「月に1回、診断し直して記録する」</a></li></ul></aside>
+<section class="related"><h2 class="sec-h">あわせて読みたい</h2><ul class="cards"><li class="card c-aio"><a href="/aio/ai-crawler-robots-txt/"><span class="chip">AIO対策</span><strong class="card-t">AIクローラーのrobots.txt設定|GPTBotなどの許可とブロック方法</strong><span class="desc">GPTBot・OAI-SearchBot・ClaudeBot・PerplexityBot・Google-Extendedなど主なAIクローラーの役割と、robots.txtで許可・ブロックする書き方を公式情報をもとに整理します。</span><span class="card-f"><time datetime="2026-11-09">2026.11.09</time> 更新</span></a></li><li class="card c-aio"><a href="/aio/ai-overviews/"><span class="chip">AIO対策</span><strong class="card-t">AI Overviews(AIによる概要)とは?表示の仕組みとサイト側の対策</strong><span class="desc">GoogleのAI Overviews(AIによる概要)とAIモードの仕組み、表示される条件、特別な対策は必要か、表示を止める方法、Search Consoleでの確認方法をGoogle公式情報をもとに解説します。</span><span class="card-f"><time datetime="2026-11-09">2026.11.09</time> 更新</span></a></li><li class="card c-aio"><a href="/aio/aio-llmo-geo-aeo-difference/"><span class="chip">AIO対策</span><strong class="card-t">AIO・LLMO・GEO・AEOの違いとは?呼び方別の意味とやるべき対策</strong><span class="desc">AIO・LLMO・GEO・AEOは、どれもAI検索で自社の情報が引用・紹介されるための取り組みです。4つの呼び方の由来と違い、Googleの公式見解、今日からやるべき対策を出典つきで整理します。</span><span class="card-f"><time datetime="2026-11-09">2026.11.09</time> 更新</span></a></li><li class="card c-aio"><a href="/aio/answer-first-writing/"><span class="chip">AIO対策</span><strong class="card-t">AIに引用される文章の書き方|冒頭で答える型と見出し・FAQ</strong><span class="desc">AI検索や検索結果で引用されやすい文章の型を解説します。冒頭で結論を言い切る書き方、問いの形の見出し、FAQの作り方、GEO研究でわかった効く書き方と効かない書き方まで実例つきでまとめます。</span><span class="card-f"><time datetime="2026-11-09">2026.11.09</time> 更新</span></a></li><li class="card c-aio"><a href="/aio/javascript-ai-crawlers/"><span class="chip">AIO対策</span><strong class="card-t">JavaScriptのサイトはAIに読まれる?SSRの必要性と確かめ方</strong><span class="desc">JavaScriptで本文を表示するサイトは、GooglebotとAIクローラーで読まれ方が違います。CSRとSSRの違い、実験で確かめた結果、AIクローラーの調査データ、自分のサイトの確かめ方と対策を解説します。</span><span class="card-f"><time datetime="2026-11-09">2026.11.09</time> 更新</span></a></li></ul></section>
+</div>
+<script src="/assets/progress.js" defer></script>
 </main>
-<footer class="site"><div class="wrap">
-<ul class="cats"><li><a href="/aio/">AIO・LLMO・GEO対策</a></li><li><a href="/seo/">SEO実務</a></li><li><a href="/glossary/">用語集</a></li><li><a href="/ads/">広告運用</a></li><li><a href="/analytics/">成果改善・分析</a></li><li><a href="/lp-creative/">LP・クリエイティブ</a></li><li><a href="/cost/">費用・外注先の選び方</a></li><li><a href="/news/">ニュース・仕様変更</a></li></ul>
-<p><a href="/about/">運営者情報</a> ・ <a href="/editorial-policy/">編集方針</a> ・ <a href="/privacy/">プライバシーポリシー</a> ・ <a href="/llms.txt">llms.txt</a> ・ <a href="/feed.xml">RSS</a></p>
-<p class="small">© 2026 AIO対策ナビ編集部</p>
-</div></footer>
+<footer class="site"><div class="wrap ft">
+<div class="ft-brand"><a class="brand" href="/"><svg class="logo" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="9" fill="#1d4ed8"/><rect width="32" height="32" rx="9" fill="url(#lg)"/><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs><path fill="#fff" fill-rule="evenodd" d="M8.6 24 14.4 8h3.2L23.4 24h-3.3l-1.3-3.7h-5.6L11.9 24zm5-6.5h4.2L15.9 12z"/><circle cx="25" cy="7.5" r="2.2" fill="#a5f3fc"/></svg><span>AIO対策ナビ</span></a>
+<p>AIO・LLMO・GEO対策とSEO・広告の実務メディア。中小企業のマーケ担当者・SEO担当者向けに、一次情報と公式の資料をもとに解説します。</p></div>
+<nav class="ft-col" aria-label="テーマ"><p class="ft-h">テーマ</p><ul><li><a href="/aio/">AIO・LLMO・GEO対策</a></li><li><a href="/seo/">SEO実務</a></li><li><a href="/glossary/">用語集</a></li><li><a href="/ads/">広告運用</a></li><li><a href="/analytics/">成果改善・分析</a></li><li><a href="/lp-creative/">LP・クリエイティブ</a></li><li><a href="/cost/">費用・外注先の選び方</a></li><li><a href="/news/">ニュース・仕様変更</a></li></ul></nav>
+<nav class="ft-col" aria-label="ツールとサイト情報"><p class="ft-h">ツール</p><ul><li><a href="/aio-checker/">AIO診断ツール(無料)</a></li><li><a href="/roadmap/">AIO・SEO強化ロードマップ</a></li><li><a href="/news/">最新ニュース</a></li></ul>
+<p class="ft-h">サイトについて</p><ul><li><a href="/about/">運営者情報</a></li><li><a href="/editorial-policy/">編集方針</a></li><li><a href="/privacy/">プライバシーポリシー</a></li><li><a href="/llms.txt">llms.txt</a> ・ <a href="/feed.xml">RSS</a></li></ul></nav>
+</div><div class="wrap ft-bottom"><p>© 2026 AIO対策ナビ編集部</p></div></footer>
 </body>
 </html>

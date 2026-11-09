@@ -18,6 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://aio.shiokonbu.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b1736">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="alternate" type="application/rss+xml" title="AIO対策ナビ" href="/feed.xml">
 <link rel="stylesheet" href="/assets/style.css">
@@ -26,19 +27,22 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"無料で使える?登録は必要?","acceptedAnswer":{"@type":"Answer","text":"無料で、登録も不要です。同じURLの診断結果は10分間キャッシュするため、直した直後は少し時間をおいてから診断し直してください。悪用を防ぐため、1分あたりの診断回数に上限があります。"}},{"@type":"Question","name":"入力したURLや診断結果は保存される?","acceptedAnswer":{"@type":"Answer","text":"診断のためにページを読み込むだけで、入力したURLや結果をデータベースに保存することはありません。利用状況を把握するため、Google アナリティクスで診断したドメイン名と点数を記録します(詳しくはプライバシーポリシー)。"}},{"@type":"Question","name":"点数が高ければAI検索に引用される?","acceptedAnswer":{"@type":"Answer","text":"いいえ。このツールが確かめるのは「AIに読まれ、理解されるための土台」です。引用されるかどうかは、内容が質問に的確に答えているか、一次情報や信頼できる出典があるかで大きく変わります。Google も、AI検索のために特別な対策は必要なく、通常のSEOの基本がそのまま当てはまるとしています。"}},{"@type":"Question","name":"社内サイトやログインが必要なページも診断できる?","acceptedAnswer":{"@type":"Answer","text":"できません。インターネットに公開されていて、ログインなしで見られるページだけを診断できます。安全のため、IPアドレスで指定したURL、80番・443番以外のポート、社内向けのドメインは受け付けません。"}}]}</script>
 </head>
 <body>
-<header class="site"><div class="wrap"><a class="brand" href="/">AIO対策ナビ</a>
-<nav aria-label="カテゴリ"><a href="/aio/">AIO・LLMO・GEO対策</a><a href="/seo/">SEO実務</a><a href="/glossary/">用語集</a><a href="/ads/">広告運用</a><a href="/news/">ニュース</a><a href="/aio-checker/">AIO診断</a><a href="/about/">運営者</a></nav></div></header>
-<main class="wrap">
-<nav class="crumbs" aria-label="パンくず"><a href="/">ホーム</a> › <span>AIO診断ツール</span></nav>
-<article><h1>AIO診断ツール</h1><p class="lead">サイトのURLを入れるだけで、AIクローラーへの公開設定・llms.txt・構造化データ・見出し・表示速度など、AI検索(AIO)とSEOの対策状況を無料で診断します。登録は不要です。</p><form class="checker" id="checker" data-api="https://aio-checker.mothership0018.workers.dev">
+<a class="skip" href="#main">本文へ移動</a>
+<header class="site"><div class="wrap hd">
+<a class="brand" href="/"><svg class="logo" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="9" fill="#1d4ed8"/><rect width="32" height="32" rx="9" fill="url(#lg)"/><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs><path fill="#fff" fill-rule="evenodd" d="M8.6 24 14.4 8h3.2L23.4 24h-3.3l-1.3-3.7h-5.6L11.9 24zm5-6.5h4.2L15.9 12z"/><circle cx="25" cy="7.5" r="2.2" fill="#a5f3fc"/></svg><span>AIO対策ナビ</span></a>
+<nav class="gnav" aria-label="メインメニュー"><a href="/aio/">AIO対策</a><a href="/seo/">SEO</a><a href="/glossary/">用語集</a><a href="/ads/">広告運用</a><a href="/news/">ニュース</a><a href="/roadmap/">ロードマップ</a></nav>
+<a class="hd-cta" href="/aio-checker/">無料AIO診断</a>
+</div></header>
+<main id="main">
+<section class="band tool"><div class="wrap"><nav class="crumbs" aria-label="パンくず"><ol><li><a href="/">ホーム</a></li><li><span aria-current="page">AIO診断ツール</span></li></ol></nav><p class="eyebrow">無料・登録不要</p><h1>AIO診断ツール</h1><p class="lead">サイトのURLを入れるだけで、AIクローラーへの公開設定・llms.txt・構造化データ・見出し・表示速度など、AI検索(AIO)とSEOの対策状況を無料で診断します。登録は不要です。</p><form class="checker" id="checker" data-api="https://aio-checker.mothership0018.workers.dev">
 <label for="checker-url">診断したいページのURL</label>
 <div class="row"><input id="checker-url" name="url" type="text" inputmode="url" autocomplete="url" placeholder="https://example.com/" required maxlength="2000">
 <button type="submit">診断する</button></div>
 <p class="small">入力したURLと結果は保存しません。診断には10秒ほどかかることがあります。</p>
 </form>
-<div id="checker-result" aria-live="polite"></div>
-<noscript><p>診断ツールを使うには JavaScript を有効にしてください。</p></noscript>
-<div class="body"><h2 id="aio診断ツールでは何をチェックする">AIO診断ツールでは何をチェックする?</h2>
+</div></section>
+<div class="wrap mid"><div id="checker-result" aria-live="polite"></div><noscript><p>診断ツールを使うには JavaScript を有効にしてください。</p></noscript></div>
+<div class="wrap mid"><article class="post page"><div class="body"><h2 id="aio診断ツールでは何をチェックする">AIO診断ツールでは何をチェックする?</h2>
 <p>入力したページと、そのサイトの robots.txt・llms.txt・サイトマップを読み込み、<strong>ChatGPT・Claude・Perplexity・Google の AI Overviews などのAI検索に読まれ、引用されるための土台と中身が整っているか</strong> を、ページの種類(記事・トップページなど)に合わせて最大38項目で確かめます。さらに、点数とは別に「<strong>強化プラン</strong>」として、表示回数・クリック率・順位・AIでの引用を伸ばすための次の一手を出します。AIO(AI検索最適化)という言葉の意味は「<a href="/aio/aio-llmo-geo-aeo-difference/">AIO・LLMO・GEO・AEOの違い</a>」で解説しています。</p>
 <div class="table"><table><tr><th>分類</th><th>主なチェック項目</th><th>関連する解説</th></tr><tr><td>AIクローラーへの公開</td><td>robots.txt で OAI-SearchBot・Claude-SearchBot・PerplexityBot・Googlebot などをブロックしていないか、noindex・nosnippet がないか、llms.txt・サイトマップがあるか</td><td><a href="/aio/ai-crawler-robots-txt/">AIクローラーのrobots.txt設定</a></td></tr><tr><td>ページの基本(SEO)</td><td>ステータスコード、HTTPS と http からの転送、存在しないページの404、タイトル・meta description の長さ、canonical、スマホ表示、画像の alt、OGP、サイトマップへの掲載</td><td><a href="/aio/ai-overviews/">AI Overviewsとは?</a></td></tr><tr><td>AIに理解・引用されやすい作り</td><td>構造化データの必須項目、パンくず、運営者・著者と sameAs、見出しの構成と「質問の形」、冒頭で結論を言い切っているか、FAQ、箇条書き・表、本文がHTMLに入っているか</td><td><a href="/seo/structured-data/">構造化データとは?</a></td></tr><tr><td>表示の速さ・技術</td><td>サーバーの応答時間、HTMLの大きさ</td><td>—</td></tr><tr><td>中身の強さ</td><td>内容の深さ、一次情報(自分で試した結果・数字・事例)、図や表、話題の網羅、本文の内部リンク網、出典の数、更新日の新しさ、記事内の著者表示</td><td><a href="/seo/first-party-information/">一次情報とは?</a></td></tr></table></div>
 <p>点数は100点満点で、3つの柱の合計です。</p>
@@ -61,20 +65,24 @@
 <p>このツールは「AIOCheckerBot」という名前で、JavaScript を実行せずにページを取得します。多くのAIクローラーも JavaScript を実行しないため、<strong>ここで本文が少なく出るページは、AIクローラーからも中身が見えていない可能性があります</strong>(Vercel の調査「<a href="https://vercel.com/blog/the-rise-of-the-ai-crawler" target="_blank" rel="noopener">The rise of the AI crawler</a>」、2024年12月)。</p>
 <p>ただし、Cloudflare などのボット対策で、本物のAIクローラーだけを通す設定にしているサイトでは、このツールからのアクセスが止められて「ページが正常に表示されない」と出ることがあります。その場合は、実際のAIクローラーへの許可設定を CDN や WAF の管理画面で確認してください。</p>
 <h2 id="よくある質問">よくある質問</h2>
-<h3 id="無料で使える-登録は必要">無料で使える?登録は必要?</h3>
+<h3 id="無料で使える-登録は必要" class="faq-q">無料で使える?登録は必要?</h3>
 <p>無料で、登録も不要です。同じURLの診断結果は10分間キャッシュするため、直した直後は少し時間をおいてから診断し直してください。悪用を防ぐため、1分あたりの診断回数に上限があります。</p>
-<h3 id="入力したurlや診断結果は保存される">入力したURLや診断結果は保存される?</h3>
+<h3 id="入力したurlや診断結果は保存される" class="faq-q">入力したURLや診断結果は保存される?</h3>
 <p>診断のためにページを読み込むだけで、入力したURLや結果をデータベースに保存することはありません。利用状況を把握するため、Google アナリティクスで診断したドメイン名と点数を記録します(詳しくは<a href="/privacy/">プライバシーポリシー</a>)。</p>
-<h3 id="点数が高ければai検索に引用される">点数が高ければAI検索に引用される?</h3>
+<h3 id="点数が高ければai検索に引用される" class="faq-q">点数が高ければAI検索に引用される?</h3>
 <p>いいえ。このツールが確かめるのは「AIに読まれ、理解されるための土台」です。引用されるかどうかは、内容が質問に的確に答えているか、一次情報や信頼できる出典があるかで大きく変わります。Google も、AI検索のために特別な対策は必要なく、通常のSEOの基本がそのまま当てはまるとしています。</p>
-<h3 id="社内サイトやログインが必要なページも診断できる">社内サイトやログインが必要なページも診断できる?</h3>
-<p>できません。インターネットに公開されていて、ログインなしで見られるページだけを診断できます。安全のため、IPアドレスで指定したURL、80番・443番以外のポート、社内向けのドメインは受け付けません。</p></div></article>
+<h3 id="社内サイトやログインが必要なページも診断できる" class="faq-q">社内サイトやログインが必要なページも診断できる?</h3>
+<p>できません。インターネットに公開されていて、ログインなしで見られるページだけを診断できます。安全のため、IPアドレスで指定したURL、80番・443番以外のポート、社内向けのドメインは受け付けません。</p></div></article></div>
 <script src="/assets/checker.js" defer></script>
+<script type="application/json" id="roadmap-data">[{"id": "check", "n": 1, "title": "自分のサイトをAIO診断ツールで診断する", "level": "初級", "checks": []}, {"id": "crawl", "n": 2, "title": "検索エンジンとAIクローラーをブロックしていないか確かめる", "level": "初級", "checks": ["robots", "ai-search-bots", "indexable", "status", "soft-404"]}, {"id": "search-console", "n": 3, "title": "Search Console に登録してサイトマップを送る", "level": "初級", "checks": ["sitemap", "in-sitemap"]}, {"id": "basics", "n": 4, "title": "タイトル・説明文・HTTPSを整える", "level": "初級", "checks": ["title", "description", "https", "canonical", "lang", "http-redirect", "hsts", "viewport", "img-alt"]}, {"id": "learn", "n": 5, "title": "AI検索のしくみを知る(AIO・AI Overviews)", "level": "初級", "checks": []}, {"id": "answer-first", "n": 6, "title": "冒頭で答え、問いの見出しと内部リンクで整理する", "level": "中級", "checks": ["headings", "question-headings", "answer-first", "faq", "lists-tables", "internal-links"]}, {"id": "structured-data", "n": 7, "title": "構造化データ(JSON-LD)を入れる", "level": "中級", "checks": ["structured-data", "breadcrumb"]}, {"id": "trust", "n": 8, "title": "運営者・著者・更新日をはっきり書く", "level": "中級", "checks": ["entity", "date"]}, {"id": "html-text", "n": 9, "title": "本文を最初のHTMLに入れ、表示を速くする", "level": "中級", "checks": ["text", "speed", "html-size"]}, {"id": "llms-ogp", "n": 10, "title": "llms.txt とOGPを用意する", "level": "中級", "checks": ["llms", "ogp"]}, {"id": "measure", "n": 11, "title": "Search Console で表示回数・クリック・順位を見る", "level": "上級", "checks": []}, {"id": "first-party", "n": 12, "title": "一次情報を足す(試した結果・数値・画面)", "level": "上級", "checks": ["citations"]}, {"id": "ai-citation", "n": 13, "title": "AIに実際に引用されているか確かめる", "level": "上級", "checks": []}, {"id": "recheck", "n": 14, "title": "月に1回、診断し直して記録する", "level": "上級", "checks": []}]</script>
+<script src="/assets/progress.js" defer></script>
 </main>
-<footer class="site"><div class="wrap">
-<ul class="cats"><li><a href="/aio/">AIO・LLMO・GEO対策</a></li><li><a href="/seo/">SEO実務</a></li><li><a href="/glossary/">用語集</a></li><li><a href="/ads/">広告運用</a></li><li><a href="/analytics/">成果改善・分析</a></li><li><a href="/lp-creative/">LP・クリエイティブ</a></li><li><a href="/cost/">費用・外注先の選び方</a></li><li><a href="/news/">ニュース・仕様変更</a></li></ul>
-<p><a href="/about/">運営者情報</a> ・ <a href="/editorial-policy/">編集方針</a> ・ <a href="/privacy/">プライバシーポリシー</a> ・ <a href="/llms.txt">llms.txt</a> ・ <a href="/feed.xml">RSS</a></p>
-<p class="small">© 2026 AIO対策ナビ編集部</p>
-</div></footer>
+<footer class="site"><div class="wrap ft">
+<div class="ft-brand"><a class="brand" href="/"><svg class="logo" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="9" fill="#1d4ed8"/><rect width="32" height="32" rx="9" fill="url(#lg)"/><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs><path fill="#fff" fill-rule="evenodd" d="M8.6 24 14.4 8h3.2L23.4 24h-3.3l-1.3-3.7h-5.6L11.9 24zm5-6.5h4.2L15.9 12z"/><circle cx="25" cy="7.5" r="2.2" fill="#a5f3fc"/></svg><span>AIO対策ナビ</span></a>
+<p>AIO・LLMO・GEO対策とSEO・広告の実務メディア。中小企業のマーケ担当者・SEO担当者向けに、一次情報と公式の資料をもとに解説します。</p></div>
+<nav class="ft-col" aria-label="テーマ"><p class="ft-h">テーマ</p><ul><li><a href="/aio/">AIO・LLMO・GEO対策</a></li><li><a href="/seo/">SEO実務</a></li><li><a href="/glossary/">用語集</a></li><li><a href="/ads/">広告運用</a></li><li><a href="/analytics/">成果改善・分析</a></li><li><a href="/lp-creative/">LP・クリエイティブ</a></li><li><a href="/cost/">費用・外注先の選び方</a></li><li><a href="/news/">ニュース・仕様変更</a></li></ul></nav>
+<nav class="ft-col" aria-label="ツールとサイト情報"><p class="ft-h">ツール</p><ul><li><a href="/aio-checker/">AIO診断ツール(無料)</a></li><li><a href="/roadmap/">AIO・SEO強化ロードマップ</a></li><li><a href="/news/">最新ニュース</a></li></ul>
+<p class="ft-h">サイトについて</p><ul><li><a href="/about/">運営者情報</a></li><li><a href="/editorial-policy/">編集方針</a></li><li><a href="/privacy/">プライバシーポリシー</a></li><li><a href="/llms.txt">llms.txt</a> ・ <a href="/feed.xml">RSS</a></li></ul></nav>
+</div><div class="wrap ft-bottom"><p>© 2026 AIO対策ナビ編集部</p></div></footer>
 </body>
 </html>
