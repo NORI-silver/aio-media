@@ -104,3 +104,20 @@ td.ok{color:#1a7f37}td.ng{color:#c62828;font-weight:700}td.warn{color:#b26a00}
 .guide ul{list-style:none;margin:0;padding:0}
 .guide li{margin:.35em 0;line-height:1.7}
 .guide li .lv{margin:0 6px 0 0}
+.cr-plan{border:2px solid var(--accent);border-radius:10px;padding:4px 16px 12px;margin:16px 0}
+.cr-plan h2{border:0;margin:.6em 0 .2em}
+.cr-plan h3{font-size:1rem;margin:1.2em 0 .4em}
+.cr-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.cr-tab{font:inherit;font-size:.82rem;padding:4px 10px;border:1px solid var(--line);border-radius:99px;background:#fff;cursor:pointer}
+.cr-tab.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.cr-fixes,.cr-growth{padding-left:1.3em;margin:0}
+.cr-growth{list-style:none;padding:0}
+.cr-fixes>li,.cr-growth>li{margin:10px 0;font-size:.93rem}
+.cr-growth>li{border-top:1px solid var(--line);padding-top:10px}
+.cr-fixes p,.cr-growth p{margin:2px 0;color:var(--muted);font-size:.9rem;line-height:1.7}
+.cr-steps{margin:4px 0 0;padding-left:1.4em;font-size:.88rem}
+.cr-impact{display:inline-block;font-size:.72rem;font-weight:700;padding:1px 7px;border-radius:4px;margin-right:6px;color:#fff;background:var(--muted)}
+.imp-高{background:#c62828}.imp-中{background:#b26a00}.imp-低{background:#5b6270}
+.cr-chips{display:flex;flex-wrap:wrap;gap:4px}
+.cr-chip{display:inline-block;font-size:.7rem;padding:1px 7px;border-radius:99px;margin-right:6px;background:var(--soft);border:1px solid var(--line);color:var(--fg)}
+.g-imp{background:#e8f0fb}.g-ctr{background:#fff3e0}.g-rank{background:#e7f6ec}.g-ai{background:#f6ebfa}

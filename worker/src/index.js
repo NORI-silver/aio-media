@@ -199,7 +199,7 @@ async function assertPublicHost(hostname) {
 }
 
 // サイズ上限・タイムアウトつきで取得。リダイレクトは1回ずつ確認してから追う
-export async function safeFetch(startUrl, { maxBytes = MAX_TEXT_BYTES, fetchImpl = fetch, checkHost = assertPublicHost } = {}) {
+export async function safeFetch(startUrl, { maxBytes = MAX_TEXT_BYTES, fetchImpl = fetch, checkHost = assertPublicHost, noFollow = false } = {}) {
   let current = new URL(startUrl);
   const chain = [];
   const t0 = Date.now();
@@ -224,6 +224,10 @@ export async function safeFetch(startUrl, { maxBytes = MAX_TEXT_BYTES, fetchImpl
     const headerMs = Date.now() - hopStart;
     if (res.status >= 300 && res.status < 400 && res.headers.get("Location")) {
       clearTimeout(timer);
+      if (noFollow) {
+        try { await res.body?.cancel(); } catch {}
+        return { status: res.status, headers: res.headers, text: "", location: new URL(res.headers.get("Location"), current).href, chain, finalUrl: current.href, ms: Date.now() - hopStart };
+      }
       chain.push({ url: current.href, status: res.status });
       try { await res.body?.cancel(); } catch {}
       current = new URL(res.headers.get("Location"), current);
@@ -382,6 +386,18 @@ export function parseHtml(src) {
   const heading = (n) => [...clean.matchAll(new RegExp(`<h${n}\\b[^>]*>([\\s\\S]*?)<\\/h${n}>`, "gi"))].map((m) => stripTags(m[1]));
   const bodyM = /<body\b[^>]*>([\s\S]*)/i.exec(clean);
   const text = stripTags(bodyM ? bodyM[1] : clean);
+  // 本文の範囲(<article> か <main>。なければ body 全体)
+  const mainM = /<article\b[^>]*>([\s\S]*?)<\/article>/i.exec(clean) || /<main\b[^>]*>([\s\S]*?)<\/main>/i.exec(clean);
+  const main = mainM ? mainM[1] : (bodyM ? bodyM[1] : clean);
+  const imgs = [...clean.matchAll(/<img\b[^>]*>/gi)].map((m) => attrs(m[0]));
+  const anchors = [...main.matchAll(/<a\b[^>]*>/gi)].map((m) => attrs(m[0]).href).filter(Boolean);
+  const allAnchors = [...clean.matchAll(/<a\b[^>]*>([\s\S]*?)<\/a>/gi)].map((m) => ({ href: attrs(m[0].slice(0, m[0].indexOf(">") + 1)).href || "", text: stripTags(m[1]) }));
+  // h1 の後ろの最初の段落(冒頭で答えているか)
+  const afterH1 = main.split(/<\/h1>/i)[1] ?? main;
+  const firstP = /<p\b[^>]*>([\s\S]*?)<\/p>/i.exec(afterH1);
+  const levels = [...clean.matchAll(/<h([1-6])\b/gi)].map((m) => Number(m[1]));
+  let skipped = false;
+  for (let i = 1; i < levels.length; i++) if (levels[i] > levels[i - 1] + 1) skipped = true;
   return {
     title: titleM ? stripTags(titleM[1]) : null,
     description: meta("description"),
@@ -398,6 +414,20 @@ export function parseHtml(src) {
     scriptCount: (html.match(/<script\b/gi) || []).length,
     hasTime: /<time\b[^>]*datetime=/i.test(html),
     appShell: /<div[^>]+id=["'](root|app|__next|__nuxt)["'][^>]*>\s*<\/div>/i.test(html),
+    viewport: meta("viewport"),
+    twitterCard: meta("twitter:card"),
+    imgCount: imgs.length,
+    imgNoAlt: imgs.filter((a) => !("alt" in a)).length,
+    imgEmptyAlt: imgs.filter((a) => a.alt === "").length,
+    mainAnchors: anchors,
+    allAnchors,
+    hasMainRegion: !!mainM,
+    hasArticleTag: /<article\b/i.test(clean),
+    firstParagraph: firstP ? stripTags(firstP[1]) : null,
+    lists: (main.match(/<(ul|ol)\b/gi) || []).length,
+    tables: (main.match(/<table\b/gi) || []).length,
+    headingSkip: skipped,
+    mainTextLength: [...stripTags(main)].length,
   };
 }
 
@@ -423,7 +453,109 @@ export function ldTypes(blocks) {
       broken++;
     }
   }
-  return { types: [...types], props, broken };
+  return { types: [...types], props, broken, nodes: ldNodes(blocks) };
+}
+
+// @type ごとのオブジェクトを集める(必須プロパティの確認用)
+function ldNodes(blocks) {
+  const out = [];
+  const walk = (o, depth = 0) => {
+    if (!o || typeof o !== "object" || depth > 8) return;
+    if (Array.isArray(o)) return o.forEach((x) => walk(x, depth + 1));
+    if (o["@type"]) out.push(o);
+    for (const k of Object.keys(o)) if (typeof o[k] === "object") walk(o[k], depth + 1);
+  };
+  for (const b of blocks) {
+    try { walk(JSON.parse(b)); } catch {}
+  }
+  return out;
+}
+const isType = (n, re) => [].concat(n["@type"]).some((t) => re.test(String(t)));
+
+
+// ------------------------------------------------------------------ 強化プラン
+// 点数(土台)とは別に、表示回数・クリック率・順位・AIでの引用を伸ばすための次の一手を出す。
+// goal: imp=表示回数を増やす / ctr=クリック率を上げる / rank=順位を上げる / ai=AIに引用される
+const FIX_PLAN = {
+  "ai-search-bots": { goals: ["ai", "imp"], effort: "5分" },
+  indexable: { goals: ["imp", "ai"], effort: "5分" },
+  status: { goals: ["imp", "rank"], effort: "要調査" },
+  https: { goals: ["rank", "ctr"], effort: "半日" },
+  "http-redirect": { goals: ["rank"], effort: "30分" },
+  "soft-404": { goals: ["rank"], effort: "半日" },
+  robots: { goals: ["imp"], effort: "15分" },
+  sitemap: { goals: ["imp"], effort: "30分" },
+  "in-sitemap": { goals: ["imp"], effort: "15分" },
+  llms: { goals: ["ai"], effort: "30分" },
+  title: { goals: ["ctr", "rank"], effort: "15分" },
+  description: { goals: ["ctr"], effort: "15分" },
+  canonical: { goals: ["rank"], effort: "15分" },
+  viewport: { goals: ["rank"], effort: "15分" },
+  lang: { goals: ["imp"], effort: "5分" },
+  ogp: { goals: ["ctr"], effort: "30分" },
+  "img-alt": { goals: ["imp", "ai"], effort: "1時間" },
+  "structured-data": { goals: ["ctr", "ai"], effort: "1時間" },
+  breadcrumb: { goals: ["ctr"], effort: "30分" },
+  entity: { goals: ["rank", "ai"], effort: "半日" },
+  date: { goals: ["rank", "ai", "ctr"], effort: "1時間" },
+  headings: { goals: ["rank", "ai"], effort: "30分" },
+  "question-headings": { goals: ["imp", "ai"], effort: "30分" },
+  "answer-first": { goals: ["ai", "ctr"], effort: "15分" },
+  faq: { goals: ["imp", "ai"], effort: "1時間" },
+  "lists-tables": { goals: ["ai", "rank"], effort: "1時間" },
+  text: { goals: ["rank", "imp", "ai"], effort: "半日〜" },
+  "internal-links": { goals: ["rank", "imp"], effort: "30分" },
+  citations: { goals: ["ai", "rank"], effort: "30分" },
+  speed: { goals: ["rank"], effort: "要調査" },
+  "html-size": { goals: ["rank"], effort: "要調査" },
+  hsts: { goals: ["rank"], effort: "15分" },
+};
+
+export const GOALS = {
+  imp: "表示回数を増やす",
+  ctr: "クリック率を上げる",
+  rank: "順位を上げる",
+  ai: "AIに引用される",
+};
+
+function growthActions(pageType, h, final) {
+  const title = h?.title || "";
+  const a = [];
+  // どのページでも出す
+  a.push({ goal: "imp", title: "実際の検索キーワードを Search Console で確かめる", effort: "30分・月1回",
+    why: "このツールはページの作りを見ています。実際にどんな言葉で何回表示され、何位にいるかは Search Console でしかわかりません。",
+    steps: ["Search Console の「検索パフォーマンス」でこのページを絞り込む", "表示回数が多いのに順位が 8〜20 位のキーワードを3つ選ぶ(あと一歩で1ページ目・上位に届く言葉)", "その言葉への答えを、見出しと本文に足す"] });
+  a.push({ goal: "ctr", title: "タイトルと説明文をクリックしたくなる形に書き直す", effort: "30分",
+    why: "同じ順位でも、タイトルと説明文しだいでクリック率は大きく変わります。",
+    steps: [`いまのタイトル:「${title.slice(0, 50)}」`, "検索された言葉を前半に入れ、読むと何がわかるか(手順・費用・比較・最新年など)を足す", "Search Console で表示回数が多くクリック率が低いページから順に直し、4週間後に比べる"] });
+  a.push({ goal: "ai", title: "AIで実際に引用されているか確かめる", effort: "30分・月1回",
+    why: "AI検索で引用されているかは、点数ではわかりません。ねらう質問をAIに聞いて、誰が引用されているかを見るのが一番確実です。",
+    steps: ["お客さんが聞きそうな質問を5つ書き出す(例:「〇〇 費用」「〇〇 おすすめ」)", "ChatGPT(検索)・Perplexity・Google の AI による概要で聞き、引用元のURLを記録する", "引用されている他社ページと比べ、足りない情報(数字・手順・比較表)を足す"] });
+  a.push({ goal: "rank", title: "外部からの紹介(被リンク・言及)を増やす", effort: "継続",
+    why: "順位とAIでの信頼は、ページの中だけでは決まりません。ほかのサイトや人から紹介されることが大きく効きます。",
+    steps: ["独自の調査データや無料ツールなど「紹介したくなる材料」を作る", "業界メディアへの寄稿・取材対応・プレスリリースで言及を得る", "Googleビジネスプロフィール・公式SNSを整え、構造化データの sameAs でつなぐ"] });
+  if (pageType === "article") {
+    a.push({ goal: "rank", title: "一次情報を足して「この記事にしかない理由」を作る", effort: "半日〜",
+      why: "AIが要約できる一般論だけの記事は、検索でもAIでも埋もれます。自分で試した結果・数字・画面・失敗例は引用される理由になります。",
+      steps: ["実際にやってみた結果や、自社の数字を1つ以上入れる", "スクリーンショットや図に、内容がわかる alt を付ける", "数字や仕様には出典と確認日を書く"] });
+    a.push({ goal: "imp", title: "関連する質問の記事を増やし、内部リンクでつなぐ", effort: "継続",
+      why: "1記事だけより、同じテーマの記事が束になっているサイトのほうが、テーマの専門性が伝わり表示回数が伸びます。",
+      steps: ["この記事の読者が次に知りたいこと(費用・比較・手順・失敗例)を3つ書き出す", "それぞれ1記事にし、この記事と相互にリンクする", "まとめ役の記事(ピラー記事)から全部にリンクする"] });
+    a.push({ goal: "ai", title: "見出しごとに「1文の答え」を置く", effort: "1時間",
+      why: "AIはページ全体ではなく、質問に合う段落を抜き出して引用します。",
+      steps: ["各 h2 の直後の1文で、その見出しの問いに答える", "そのあとに理由・手順・例を続ける", "定義は「〇〇とは、△△のことです」の形で書く"] });
+    a.push({ goal: "rank", title: "定期的に内容を見直して更新する", effort: "1時間・3〜6か月ごと",
+      why: "古い情報のままだと、新しい記事に順位を抜かれ、AIにも選ばれにくくなります。",
+      steps: ["数字・仕様・料金・画面が今も正しいか確かめる", "直したら本文と dateModified の更新日を新しくする", "Search Console で更新前後の順位とクリックを比べる"] });
+  } else {
+    a.push({ goal: "imp", title: "お客さんがAIや検索に聞く質問ごとにページを作る", effort: "継続",
+      why: "トップページだけでは、狙える検索キーワードが限られます。表示回数を増やす一番の方法は、答えられる質問の数を増やすことです。",
+      steps: ["「〇〇とは」「〇〇 費用」「〇〇 比較」「〇〇 やり方」など、お客さんの質問を20個書き出す", "1つの質問に1ページで答える記事を作る", "このページから関連するページへリンクする"] });
+    a.push({ goal: "ai", title: "会社・サービスの事実情報を1か所にまとめる", effort: "半日",
+      why: "AIは「誰が・何を・いくらで・どこで」提供しているかがはっきりしたサイトを紹介しやすくなります。",
+      steps: ["サービス内容・料金の目安・対応地域・実績・会社概要をページにまとめる", "Organization や Service の構造化データで同じ情報を書く", "他サイトに載っている会社情報(住所・電話・名前)をそろえる"] });
+  }
+  return a;
 }
 
 // ------------------------------------------------------------------ 診断
@@ -442,16 +574,19 @@ async function diagnose(target, deps = {}) {
   }
   const final = new URL(page.finalUrl);
   const origin = final.origin;
-  const [robotsRes, llmsRes, sitemapRes] = await Promise.all([
+  const probe = "/aio-checker-404-" + Math.random().toString(36).slice(2, 10);
+  const [robotsRes, llmsRes, sitemapRes, httpRes, notFoundRes] = await Promise.all([
     fetcher(origin + "/robots.txt", MAX_TEXT_BYTES),
     fetcher(origin + "/llms.txt", MAX_TEXT_BYTES),
-    fetcher(origin + "/sitemap.xml", 200_000),
+    fetcher(origin + "/sitemap.xml", 1_000_000),
+    final.protocol === "https:" ? safeFetch("http://" + final.host + final.pathname, { maxBytes: 1000, noFollow: true, ...deps }) : null,
+    fetcher(origin + probe, 20_000),
   ]);
-  return buildReport({ target, page, robotsRes, llmsRes, sitemapRes });
+  return buildReport({ target, page, robotsRes, llmsRes, sitemapRes, httpRes, notFoundRes });
 }
 export { diagnose };
 
-export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes }) {
+export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes, httpRes = null, notFoundRes = null, now = new Date() }) {
   const final = new URL(page.finalUrl);
   const ct = (page.headers.get("Content-Type") || "").toLowerCase();
   const isHtml = ct.includes("html") || /^\s*<(!doctype|html)/i.test(page.text);
@@ -506,7 +641,7 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes }) {
   add(G1, "llms", "llms.txt がある", llmsOk ? "ok" : "warn",
     llmsOk ? `${final.origin}/llms.txt があります。` : "llms.txt が見つかりませんでした。",
     llmsOk ? "" : "必須ではありません(Google検索は使っていません)。AIエージェントにサイトの概要を伝えたいなら、置いておくと安心です。",
-    ARTICLE.llms, 3);
+    ARTICLE.llms, 2);
 
   const smInRobots = robots ? robots.sitemaps : [];
   const smOk = smInRobots.length > 0 || (sitemapRes && !sitemapRes.error && sitemapRes.status === 200 && /<(urlset|sitemapindex)\b/i.test(sitemapRes.text));
@@ -518,6 +653,7 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes }) {
   // ---------------- 2. ページの基本
   const G2 = "ページの基本(SEO)";
   const okStatus = page.status >= 200 && page.status < 300;
+  const path0 = final.pathname;
   add(G2, "status", "ページが正常に表示される", okStatus ? "ok" : "ng",
     `HTTPステータス ${page.status}${page.chain.length ? `(リダイレクト ${page.chain.length} 回のあと)` : ""}。`,
     okStatus ? "" : [403, 429, 503].includes(page.status)
@@ -526,81 +662,186 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes }) {
   add(G2, "https", "HTTPSで配信している", final.protocol === "https:" ? "ok" : "ng",
     final.protocol === "https:" ? "HTTPSで配信されています。" : "HTTP(暗号化なし)で配信されています。",
     final.protocol === "https:" ? "" : "SSL証明書を入れて、http から https へリダイレクトしましょう。", "", 5);
+  if (httpRes && !httpRes.error) {
+    const redirOk = httpRes.status >= 300 && httpRes.status < 400 && /^https:/.test(httpRes.location || "");
+    add(G2, "http-redirect", "http から https へ転送している", redirOk ? (httpRes.status === 301 || httpRes.status === 308 ? "ok" : "warn") : "ng",
+      redirOk ? `http:// で開くと ${httpRes.status} で https に転送されます。` : `http:// で開いても https に転送されません(ステータス ${httpRes.status})。`,
+      redirOk ? (httpRes.status === 301 || httpRes.status === 308 ? "" : "恒久的な転送(301)にすると、評価が https 側にまとまります。") : "http と https の両方で見られると評価が分かれます。301 で https に転送しましょう。", "", 3);
+  }
+  const hsts = page.headers.get("Strict-Transport-Security");
+  if (final.protocol === "https:") {
+    add(G2, "hsts", "HSTS(常にHTTPSで開く指定)がある", hsts ? "ok" : "warn",
+      hsts ? `Strict-Transport-Security: ${hsts}` : "Strict-Transport-Security ヘッダーがありません。",
+      hsts ? "" : "サーバーやCDNで HSTS を有効にすると、http で開かれることがなくなり安全性も上がります。", "", 1);
+  }
+  if (notFoundRes && !notFoundRes.error) {
+    const soft = notFoundRes.status >= 200 && notFoundRes.status < 300;
+    add(G2, "soft-404", "存在しないページが 404 を返す", soft ? "warn" : "ok",
+      soft ? `存在しないURLを開いても ${notFoundRes.status} が返ります(ソフト404)。` : `存在しないURLは ${notFoundRes.status} を返します。`,
+      soft ? "中身のないページが大量に索引されると、サイト全体の評価やクロールの効率が下がります。存在しないページは 404 を返しましょう。" : "", "", 3);
+  }
 
+  let pageType = "other";
   if (!h) {
     add(G2, "html", "HTMLページである", "ng", `HTMLではありません(Content-Type: ${ct || "不明"})。`, "記事やトップページなど、HTMLのページのURLを入れてください。", "", 0);
   } else {
+    const ld0 = ldTypes(h.ld);
+    pageType = ld0.types.some((t) => /^(Article|NewsArticle|BlogPosting|TechArticle|Report)$/.test(t)) || (h.hasArticleTag && path0 !== "/" && h.mainTextLength > 1500)
+      ? "article" : path0 === "/" ? "top" : "other";
     const tl = len(h.title);
-    add(G2, "title", "タイトルがある", !tl ? "ng" : tl < 15 || tl > 60 ? "warn" : "ok",
+    const kwFront = h.title && h.h1[0] ? h.title.slice(0, 20).includes(h.h1[0].replace(/[??].*$/, "").slice(0, 6)) : true;
+    add(G2, "title", "タイトルの長さと中身", !tl ? "ng" : tl < 20 || tl > 45 ? "warn" : "ok",
       tl ? `「${h.title}」(${tl}字)` : "title タグがありません。",
-      !tl ? "ページの内容がわかるタイトルを付けましょう。" : tl < 15 ? "短すぎます。何のページかわかる言葉を足しましょう。" : tl > 60 ? "長すぎて検索結果で切れます。大事な言葉を前に寄せましょう。" : "",
+      !tl ? "ページの内容がわかるタイトルを付けましょう。" : tl < 20 ? "短すぎます。検索される言葉と、読む理由(手順・比較・費用など)を足しましょう。" : tl > 45 ? "長すぎて検索結果で切れます。日本語は28〜40字が目安。大事な言葉を前に寄せましょう。" : "",
       "", 5);
     const dl = len(h.description);
-    add(G2, "description", "説明文(meta description)がある", !dl ? "warn" : dl < 50 || dl > 160 ? "warn" : "ok",
+    add(G2, "description", "説明文(meta description)", !dl ? "ng" : dl < 70 || dl > 130 ? "warn" : "ok",
       dl ? `「${h.description.slice(0, 120)}${dl > 120 ? "…" : ""}」(${dl}字)` : "meta description がありません。",
-      !dl ? "ページの要点を80〜120字ほどで書きましょう。検索結果やAIの要約の材料になります。" : dl < 50 ? "少し短めです。要点を1〜2文で書きましょう。" : dl > 160 ? "長すぎて切れます。120字前後にまとめましょう。" : "",
+      !dl ? "ページの要点を80〜120字で書きましょう。検索結果に出る文はクリック率に直結します。" : dl < 70 ? "短めです。誰の・どんな悩みに・何がわかるかを80〜120字で書きましょう。" : dl > 130 ? "長すぎて切れます。120字前後にまとめましょう。" : "",
       "", 4);
-    let canonOk = false;
+    let canonStatus = "warn";
     let canonDetail = "canonical がありません。";
     if (h.canonical) {
       try {
         const c = new URL(h.canonical, final);
-        canonOk = c.origin === final.origin;
-        canonDetail = `canonical: ${c.href}` + (c.href.replace(/\/$/, "") !== final.href.replace(/\/$/, "") ? "(このURLとは別のURLを指しています)" : "");
+        const same = c.href.replace(/\/$/, "") === final.href.replace(/\/$/, "");
+        canonStatus = same ? "ok" : c.origin === final.origin ? "warn" : "ng";
+        canonDetail = `canonical: ${c.href}` + (same ? "" : "(このURLとは別のURLを指しています。意図したものか確かめてください)");
       } catch {
         canonDetail = "canonical のURLが正しくありません。";
       }
     }
-    add(G2, "canonical", "canonical(正規URL)がある", canonOk ? "ok" : "warn", canonDetail,
-      canonOk ? "" : "同じ内容のURLが複数あっても評価が分かれないよう、canonical を設定しましょう。", "", 3);
+    add(G2, "canonical", "canonical(正規URL)", canonStatus, canonDetail,
+      canonStatus === "ok" ? "" : "自分自身のURLを canonical に指定すると、パラメータ付きURLなどに評価が分かれません。", "", 3);
+    add(G2, "viewport", "スマホ表示に対応している", h.viewport && /width=device-width/.test(h.viewport) ? "ok" : "ng",
+      h.viewport ? `viewport: ${h.viewport}` : "viewport の指定がありません。",
+      h.viewport && /width=device-width/.test(h.viewport) ? "" : 'Google はスマホ版のページで評価します。<meta name="viewport" content="width=device-width, initial-scale=1"> を入れましょう。', "", 4);
     add(G2, "lang", "言語(lang)を指定している", h.lang ? "ok" : "warn",
-      h.lang ? `lang="${h.lang}"` : "html タグに lang がありません。", h.lang ? "" : '<html lang="ja"> のように指定しましょう。', "", 2);
-    const ogN = [h.og.title, h.og.description, h.og.image].filter(Boolean).length;
-    add(G2, "ogp", "OGP(SNS・共有用の情報)がある", ogN === 3 ? "ok" : "warn",
-      ogN === 3 ? "og:title・og:description・og:image があります。" : `足りないもの: ${[!h.og.title && "og:title", !h.og.description && "og:description", !h.og.image && "og:image"].filter(Boolean).join("、")}`,
-      ogN === 3 ? "" : "SNSやチャットで共有されたときの見え方が整います。", "", 2);
+      h.lang ? `lang="${h.lang}"` : "html タグに lang がありません。", h.lang ? "" : '<html lang="ja"> のように指定しましょう。', "", 1);
+    const ogMissing = [!h.og.title && "og:title", !h.og.description && "og:description", !h.og.image && "og:image", !h.twitterCard && "twitter:card"].filter(Boolean);
+    add(G2, "ogp", "OGP(SNS・共有用の情報)", ogMissing.length === 0 ? "ok" : ogMissing.length >= 3 ? "ng" : "warn",
+      ogMissing.length === 0 ? "og:title・og:description・og:image・twitter:card があります。" : `足りないもの: ${ogMissing.join("、")}`,
+      ogMissing.length ? "SNSやチャットで共有されたときに画像つきで表示され、クリックされやすくなります(被リンクや言及のきっかけにも)。" : "", "", 2);
+    if (h.imgCount) {
+      const bad = h.imgNoAlt;
+      add(G2, "img-alt", "画像に代替テキスト(alt)がある", bad === 0 ? "ok" : bad / h.imgCount > 0.3 ? "ng" : "warn",
+        `画像 ${h.imgCount} 枚のうち alt がないもの ${bad} 枚、alt が空のもの ${h.imgEmptyAlt} 枚。`,
+        bad ? "画像の内容を alt で説明すると、画像検索からの流入が増え、AIも図の意味を理解できます(飾りの画像は alt=\"\" で可)。" : "", "", 3);
+    }
+    // サイトマップに入っているか
+    if (sitemapRes && !sitemapRes.error && sitemapRes.status === 200 && /<urlset\b/i.test(sitemapRes.text)) {
+      const inSm = sitemapRes.text.includes(final.href) || sitemapRes.text.includes(final.href.replace(/\/$/, "") + "<");
+      add(G2, "in-sitemap", "このページがサイトマップに入っている", inSm ? "ok" : sitemapRes.truncated ? "info" : "warn",
+        inSm ? "/sitemap.xml にこのURLがあります。" : sitemapRes.truncated ? "サイトマップが大きいため確認しきれませんでした。" : "/sitemap.xml にこのURLが見つかりません。",
+        inSm || sitemapRes.truncated ? "" : "索引してほしいページはサイトマップに入れましょう(canonical と同じURLで)。", "", 2);
+    }
   }
 
-  // ---------------- 3. AIに理解・引用されやすいか
+  // ---------------- 3. AIに理解・引用されやすいか(コンテンツ)
   const G3 = "AIに理解・引用されやすい作り";
   if (h) {
     const ld = ldTypes(h.ld);
-    const useful = ld.types.filter((t) => /^(Article|NewsArticle|BlogPosting|FAQPage|HowTo|Product|Organization|LocalBusiness|Person|WebSite|BreadcrumbList|Service|Corporation|Event|Recipe|Review|ProfilePage|WebPage|AboutPage|SoftwareApplication|Course|JobPosting|Dataset|QAPage|VideoObject)$/.test(t));
-    add(G3, "structured-data", "構造化データ(JSON-LD)がある",
-      ld.broken ? "ng" : useful.length >= 2 ? "ok" : useful.length || ld.types.length ? "warn" : "ng",
-      ld.broken ? `JSON-LD が ${ld.broken} か所壊れていて読めません。` : ld.types.length ? `見つかった種類: ${ld.types.slice(0, 12).join("、")}` : "JSON-LD の構造化データがありません。",
-      ld.broken ? "リッチリザルトテストで壊れている箇所を確かめましょう。" : useful.length >= 2 ? "" : "ページの種類に合わせて Article・Organization・BreadcrumbList などを足すと、ページの意味がAIにも伝わりやすくなります。",
-      ARTICLE.sd, 10);
-    const hasOrg = ld.types.some((t) => /^(Organization|Corporation|LocalBusiness|Person)$/.test(t)) || ld.props.has("author") || ld.props.has("publisher");
-    add(G3, "entity", "運営者・著者がわかる", hasOrg ? "ok" : "warn",
-      hasOrg ? "構造化データに運営者・著者の情報があります。" : "構造化データに運営者・著者(Organization・Person・author)の情報が見つかりません。",
-      hasOrg ? "" : "誰が書いたか・どの会社かをはっきりさせると、信頼できる情報源として扱われやすくなります(E-E-A-T)。", ARTICLE.sd, 6);
-    const hasDate = ld.props.has("dateModified") || ld.props.has("datePublished") || h.hasTime;
-    add(G3, "date", "公開日・更新日がわかる", hasDate ? "ok" : "warn",
-      hasDate ? "公開日・更新日の情報があります。" : "公開日・更新日が見つかりません(記事でなければ問題ありません)。",
-      hasDate ? "" : "記事なら datePublished・dateModified と、ページ上の日付を入れましょう。AIは新しい情報を好みます。", "", 4);
+    const nodes = ld.nodes;
+    const art = nodes.find((n) => isType(n, /^(Article|NewsArticle|BlogPosting|TechArticle|Report)$/));
+    const org = nodes.find((n) => isType(n, /^(Organization|Corporation|LocalBusiness|NewsMediaOrganization|OnlineBusiness)$/));
+    let sdStatus, sdDetail, sdAdvice;
+    if (ld.broken) {
+      sdStatus = "ng"; sdDetail = `JSON-LD が ${ld.broken} か所壊れていて読めません。`; sdAdvice = "リッチリザルトテストで壊れている箇所を確かめましょう。";
+    } else if (!ld.types.length) {
+      sdStatus = "ng"; sdDetail = "JSON-LD の構造化データがありません。"; sdAdvice = "ページの種類に合わせて Article・Organization・BreadcrumbList などを足しましょう。";
+    } else if (pageType === "article") {
+      const miss = art ? ["headline", "author", "datePublished", "dateModified", "image"].filter((k) => !art[k]) : ["Article"];
+      sdStatus = miss.length === 0 ? "ok" : "warn";
+      sdDetail = `見つかった種類: ${ld.types.slice(0, 12).join("、")}` + (miss.length ? `。記事として足りない項目: ${miss.join("、")}` : "");
+      sdAdvice = miss.length ? "Article に headline・author・datePublished・dateModified・image をそろえると、著者と鮮度がAIにも伝わります。" : "";
+    } else {
+      sdStatus = org || ld.types.includes("WebSite") ? "ok" : "warn";
+      sdDetail = `見つかった種類: ${ld.types.slice(0, 12).join("、")}`;
+      sdAdvice = sdStatus === "ok" ? "" : "トップや会社ページには Organization(名前・ロゴ・URL・sameAs)と WebSite を入れましょう。";
+    }
+    add(G3, "structured-data", "構造化データ(JSON-LD)", sdStatus, sdDetail, sdAdvice, ARTICLE.sd, 8);
+    if (path0 !== "/") {
+      const bc = ld.types.includes("BreadcrumbList");
+      add(G3, "breadcrumb", "パンくずの構造化データがある", bc ? "ok" : "warn", bc ? "BreadcrumbList があります。" : "BreadcrumbList がありません。",
+        bc ? "" : "サイト内のどこにあるページかが伝わり、検索結果にもパンくずが表示されます。", ARTICLE.sd, 2);
+    }
+    const sameAs = nodes.some((n) => n.sameAs);
+    const authorNode = art && art.author ? [].concat(art.author)[0] : null;
+    const authorOk = authorNode && typeof authorNode === "object" && authorNode.name && authorNode.url;
+    const aboutLink = h.allAnchors.some((a) => /\/(about|company|profile|author|team|corporate|kaisya|gaiyou)/i.test(a.href) || /運営者|会社概要|著者|プロフィール|私たちについて|About/i.test(a.text));
+    const entityScore = [org || authorNode, aboutLink, sameAs, pageType !== "article" || authorOk].filter(Boolean).length;
+    add(G3, "entity", "運営者・著者が信頼できる形で示されている", entityScore === 4 ? "ok" : entityScore >= 2 ? "warn" : "ng",
+      [`構造化データの運営者/著者: ${org || authorNode ? "あり" : "なし"}`, `運営者・会社情報ページへのリンク: ${aboutLink ? "あり" : "なし"}`, `sameAs(SNS・外部プロフィールへのつながり): ${sameAs ? "あり" : "なし"}`, pageType === "article" ? `著者の名前とURL: ${authorOk ? "あり" : "なし"}` : null].filter(Boolean).join("/"),
+      entityScore === 4 ? "" : "誰が・どんな経験から書いているかを示すと、Google の E-E-A-T の評価や、AIが信頼できる出典として選ぶ理由になります。sameAs で公式SNSや外部の紹介ページとつなげましょう。", ARTICLE.sd, 6);
+    const dates = nodes.map((n) => n.dateModified || n.datePublished).filter(Boolean).map((d) => new Date(d)).filter((d) => !isNaN(d));
+    const latest = dates.length ? new Date(Math.max(...dates)) : null;
+    const ageDays = latest ? Math.floor((now - latest) / 86400000) : null;
+    if (pageType === "article" || latest || h.hasTime) {
+      add(G3, "date", "更新日が新しい", !latest ? (h.hasTime ? "warn" : "ng") : ageDays > 365 ? "warn" : "ok",
+        latest ? `構造化データの最終更新日: ${latest.toISOString().slice(0, 10)}(${ageDays}日前)` : h.hasTime ? "ページ上に日付はありますが、構造化データに dateModified がありません。" : "公開日・更新日が見つかりません。",
+        !latest ? "datePublished・dateModified を構造化データとページ上の両方に入れましょう。" : ageDays > 365 ? "1年以上更新されていません。情報を見直して更新日を新しくすると、検索でもAIでも選ばれやすくなります。" : "", "", 4);
+    }
     const h1n = h.h1.length;
     const h2n = h.h2.length;
-    add(G3, "headings", "見出しで内容が区切られている", h1n === 1 && h2n >= 2 ? "ok" : h1n === 0 ? "ng" : "warn",
-      `h1 ${h1n} 個、h2 ${h2n} 個、h3 ${h.h3count} 個` + (h1n ? `(h1:「${h.h1[0].slice(0, 40)}」)` : ""),
-      h1n === 1 && h2n >= 2 ? "" : h1n === 0 ? "ページの主題を h1 で1つ書きましょう。" : h1n > 1 ? "h1 は1ページに1つが目安です。" : "h2 で話題を区切ると、AIが答えの部分を抜き出しやすくなります。問いの形の見出しが効果的です。",
-      ARTICLE.basics, 6);
-    const thin = h.textLength < 300;
-    const jsShell = thin && (h.appShell || h.scriptCount >= 5);
-    add(G3, "text", "本文がHTMLに入っている", jsShell ? "ng" : thin ? "warn" : "ok",
-      `HTMLに含まれる本文は約 ${h.textLength.toLocaleString("ja-JP")} 字です。` + (jsShell ? "JavaScriptで後から表示するつくりの可能性があります。" : ""),
+    const needH2 = pageType === "article" ? 3 : 2;
+    add(G3, "headings", "見出しの構成", h1n === 1 && h2n >= needH2 && !h.headingSkip ? "ok" : h1n === 0 ? "ng" : "warn",
+      `h1 ${h1n} 個、h2 ${h2n} 個、h3 ${h.h3count} 個` + (h.headingSkip ? "、見出しのレベルが飛んでいる箇所あり" : "") + (h1n ? `(h1:「${h.h1[0].slice(0, 40)}」)` : ""),
+      h1n === 0 ? "ページの主題を h1 で1つ書きましょう。" : h1n > 1 ? "h1 は1ページに1つにしましょう。" : h2n < needH2 ? `h2 を${needH2}個以上にして話題を区切りましょう。` : h.headingSkip ? "h2 の次に h4 のようにレベルを飛ばさず、順番に使いましょう。" : "",
+      ARTICLE.basics, 4);
+    if (pageType === "article") {
+      const q = h.h2.filter((t) => /[??]|とは|なぜ|どう|どの|いつ|いくら|方法|やり方|違い|ポイント|\b(how|what|why|when|which)\b/i.test(t)).length;
+      const ratio = h2n ? q / h2n : 0;
+      add(G3, "question-headings", "見出しが「読者の質問」の形になっている", ratio >= 0.5 ? "ok" : ratio > 0 ? "warn" : "ng",
+        `h2 ${h2n} 個のうち、質問・疑問の形は ${q} 個。`,
+        ratio >= 0.5 ? "" : "「〇〇とは?」「〇〇のやり方は?」のように、読者がAIや検索に打ち込む質問を見出しにすると、その部分が答えとして引用されやすくなります。", ARTICLE.basics, 4);
+      const fp = h.firstParagraph ? len(h.firstParagraph) : 0;
+      add(G3, "answer-first", "冒頭で結論を言い切っている", fp >= 40 && fp <= 220 ? "ok" : "warn",
+        h.firstParagraph ? `最初の段落(${fp}字):「${h.firstParagraph.slice(0, 80)}${fp > 80 ? "…" : ""}」` : "h1 の後に段落が見つかりません。",
+        fp >= 40 && fp <= 220 ? "" : "タイトルの問いへの答えを、最初の1〜2文(40〜200字)で言い切りましょう。AI Overviews や ChatGPT はこの部分をそのまま要約に使いがちです。", ARTICLE.basics, 5);
+      const faq = ld.types.includes("FAQPage") || h.h2.some((t) => /よくある質問|FAQ|Q&A/i.test(t));
+      add(G3, "faq", "よくある質問(FAQ)がある", faq ? "ok" : "warn", faq ? "FAQの見出しまたは FAQPage があります。" : "FAQ が見つかりません。",
+        faq ? "" : "読者が次に聞きそうな質問と短い答えを最後にまとめると、関連する質問の検索やAIの回答で拾われる入口が増えます。", "", 3);
+    }
+    add(G3, "lists-tables", "箇条書き・表で整理されている", h.lists + h.tables >= 2 ? "ok" : h.lists + h.tables === 1 ? "warn" : pageType === "article" ? "ng" : "warn",
+      `本文の箇条書き ${h.lists} 個、表 ${h.tables} 個。`,
+      h.lists + h.tables >= 2 ? "" : "手順は番号付きリスト、比較は表にすると、AIが要点を抜き出しやすく、強調スニペットにも選ばれやすくなります。", "", 3);
+    const base = h.hasMainRegion ? h.mainTextLength : h.textLength;
+    const need = pageType === "article" ? [800, 2000] : [300, 600];
+    const thin = base < need[0];
+    const jsShell = h.textLength < 300 && (h.appShell || h.scriptCount >= 5);
+    add(G3, "text", "本文の量と、HTMLに本文が入っているか", jsShell ? "ng" : thin ? "ng" : base < need[1] ? "warn" : "ok",
+      `本文(${h.hasMainRegion ? "article/main の中" : "ページ全体"})は約 ${base.toLocaleString("ja-JP")} 字。` + (jsShell ? "JavaScriptで後から表示するつくりの可能性があります。" : ""),
       jsShell ? "多くのAIクローラーはJavaScriptを実行しません。本文を最初のHTMLに入れる(SSR・静的生成)と読まれやすくなります。"
-        : thin ? "本文が少なめです。AIが引用できる具体的な説明・数字・手順を書きましょう。" : "",
-      "", 10);
+        : base < need[1] ? `${pageType === "article" ? "記事" : "このページ"}としては少なめです。読者の疑問に答える具体的な説明・数字・手順・事例を足しましょう(文字数そのものより、答えの網羅が大事です)。` : "",
+      "", 8);
+    // リンク
+    const isInternal = (href) => { try { const u = new URL(href, final); return u.host === final.host; } catch { return false; } };
+    const linkSet = h.hasMainRegion ? h.mainAnchors : h.allAnchors.map((a) => a.href);
+    const internal = new Set(linkSet.filter((x) => isInternal(x) && !/^#/.test(x)).map((x) => new URL(x, final).pathname));
+    internal.delete(final.pathname);
+    const needInt = h.hasMainRegion ? 3 : 10;
+    add(G3, "internal-links", "関連ページへの内部リンク", internal.size >= needInt ? "ok" : internal.size >= 1 ? "warn" : "ng",
+      `${h.hasMainRegion ? "本文中" : "ページ全体"}の内部リンク先: ${internal.size} ページ。`,
+      internal.size >= needInt ? "" : "関連する記事やサービスページへ本文からリンクすると、検索エンジンがサイトの構造を理解し、評価がサイト内に回ります。", "", 4);
+    if (pageType === "article") {
+      const ext = new Set(linkSet.filter((x) => /^https?:/i.test(x) && !isInternal(x)).map((x) => { try { return new URL(x).host; } catch { return x; } }));
+      add(G3, "citations", "出典(外部の一次資料)へのリンク", ext.size >= 2 ? "ok" : ext.size === 1 ? "warn" : "ng",
+        `本文から外部サイトへのリンク: ${ext.size} サイト${ext.size ? `(${[...ext].slice(0, 5).join("、")})` : ""}。`,
+        ext.size >= 2 ? "" : "数字や仕様には、公的機関・公式ドキュメントなど一次資料へのリンクを付けましょう。信頼性の評価と、AIが「根拠のある情報」として選ぶ理由になります。", "", 3);
+    }
   }
 
-  // ---------------- 4. 速さ
-  const G4 = "表示の速さ";
+  // ---------------- 4. 速さ・技術
+  const G4 = "表示の速さ・技術";
   const ms = page.ms;
-  add(G4, "speed", "サーバーの応答が速い", ms <= 800 ? "ok" : ms <= 2000 ? "warn" : "ng",
-    `最初の応答まで約 ${ms.toLocaleString("ja-JP")} ミリ秒(診断サーバーから計測した目安)。HTMLの大きさ約 ${Math.round(new TextEncoder().encode(page.text).length / 1024).toLocaleString("ja-JP")} KB${page.truncated ? "以上" : ""}。`,
-    ms <= 800 ? "" : "応答が遅いとクローラーが読む量が減ることがあります。キャッシュやCDNを見直しましょう。正確な速さは PageSpeed Insights で測れます。",
-    "", 7);
+  const kb = Math.round(new TextEncoder().encode(page.text).length / 1024);
+  add(G4, "speed", "サーバーの応答が速い", ms <= 500 ? "ok" : ms <= 1500 ? "warn" : "ng",
+    `最初の応答まで約 ${ms.toLocaleString("ja-JP")} ミリ秒(診断サーバーから計測した目安)。`,
+    ms <= 500 ? "" : "応答が遅いとクローラーが読む量が減り、訪問者も離脱します。キャッシュ・CDN・サーバーの性能を見直しましょう。表示全体の速さは PageSpeed Insights で測れます。",
+    "", 5);
+  add(G4, "html-size", "HTMLが重すぎない", kb <= 300 ? "ok" : kb <= 1000 && !page.truncated ? "warn" : "ng",
+    `HTMLの大きさ約 ${kb.toLocaleString("ja-JP")} KB${page.truncated ? "以上" : ""}${h ? `、script タグ ${h.scriptCount} 個` : ""}。`,
+    kb <= 300 ? "" : "HTMLが大きいと、クローラーが途中までしか読まないことがあります。埋め込みのデータやインラインのスクリプトを減らしましょう。", "", 2);
 
   // 上級者向け: 診断に使った生の値
   const hdr = (k) => page.headers.get(k);
@@ -623,7 +864,7 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes }) {
 
   const scored = checks.filter((c) => c.weight > 0);
   const total = scored.reduce((s, c) => s + c.weight, 0);
-  const got = scored.reduce((s, c) => s + (c.status === "ok" ? c.weight : c.status === "warn" ? c.weight / 2 : 0), 0);
+  const got = scored.reduce((s, c) => s + (c.status === "ok" ? c.weight : c.status === "warn" ? c.weight * 0.4 : 0), 0);
   let score = total ? Math.round((got / total) * 100) : 0;
   // ページ自体が読めない(エラー・HTMLでない)ときは、中身の項目を診断できないので高い点にしない
   if (!okStatus || !h) score = Math.min(score, 30);
@@ -632,7 +873,8 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes }) {
     finalUrl: final.href,
     checkedAt: new Date().toISOString(),
     score,
-    grade: score >= 85 ? "A" : score >= 70 ? "B" : score >= 50 ? "C" : "D",
+    grade: score >= 90 ? "A" : score >= 75 ? "B" : score >= 55 ? "C" : "D",
+    pageType,
     counts: {
       ok: checks.filter((c) => c.status === "ok").length,
       warn: checks.filter((c) => c.status === "warn").length,
@@ -640,6 +882,15 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes }) {
     },
     bots: botResults.map(({ ua, owner, role, search, allowed, rule }) => ({ ua, owner, role, search, allowed, rule: rule || null })),
     checks: checks.map((c) => ({ ...c, weight: c.weight })),
+    plan: {
+      fixes: checks.filter((c) => c.status === "ng" || c.status === "warn")
+        .map((c) => ({ id: c.id, label: c.label, advice: c.advice || c.detail, status: c.status,
+          impact: c.status === "ng" && c.weight >= 4 || c.weight >= 8 ? "高" : c.weight >= 4 ? "中" : "低",
+          goals: (FIX_PLAN[c.id] || { goals: [] }).goals, effort: (FIX_PLAN[c.id] || {}).effort || "" }))
+        .sort((x, y) => "高中低".indexOf(x.impact) - "高中低".indexOf(y.impact) || (x.status === "ng" ? -1 : 0) - (y.status === "ng" ? -1 : 0)),
+      growth: okStatus && h ? growthActions(pageType, h, final) : [],
+      goals: GOALS,
+    },
     raw,
   };
 }

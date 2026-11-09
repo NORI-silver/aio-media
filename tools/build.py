@@ -385,7 +385,7 @@ def build_home(arts):
         lst = ('<ul class="cards">' + "".join(card(a) for a in items) + "</ul>") if items else '<p class="empty">記事を準備しています。</p>'
         secs.append(f'<section class="pillar"><h2><a href="/{c["slug"]}/">{esc(c["name"])}</a></h2><p>{esc(c["desc"])}</p>{lst}</section>')
     hero_cta = ('<p class="cta"><a href="/aio-checker/">あなたのサイトのAIO対策を無料で診断する</a> '
-                '<span class="small">URLを入れるだけ。AIクローラーへの公開設定・構造化データなど19項目</span></p>') if checker_ready() else ""
+                '<span class="small">URLを入れるだけ。AIクローラーへの公開設定・構造化データなど最大33項目と強化プラン</span></p>') if checker_ready() else ""
     latest = ('<section><h2>新着記事</h2><ul class="cards">' + "".join(card(a) for a in arts[:9]) + "</ul></section>") if arts else ""
     page = head(f'{SITE["name"]}|{SITE["tagline"]}', SITE["tagline"] + "。中小企業のマーケ担当者・SEO担当者向けに、一次情報と検証データで解説します。",
                 "/", [website, ORG]) + f"""<section class="hero"><h1>{esc(SITE['name'])}</h1><p>{esc(SITE['tagline'])}</p>{hero_cta}</section>
