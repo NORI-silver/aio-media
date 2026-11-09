@@ -1,0 +1,35 @@
+# 公式の発表元(content/news-sources.json)を3時間ごとに確認し、新着を content/news-watch.json にためて /news/ に出す。
+# 新着があったときだけ main にコミットする(サイトの再生成と SEO チェックもこの中で行う)。
+# 日本語の解説記事は、毎日の自動作業が docs/news.md の手順で書く。
+name: News watch
+on:
+  schedule:
+    - cron: '17 */3 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: news-watch
+  cancel-in-progress: false
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch, build, commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          for try in 1 2 3; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 tools/news_watch.py . | tee -a "$GITHUB_STEP_SUMMARY"
+            python3 tools/build.py .
+            python3 tools/seo_check.py . > /tmp/seo.txt || { cat /tmp/seo.txt; exit 1; }
+            if [ -z "$(git status --porcelain)" ]; then echo "変化なし"; exit 0; fi
+            git add -A
+            git commit -q -m "公式発表の新着を更新(自動)"
+            if git push -q origin HEAD:main; then exit 0; fi
+            echo "push に失敗(main が進んだ)。やり直します"; sleep $((try * 10))
+          done
+          exit 1

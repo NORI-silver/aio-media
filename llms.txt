@@ -4,7 +4,6 @@
 
 ## ツール
 - [AIO診断ツール](https://aio.shiokonbu.com/aio-checker/): URLを入れると、AIクローラーへの公開設定・llms.txt・構造化データなどAI検索対策の状況を無料で診断する
-- [AIO・SEO強化ロードマップ](https://aio.shiokonbu.com/roadmap/): 初級から上級まで14ステップで、AI検索とSEOの対策を進めるチェックリスト
 
 ## 運営者と方針
 - [運営者情報](https://aio.shiokonbu.com/about/): 運営者と連絡先
@@ -25,6 +24,9 @@
 
 ## 用語集
 - [llms.txtとは?書き方の例とGoogleの見解、置くべきかを解説](https://aio.shiokonbu.com/glossary/llms-txt/): llms.txtは、サイトの概要と主なページをMarkdownでまとめてAIに伝えるためのファイルです。仕様の中身、実際の書き方の例、Googleの見解、置くべきサイトの判断基準を解説します。
+
+## ニュース・仕様変更
+- [AI学習を一括で断るrobots.txt共通ルール|Google・Bing対応へ](https://aio.shiokonbu.com/news/shared-ai-training-opt-out/): Google・Microsoft(Bing)・OpenAIが、robots.txtの「__usage_ai-training」でAI学習の可否を一括で伝える共通ルールへの対応を発表。書き方、各社の時期、AI検索への影響を解説します。
 
 ## Optional
 - [全記事の本文](https://aio.shiokonbu.com/llms-full.txt)
