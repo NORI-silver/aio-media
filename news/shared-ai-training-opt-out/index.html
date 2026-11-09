@@ -44,7 +44,7 @@
 <div class="summary-box"><p class="summary-h">この記事の結論</p><p class="summary">2026年10月30日、Google・Microsoft・OpenAIが、robots.txt に <code>User-Agent: __usage_ai-training</code> と書くだけで「AIの学習に使わないで」を各社にまとめて伝えられる共通ルールへの対応を発表しました。Google は2027年前半の対応予定で、検索や AI Overviews への掲載には影響しません。</p></div>
 <nav class="guide" aria-label="レベル別の読み方"><p>レベル別の読み方</p><ul><li><span class="lv lv-basic">初級</span><strong>はじめての方</strong>:<a href="#何が発表された">何が発表された?</a>、<a href="#私たちのサイトはどうする">私たちのサイトはどうする?</a></li><li><span class="lv lv-mid">中級</span><strong>設定・実務をする方</strong>:<a href="#robots-txtにはどう書く">robots.txtにはどう書く?</a>、<a href="#ai検索やgoogle検索への影響は">AI検索やGoogle検索への影響は?</a></li><li><span class="lv lv-adv">上級</span><strong>もっと深く知りたい方</strong>:<a href="#google-extendedとの関係は">Google-Extendedとの関係は?</a>、<a href="#bingのai-grounding設定とは">BingのAI Grounding設定とは?</a></li></ul></nav><nav class="toc" aria-label="目次"><p class="toc-h">目次</p><ol><li><a href="#何が発表された">何が発表された?</a> <span class="lv lv-basic">初級</span></li><li><a href="#robots-txtにはどう書く">robots.txtにはどう書く?</a> <span class="lv lv-mid">中級</span></li><li><a href="#ai検索やgoogle検索への影響は">AI検索やGoogle検索への影響は?</a> <span class="lv lv-mid">中級</span></li><li><a href="#google-extendedとの関係は">Google-Extendedとの関係は?</a> <span class="lv lv-adv">上級</span></li><li><a href="#bingのai-grounding設定とは">BingのAI Grounding設定とは?</a> <span class="lv lv-adv">上級</span></li><li><a href="#私たちのサイトはどうする">私たちのサイトはどうする?</a> <span class="lv lv-basic">初級</span></li><li><a href="#よくある質問">よくある質問</a></li></ol></nav>
 <div class="body">
-<blockquote><p><strong>ひとことで言うと</strong>:「うちのサイトの文章を、AIの勉強(学習)に使わないで」というお願いを、1行書くだけで Google・Microsoft・OpenAI などにまとめて伝えられるようになります。始まるのは2027年からです。</p></blockquote>
+<blockquote><p><strong>ひとことで言うと</strong>:あなたのサイトを「お店」、robots.txt を「入口の張り紙」だと思ってください。これまでは「A社さん、うちの商品を教材に使わないで」「B社さんも…」と、AI会社ごとに張り紙を書く必要がありました。これからは「どのAI会社も、教材(AIの学習)には使わないで」という<strong>共通の張り紙1枚</strong>で済むようになります。お客さんがお店に入って見て回ること(検索結果やAI検索に載ること)は、今までどおり自由です。始まるのは2027年からです。  ただし、張り紙は「お願い」で、鍵ではありません。約束した会社(Google・Microsoft・OpenAI など)は守りますが、守らない業者を止める力はありません。</p></blockquote>
 <p><strong>あなたがやること:ほとんどの会社は、何もしなくて大丈夫です。</strong> AIに自社の情報を紹介してほしい会社(多くの中小企業がそうです)は、今のままにしておきましょう。「AIの学習には使われたくない」という会社だけ、この記事の「robots.txtにはどう書く?」を読んでください。</p>
 <p><strong>AIの学習に自分のサイトを使わせたくないとき、これからは robots.txt に1つのグループを書くだけで、主要なAI企業にまとめて意思表示できるようになります。</strong> 2026年10月30日、Google・Microsoft(Bing)・OpenAI が、<code>__usage_ai-training</code> という共通の名前(ポリシートークン)への対応を相次いで発表しました。これまでは GPTBot・ClaudeBot・Google-Extended など、会社ごとのクローラー名を1つずつ書く必要がありました。</p>
 <p>ただし、<strong>今日すぐに効くわけではありません</strong>。Google は2027年前半、Microsoft は2027年2月1日から対応する予定です。また、これは「AIの学習」についての意思表示で、<strong>Google 検索や AI Overviews への掲載、ChatGPT などのAI検索での引用には影響しない</strong> という点が大事です。AI検索で引用されたいサイト(AIO=AI検索最適化に取り組むサイト)は、検索用のクローラーまで止めないように注意しましょう。</p>
@@ -112,7 +112,7 @@ Allow: /</code></pre>
 </div>
 </article>
 
-
+<section class="related"><h2 class="sec-h">あわせて読みたい</h2><ul class="cards"><li class="card c-news"><a href="/news/data-breach-ai-2026/"><span class="chip">ニュース</span><strong class="card-t">情報漏えいとAIの悪用【2026年】狙われる情報と今日からできる対策</strong><span class="desc">2026年秋、日本で不正アクセスによる情報漏えいが急増しています。悪い人のAIの使い方、社内のAI利用から漏れるパターン、狙われる情報、マーケ担当が今日からできる対策をやさしく解説します。</span><span class="card-f"><time datetime="2026-11-09">2026.11.09</time> 更新</span></a></li></ul></section>
 </div>
 <script src="/assets/progress.js" defer></script>
 </main>
