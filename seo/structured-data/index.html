@@ -36,19 +36,19 @@
 <p class="meta">公開 <time datetime="2026-11-09">2026-11-09</time> ・ 更新 <time datetime="2026-11-09">2026-11-09</time> ・ <a href="/about/">AIO対策ナビ編集部</a></p>
 </header>
 <p class="summary"><strong>この記事の結論:</strong>構造化データは、ページに何が書いてあるか(記事・商品・会社情報など)を、決まった形式で検索エンジンに伝えるためのコードです。Google は JSON-LD 形式を推奨しています。リッチリザルトの表示につながることがありますが、AI検索に出るための特別な構造化データはありません。</p>
-<nav class="toc" aria-label="目次"><p>目次</p><ol><li><a href="#構造化データは何のために使う">構造化データは何のために使う?</a></li><li><a href="#どの形式で書けばいい">どの形式で書けばいい?</a></li><li><a href="#json-ldはどう書く-このサイトの実例">JSON-LDはどう書く?(このサイトの実例)</a></li><li><a href="#よく使う構造化データの種類は">よく使う構造化データの種類は?</a></li><li><a href="#書いたあとはどう確認する">書いたあとはどう確認する?</a></li><li><a href="#構造化データで気をつけることは">構造化データで気をつけることは?</a></li><li><a href="#ai検索に構造化データは必要">AI検索に構造化データは必要?</a></li><li><a href="#よくある質問">よくある質問</a></li></ol></nav>
+<nav class="guide" aria-label="レベル別の読み方"><p>レベル別の読み方</p><ul><li><span class="lv lv-basic">初級</span><strong>はじめての方</strong>:<a href="#構造化データは何のために使う">構造化データは何のために使う?</a>、<a href="#どの形式で書けばいい">どの形式で書けばいい?</a>、<a href="#ai検索に構造化データは必要">AI検索に構造化データは必要?</a></li><li><span class="lv lv-mid">中級</span><strong>設定・実務をする方</strong>:<a href="#json-ldはどう書く-このサイトの実例">JSON-LDはどう書く?(このサイトの実例)</a>、<a href="#よく使う構造化データの種類は">よく使う構造化データの種類は?</a>、<a href="#書いたあとはどう確認する">書いたあとはどう確認する?</a>、<a href="#構造化データで気をつけることは">構造化データで気をつけることは?</a></li><li><span class="lv lv-adv">上級</span><strong>もっと深く知りたい方</strong>:<a href="#idでページ同士の情報をつなぐには">@idでページ同士の情報をつなぐには?</a></li></ul></nav><nav class="toc" aria-label="目次"><p>目次</p><ol><li><a href="#構造化データは何のために使う">構造化データは何のために使う?</a> <span class="lv lv-basic">初級</span></li><li><a href="#どの形式で書けばいい">どの形式で書けばいい?</a> <span class="lv lv-basic">初級</span></li><li><a href="#json-ldはどう書く-このサイトの実例">JSON-LDはどう書く?(このサイトの実例)</a> <span class="lv lv-mid">中級</span></li><li><a href="#よく使う構造化データの種類は">よく使う構造化データの種類は?</a> <span class="lv lv-mid">中級</span></li><li><a href="#書いたあとはどう確認する">書いたあとはどう確認する?</a> <span class="lv lv-mid">中級</span></li><li><a href="#構造化データで気をつけることは">構造化データで気をつけることは?</a> <span class="lv lv-mid">中級</span></li><li><a href="#ai検索に構造化データは必要">AI検索に構造化データは必要?</a> <span class="lv lv-basic">初級</span></li><li><a href="#idでページ同士の情報をつなぐには">@idでページ同士の情報をつなぐには?</a> <span class="lv lv-adv">上級</span></li><li><a href="#よくある質問">よくある質問</a></li></ol></nav>
 <div class="body">
 <p>構造化データとは、<strong>「このページは記事で、著者は誰で、いつ公開されたか」といった情報を、検索エンジンが機械的に読める決まった形式で書いたコード</strong> のことです。Google は、構造化データをページの理解に使い、条件を満たすと検索結果に評価の星やパンくずなどを表示する「リッチリザルト」に使います。</p>
 <p>一方で、Google は <a href="/aio/ai-overviews/">AI Overviews(AIによる概要)</a> などの生成AI機能に出るための特別な構造化データはないとしています。この記事では、構造化データの基本と書き方を、このサイトで実際に使っているコードを例に解説します。</p>
-<h2 id="構造化データは何のために使う">構造化データは何のために使う?</h2>
+<h2 id="構造化データは何のために使う">構造化データは何のために使う? <span class="lv lv-basic">初級</span></h2>
 <p>Google 検索セントラルの「<a href="https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data" target="_blank" rel="noopener">構造化データの仕組みについて</a>」(2025年12月10日更新)では、目的を次のように説明しています。</p>
 <ul><li>ページの内容を Google が理解する手がかりにする</li><li>条件を満たすと、検索結果を目立たせる <strong>リッチリザルト</strong> の対象になる</li></ul>
 <p>ただし、構造化データを入れても <strong>リッチリザルトが表示される保証はありません</strong>。また、構造化データそのものが検索順位を直接上げるわけでもありません。</p>
-<h2 id="どの形式で書けばいい">どの形式で書けばいい?</h2>
+<h2 id="どの形式で書けばいい">どの形式で書けばいい? <span class="lv lv-basic">初級</span></h2>
 <p>Google が対応している形式は次の3つで、<strong>JSON-LD が推奨</strong> されています。</p>
 <div class="table"><table><tr><th>形式</th><th>書き方</th><th>特徴</th></tr><tr><td><strong>JSON-LD</strong>(推奨)</td><td><code>&lt;script type=&quot;application/ld+json&quot;&gt;</code> の中に書く</td><td>本文のHTMLと分けて書けるので、管理しやすい</td></tr><tr><td>microdata</td><td>HTMLタグの属性に書き込む</td><td>本文と一体になるので、修正が面倒になりやすい</td></tr><tr><td>RDFa</td><td>HTMLタグの属性に書き込む</td><td>同上</td></tr></table></div>
 <p>Google は、どの形式でも正しく書かれていれば問題ないとしたうえで、大規模でも実装・管理しやすい JSON-LD をすすめています。</p>
-<h2 id="json-ldはどう書く-このサイトの実例">JSON-LDはどう書く?(このサイトの実例)</h2>
+<h2 id="json-ldはどう書く-このサイトの実例">JSON-LDはどう書く?(このサイトの実例) <span class="lv lv-mid">中級</span></h2>
 <p>このサイト(AIO対策ナビ)では、記事を書くと構造化データが自動で付くようにしています。実際に「<a href="/aio/aio-llmo-geo-aeo-difference/">AIO・LLMO・GEO・AEOの違い</a>」の記事に入っている Article(記事)の構造化データは次のとおりです(読みやすく改行しています)。</p>
 <pre><code>&lt;script type=&quot;application/ld+json&quot;&gt;
 {
@@ -70,23 +70,34 @@
 <p>ポイントは次のとおりです。</p>
 <ul><li><code>@context</code> は schema.org(構造化データの語彙を決めている共同プロジェクト)を指定します。</li><li><code>@type</code> で「何のページか」を宣言します。記事なら <code>Article</code>、パンくずなら <code>BreadcrumbList</code> です。</li><li><code>headline</code>(見出し)、<code>datePublished</code>(公開日)、<code>dateModified</code>(更新日)、<code>author</code>(著者)は、<strong>ページに表示されている内容と同じ</strong> にします。</li></ul>
 <p>このサイトでは、全ページに <code>BreadcrumbList</code>、記事に <code>Article</code>、トップページに <code>WebSite</code> と <code>Organization</code> を自動で付けています。</p>
-<h2 id="よく使う構造化データの種類は">よく使う構造化データの種類は?</h2>
+<h2 id="よく使う構造化データの種類は">よく使う構造化データの種類は? <span class="lv lv-mid">中級</span></h2>
 <p>中小企業のサイトでよく使うのは次のような種類です。</p>
 <div class="table"><table><tr><th>種類</th><th>使う場面</th></tr><tr><td>Article</td><td>ブログ・コラム・ニュース記事</td></tr><tr><td>BreadcrumbList</td><td>パンくずリスト(ほぼ全ページ)</td></tr><tr><td>Organization</td><td>会社情報(ロゴ・連絡先など)</td></tr><tr><td>LocalBusiness</td><td>店舗・事務所の住所や営業時間</td></tr><tr><td>Product</td><td>商品ページ(価格・在庫・レビュー)</td></tr></table></div>
 <h3 id="faqのリッチリザルトは2026年5月に終了">FAQのリッチリザルトは2026年5月に終了</h3>
 <p>以前は、「よくある質問」を FAQPage の構造化データで書くと、検索結果に質問と答えが開く形で表示されることがありました。しかし Google は <strong>2026年5月7日から FAQ のリッチリザルトを Google 検索に表示しない</strong> と発表し、6月には説明ページも削除しました(<a href="https://developers.google.com/search/updates" target="_blank" rel="noopener">Google 検索セントラルの変更履歴</a>)。</p>
 <p>このサイトでは記事の「よくある質問」に FAQPage の構造化データを自動で付けていますが、リッチリザルトのためではなく、質問と答えの組をページの内容どおりに機械が読める形で示すためです。FAQPage は schema.org の語彙としては今も有効です。新しく構造化データを入れる場合は、FAQ のためだけに手間をかける必要はありません。</p>
-<h2 id="書いたあとはどう確認する">書いたあとはどう確認する?</h2>
+<h2 id="書いたあとはどう確認する">書いたあとはどう確認する? <span class="lv lv-mid">中級</span></h2>
 <p>Google は次の2つの方法をすすめています。</p>
 <ol><li><strong>リッチリザルト テスト</strong>(Google 提供):公開前・公開直後に、URL やコードを入れて、Google が読めるか・リッチリザルトの対象になるかを確かめます。</li><li><strong>Search Console のリッチリザルトのレポート</strong>:公開後に、サイト全体でエラーが出ていないかを継続的に見ます。</li></ol>
 <p>schema.org の書き方として正しいかを広く確かめたいときは、schema.org が提供する「Schema Markup Validator」も使えます。</p>
-<h2 id="構造化データで気をつけることは">構造化データで気をつけることは?</h2>
+<h2 id="構造化データで気をつけることは">構造化データで気をつけることは? <span class="lv lv-mid">中級</span></h2>
 <p>Google のガイドラインで特に大事なのは次の3点です。</p>
 <ul><li><strong>見えていない内容を書かない</strong>:ページに表示されていない情報を構造化データだけに書くのは、内容が正しくても違反になります。</li><li><strong>構造化データのためだけのページを作らない</strong>:中身のないページに構造化データだけ入れても意味がありません。</li><li><strong>数より正確さ</strong>:Google は、不完全・不正確なプロパティをたくさん入れるより、正確なものを少なく入れるほうを推奨しています。</li></ul>
 <p>ガイドラインに反すると、リッチリザルトの対象外になることがあります。</p>
-<h2 id="ai検索に構造化データは必要">AI検索に構造化データは必要?</h2>
+<h2 id="ai検索に構造化データは必要">AI検索に構造化データは必要? <span class="lv lv-basic">初級</span></h2>
 <p>Google の生成AI検索のガイド「<a href="https://developers.google.com/search/docs/fundamentals/ai-optimization-guide" target="_blank" rel="noopener">Optimizing your website for generative AI features</a>」(2026年7月10日更新)は、<strong>生成AI検索に構造化データは必須ではなく、追加すべき特別な schema.org のマークアップもない</strong> と明記しています。同時に、リッチリザルトのために構造化データを使い続けるのはよい考えだ、とも書いています。</p>
 <p>つまり、AI検索のために特別なことをする必要はなく、<strong>通常の SEO として正しい構造化データを入れておけば十分</strong> です。AI検索への対策の全体像は「<a href="/aio/aio-llmo-geo-aeo-difference/">AIO・LLMO・GEO・AEOの違い</a>」、AIクローラーの設定は「<a href="/aio/ai-crawler-robots-txt/">robots.txtの設定</a>」をご覧ください。</p>
+<h2 id="idでページ同士の情報をつなぐには">@idでページ同士の情報をつなぐには? <span class="lv lv-adv">上級</span></h2>
+<p>構造化データが増えてくると、「どのページでも同じ会社のことを書いている」と機械にわかるようにしたくなります。そこで使うのが JSON-LD の <code>@id</code> です。<code>@id</code> は、その情報(会社・サイト・人など)に付ける <strong>固有の名札</strong> のようなもので、ふつうは URL の形で書きます。</p>
+<p>このサイトでは、運営組織に <code>https://aio.shiokonbu.com/#org</code>、サイト全体に <code>https://aio.shiokonbu.com/#website</code> という <code>@id</code> を付けています。トップページで組織の名前やロゴを1回くわしく書き、各記事の <code>publisher</code> では同じ <code>@id</code> を入れて「この記事の発行者は、トップページに書いたあの組織です」と示しています。</p>
+<pre><code>&quot;publisher&quot;: {
+  &quot;@type&quot;: &quot;Organization&quot;,
+  &quot;@id&quot;: &quot;https://aio.shiokonbu.com/#org&quot;,
+  &quot;name&quot;: &quot;AIO対策ナビ編集部&quot;
+}</code></pre>
+<p>設計のときに気をつけているのは次の3点です。</p>
+<ul><li><strong>同じものには、すべてのページで同じ <code>@id</code> を使う</strong>:ページごとに変えると、別の組織として扱われるおそれがあります。</li><li><strong><code>@id</code> はページの URL と分ける</strong>:ページそのもの(<code>/about/</code>)と、そこで説明している組織(<code>/#org</code>)は別物なので、<code>#</code> を付けて区別しています。</li><li><strong>名前やロゴなどの値もそろえる</strong>:<code>@id</code> が同じでも、ページによって社名の表記がばらばらだと意味がありません。</li></ul>
+<p><code>@id</code> は JSON-LD(W3C の標準)の仕組みです。Google が <code>@id</code> をどこまで使っているかは公式には詳しく説明されていないので、「順位が上がる裏ワザ」ではなく、データをきれいに保つための設計と考えてください。</p>
 <h2 id="よくある質問">よくある質問</h2>
 <h3 id="構造化データを入れると検索順位は上がる">構造化データを入れると検索順位は上がる?</h3>
 <p>構造化データ自体が順位を直接上げるとは、Google は説明していません。ページの理解を助け、リッチリザルトの対象になることで、検索結果での見え方やクリック率が変わる可能性がある、というのが正確な理解です。</p>
