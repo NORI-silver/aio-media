@@ -56,7 +56,10 @@
             "sitemap",
             "in-sitemap"
           ],
-          "articles": [],
+          "articles": [
+            "/seo/search-console-start/",
+            "/seo/xml-sitemap/"
+          ],
           "links": [
             [
               "Search Console にプロパティを追加する(Google)",
@@ -89,7 +92,10 @@
             "viewport",
             "img-alt"
           ],
-          "articles": [],
+          "articles": [
+            "/seo/title-meta-description/",
+            "/seo/canonical-url/"
+          ],
           "links": [
             [
               "タイトルリンクのベストプラクティス(Google)",
@@ -178,7 +184,9 @@
             "entity",
             "date"
           ],
-          "articles": [],
+          "articles": [
+            "/seo/eeat/"
+          ],
           "links": [
             [
               "有用で信頼性の高いコンテンツの作成(Google)",
@@ -242,7 +250,9 @@
             "順位が2ページ目のページに、足りない問いの答えを書き足す"
           ],
           "checks": [],
-          "articles": [],
+          "articles": [
+            "/seo/search-console-start/"
+          ],
           "links": [
             [
               "検索パフォーマンス レポート(Google)",

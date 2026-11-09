@@ -39,6 +39,10 @@ const ARTICLE = {
   sd: "/seo/structured-data/",
   aio: "/aio/ai-overviews/",
   basics: "/aio/aio-llmo-geo-aeo-difference/",
+  sitemap: "/seo/xml-sitemap/",
+  title: "/seo/title-meta-description/",
+  canonical: "/seo/canonical-url/",
+  eeat: "/seo/eeat/",
 };
 
 // ------------------------------------------------------------------ 入口
@@ -648,7 +652,7 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes, http
   add(G1, "sitemap", "XMLサイトマップがある", smOk ? "ok" : "warn",
     smOk ? (smInRobots.length ? `robots.txt にサイトマップの場所が書いてあります(${smInRobots[0]})。` : "/sitemap.xml があります。") : "サイトマップが見つかりませんでした。",
     smOk ? (smInRobots.length ? "" : "robots.txt に「Sitemap: URL」の行を足すと、Bing などにも見つけてもらいやすくなります。") : "サイトマップを作り、robots.txt に「Sitemap: URL」を書きましょう。",
-    "", 5);
+    ARTICLE.sitemap, 5);
 
   // ---------------- 2. ページの基本
   const G2 = "ページの基本(SEO)";
@@ -693,12 +697,12 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes, http
     add(G2, "title", "タイトルの長さと中身", !tl ? "ng" : tl < 20 || tl > 45 ? "warn" : "ok",
       tl ? `「${h.title}」(${tl}字)` : "title タグがありません。",
       !tl ? "ページの内容がわかるタイトルを付けましょう。" : tl < 20 ? "短すぎます。検索される言葉と、読む理由(手順・比較・費用など)を足しましょう。" : tl > 45 ? "長すぎて検索結果で切れます。日本語は28〜40字が目安。大事な言葉を前に寄せましょう。" : "",
-      "", 5);
+      ARTICLE.title, 5);
     const dl = len(h.description);
     add(G2, "description", "説明文(meta description)", !dl ? "ng" : dl < 70 || dl > 130 ? "warn" : "ok",
       dl ? `「${h.description.slice(0, 120)}${dl > 120 ? "…" : ""}」(${dl}字)` : "meta description がありません。",
       !dl ? "ページの要点を80〜120字で書きましょう。検索結果に出る文はクリック率に直結します。" : dl < 70 ? "短めです。誰の・どんな悩みに・何がわかるかを80〜120字で書きましょう。" : dl > 130 ? "長すぎて切れます。120字前後にまとめましょう。" : "",
-      "", 4);
+      ARTICLE.title, 4);
     let canonStatus = "warn";
     let canonDetail = "canonical がありません。";
     if (h.canonical) {
@@ -712,7 +716,7 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes, http
       }
     }
     add(G2, "canonical", "canonical(正規URL)", canonStatus, canonDetail,
-      canonStatus === "ok" ? "" : "自分自身のURLを canonical に指定すると、パラメータ付きURLなどに評価が分かれません。", "", 3);
+      canonStatus === "ok" ? "" : "自分自身のURLを canonical に指定すると、パラメータ付きURLなどに評価が分かれません。", ARTICLE.canonical, 3);
     add(G2, "viewport", "スマホ表示に対応している", h.viewport && /width=device-width/.test(h.viewport) ? "ok" : "ng",
       h.viewport ? `viewport: ${h.viewport}` : "viewport の指定がありません。",
       h.viewport && /width=device-width/.test(h.viewport) ? "" : 'Google はスマホ版のページで評価します。<meta name="viewport" content="width=device-width, initial-scale=1"> を入れましょう。', "", 4);
@@ -772,7 +776,7 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes, http
     const entityScore = [org || authorNode, aboutLink, sameAs, pageType !== "article" || authorOk].filter(Boolean).length;
     add(G3, "entity", "運営者・著者が信頼できる形で示されている", entityScore === 4 ? "ok" : entityScore >= 2 ? "warn" : "ng",
       [`構造化データの運営者/著者: ${org || authorNode ? "あり" : "なし"}`, `運営者・会社情報ページへのリンク: ${aboutLink ? "あり" : "なし"}`, `sameAs(SNS・外部プロフィールへのつながり): ${sameAs ? "あり" : "なし"}`, pageType === "article" ? `著者の名前とURL: ${authorOk ? "あり" : "なし"}` : null].filter(Boolean).join("/"),
-      entityScore === 4 ? "" : "誰が・どんな経験から書いているかを示すと、Google の E-E-A-T の評価や、AIが信頼できる出典として選ぶ理由になります。sameAs で公式SNSや外部の紹介ページとつなげましょう。", ARTICLE.sd, 6);
+      entityScore === 4 ? "" : "誰が・どんな経験から書いているかを示すと、Google の E-E-A-T の評価や、AIが信頼できる出典として選ぶ理由になります。sameAs で公式SNSや外部の紹介ページとつなげましょう。", ARTICLE.eeat, 6);
     const dates = nodes.map((n) => n.dateModified || n.datePublished).filter(Boolean).map((d) => new Date(d)).filter((d) => !isNaN(d));
     const latest = dates.length ? new Date(Math.max(...dates)) : null;
     const ageDays = latest ? Math.floor((now - latest) / 86400000) : null;
