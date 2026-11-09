@@ -17,7 +17,7 @@
 - [AIのアクセスと人のアクセスの違いを図解|ログとGA4での見え方](https://aio.shiokonbu.com/aio/ai-vs-human-access/): サイトへのアクセスは、人の閲覧・AIクローラー・AIがユーザーの代わりに取りに来るアクセス・AIの回答から来た人の4種類に分けられます。ページの読み方、サーバーログとGA4での見え方の違いを図解します。
 - [AIO・LLMO・GEO・AEOの違いとは?呼び方別の意味とやるべき対策](https://aio.shiokonbu.com/aio/aio-llmo-geo-aeo-difference/): AIO・LLMO・GEO・AEOは、どれもAI検索で自社の情報が引用・紹介されるための取り組みです。4つの呼び方の由来と違い、Googleの公式見解、今日からやるべき対策を出典つきで整理します。
 - [AIに引用される文章の書き方|冒頭で答える型と見出し・FAQ](https://aio.shiokonbu.com/aio/answer-first-writing/): AI検索や検索結果で引用されやすい文章の型を解説します。冒頭で結論を言い切る書き方、問いの形の見出し、FAQの作り方、GEO研究でわかった効く書き方と効かない書き方まで実例つきでまとめます。
-- [SEOとAIOの仕組みを図解|Google検索とAI検索が答えを選ぶ流れ](https://aio.shiokonbu.com/aio/how-search-and-ai-work/): Google検索がページを見つけて並べるまでの3段階と、AI検索が質問を分けてページを読み、出典つきで答える流れを図解。学習と検索の違い、SEOとAIOの共通点も公式情報で解説します。
+- [SEOとAIOの仕組みを図解|Google検索とAI検索が答えを選ぶ流れ](https://aio.shiokonbu.com/aio/how-search-and-ai-work/): Google検索とAI検索がページをえらぶしくみを、図書館と司書さんのたとえと9枚の図で、はじめての人にもわかるように解説。SEOとAIOのちがいと共通点、ページが出てこない理由も紹介します。
 - [JavaScriptのサイトはAIに読まれる?SSRの必要性と確かめ方](https://aio.shiokonbu.com/aio/javascript-ai-crawlers/): JavaScriptで本文を表示するサイトは、GooglebotとAIクローラーで読まれ方が違います。CSRとSSRの違い、実験で確かめた結果、AIクローラーの調査データ、自分のサイトの確かめ方と対策を解説します。
 
 ## SEO実務
@@ -31,7 +31,7 @@
 
 ## 用語集
 - [llms.txtとは?書き方の例とGoogleの見解、置くべきかを解説](https://aio.shiokonbu.com/glossary/llms-txt/): llms.txtは、サイトの概要と主なページをMarkdownでまとめてAIに伝えるためのファイルです。仕様の中身、実際の書き方の例、Googleの見解、置くべきサイトの判断基準を解説します。
-- [MCPとは?AIとツールをつなぐ仕組みをSEO・AIOの実例で図解](https://aio.shiokonbu.com/glossary/mcp/): MCP(Model Context Protocol)は、AIアプリと外部のツールやデータをつなぐ共通の決まりです。仕組みを図解し、Search ConsoleやGA4をAIから使う実例、安全な使い方、サイトのMCP対応の意味を解説します。
+- [MCPとは?AIとツールをつなぐ仕組みをSEO・AIOの実例で図解](https://aio.shiokonbu.com/glossary/mcp/): MCPは、AIとほかの道具やデータをつなぐ「みんなで決めた共通のつなぎ方」です。USB-Cのたとえと7枚の図で、しくみ、Search ConsoleをAIから使う実例、安全な使い方をやさしく解説します。
 
 ## 広告運用
 - [広告アカウントの構成とは?Google広告とMeta広告の作り方](https://aio.shiokonbu.com/ads/account-structure/): Google広告とMeta広告のアカウント構成(キャンペーン・広告グループ・広告セット・広告)の違いを図で解説。どこで予算やターゲットを決めるか、分けすぎない設計の考え方、命名ルールの例まで紹介します。
