@@ -39,6 +39,10 @@ const ARTICLE = {
   sd: "/seo/structured-data/",
   aio: "/aio/ai-overviews/",
   basics: "/aio/aio-llmo-geo-aeo-difference/",
+  sitemap: "/seo/xml-sitemap/",
+  title: "/seo/title-meta-description/",
+  canonical: "/seo/canonical-url/",
+  eeat: "/seo/eeat/",
 };
 
 // ------------------------------------------------------------------ 入口
@@ -513,7 +517,7 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes }) {
   add(G1, "sitemap", "XMLサイトマップがある", smOk ? "ok" : "warn",
     smOk ? (smInRobots.length ? `robots.txt にサイトマップの場所が書いてあります(${smInRobots[0]})。` : "/sitemap.xml があります。") : "サイトマップが見つかりませんでした。",
     smOk ? (smInRobots.length ? "" : "robots.txt に「Sitemap: URL」の行を足すと、Bing などにも見つけてもらいやすくなります。") : "サイトマップを作り、robots.txt に「Sitemap: URL」を書きましょう。",
-    "", 5);
+    ARTICLE.sitemap, 5);
 
   // ---------------- 2. ページの基本
   const G2 = "ページの基本(SEO)";
@@ -534,12 +538,12 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes }) {
     add(G2, "title", "タイトルがある", !tl ? "ng" : tl < 15 || tl > 60 ? "warn" : "ok",
       tl ? `「${h.title}」(${tl}字)` : "title タグがありません。",
       !tl ? "ページの内容がわかるタイトルを付けましょう。" : tl < 15 ? "短すぎます。何のページかわかる言葉を足しましょう。" : tl > 60 ? "長すぎて検索結果で切れます。大事な言葉を前に寄せましょう。" : "",
-      "", 5);
+      ARTICLE.title, 5);
     const dl = len(h.description);
     add(G2, "description", "説明文(meta description)がある", !dl ? "warn" : dl < 50 || dl > 160 ? "warn" : "ok",
       dl ? `「${h.description.slice(0, 120)}${dl > 120 ? "…" : ""}」(${dl}字)` : "meta description がありません。",
       !dl ? "ページの要点を80〜120字ほどで書きましょう。検索結果やAIの要約の材料になります。" : dl < 50 ? "少し短めです。要点を1〜2文で書きましょう。" : dl > 160 ? "長すぎて切れます。120字前後にまとめましょう。" : "",
-      "", 4);
+      ARTICLE.title, 4);
     let canonOk = false;
     let canonDetail = "canonical がありません。";
     if (h.canonical) {
@@ -552,7 +556,7 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes }) {
       }
     }
     add(G2, "canonical", "canonical(正規URL)がある", canonOk ? "ok" : "warn", canonDetail,
-      canonOk ? "" : "同じ内容のURLが複数あっても評価が分かれないよう、canonical を設定しましょう。", "", 3);
+      canonOk ? "" : "同じ内容のURLが複数あっても評価が分かれないよう、canonical を設定しましょう。", ARTICLE.canonical, 3);
     add(G2, "lang", "言語(lang)を指定している", h.lang ? "ok" : "warn",
       h.lang ? `lang="${h.lang}"` : "html タグに lang がありません。", h.lang ? "" : '<html lang="ja"> のように指定しましょう。', "", 2);
     const ogN = [h.og.title, h.og.description, h.og.image].filter(Boolean).length;
@@ -574,7 +578,7 @@ export function buildReport({ target, page, robotsRes, llmsRes, sitemapRes }) {
     const hasOrg = ld.types.some((t) => /^(Organization|Corporation|LocalBusiness|Person)$/.test(t)) || ld.props.has("author") || ld.props.has("publisher");
     add(G3, "entity", "運営者・著者がわかる", hasOrg ? "ok" : "warn",
       hasOrg ? "構造化データに運営者・著者の情報があります。" : "構造化データに運営者・著者(Organization・Person・author)の情報が見つかりません。",
-      hasOrg ? "" : "誰が書いたか・どの会社かをはっきりさせると、信頼できる情報源として扱われやすくなります(E-E-A-T)。", ARTICLE.sd, 6);
+      hasOrg ? "" : "誰が書いたか・どの会社かをはっきりさせると、信頼できる情報源として扱われやすくなります(E-E-A-T)。", ARTICLE.eeat, 6);
     const hasDate = ld.props.has("dateModified") || ld.props.has("datePublished") || h.hasTime;
     add(G3, "date", "公開日・更新日がわかる", hasDate ? "ok" : "warn",
       hasDate ? "公開日・更新日の情報があります。" : "公開日・更新日が見つかりません(記事でなければ問題ありません)。",
