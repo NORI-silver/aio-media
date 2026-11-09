@@ -7,6 +7,13 @@ summary: Google Search Console は、自分のサイトがGoogle検索でどう�
 ---
 Google Search Console(サーチコンソール)は、**自分のサイトが Google 検索でどう扱われているかを確かめるための、Google 公式の無料ツール** です。どんな検索語で何回表示され、何回クリックされたか、ページが検索に登録されているか、問題が起きていないかがわかります。SEO も AIO(AI検索への最適化)も、まずここで現状を知ることから始まります。
 
+
+たとえるなら、Search Console は **Google からとどく「サイトの通知表」** です。検索に何回出たか、何回クリックされたか、何番目くらいに出たか、そして「このページは登録できていません」といった困りごとまで教えてくれます。
+
+{{figure:search-console-report|図1 Search Consoleでわかる4つのこと}}
+
+ただし学校の通知表とちがって、「なぜこの順位なのか」という理由までは書いてありません。数字を見て、自分で原因を考えて直していく道具です。
+
 ## Search Consoleで何がわかる? [初級]
 
 最初に覚えておきたい画面は4つです。
@@ -22,13 +29,13 @@ Google アナリティクス(GA4)が「サイトに来た後」の行動を測�
 
 ## 登録するときは「ドメイン」と「URLプレフィックス」のどちらを選ぶ? [初級]
 
-サイトを登録するとき、2種類の「プロパティ」から選びます([Google のヘルプ](https://support.google.com/webmasters/answer/34592))。
+サイトを登録するとき、2種類の「プロパティ」(Search Console に登録するサイトの単位)から選びます([Google のヘルプ](https://support.google.com/webmasters/answer/34592))。
 
 | | ドメイン | URLプレフィックス |
 |---|---|---|
 | 対象 | ドメイン全体(すべてのサブドメイン、http と https の両方) | 入力したURLで始まるページだけ(http と https は別扱い) |
 | 例 | `example.com` と入れると `www.example.com`、`blog.example.com` も含む | `https://www.example.com/` で始まるURLだけ |
-| 所有権の確認方法 | DNS レコードのみ | HTMLファイル、HTMLタグ、Googleアナリティクス、タグマネージャーなど |
+| 所有権の確認方法 | DNS レコードのみ(ドメインを買った会社の設定画面に1行足す) | HTMLファイル、HTMLタグ、Googleアナリティクス、タグマネージャーなど |
 
 DNS の設定を変更できるなら、**ドメインプロパティがおすすめ** です。サブドメインや http/https の違いをまとめて見られます。
 
