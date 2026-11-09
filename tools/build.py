@@ -208,6 +208,7 @@ def head(title, desc, path, extra_ld=(), og_type="website", noindex=False):
                   f'<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag("js",new Date());{cfg}</script>\n')
     robots = "noindex,follow" if (noindex or not SITE.get("launched")) else "index,follow,max-image-preview:large,max-snippet:-1"
     url = BASE + path
+    verify = "".join(f'\n<meta name="google-site-verification" content="{esc(v)}">' for v in SITE.get("google_site_verification", []))
     lds = "\n".join(ld({"@context": "https://schema.org", **o}) for o in extra_ld)
     return f"""<!doctype html>
 <html lang="{SITE['lang']}">
@@ -215,7 +216,7 @@ def head(title, desc, path, extra_ld=(), og_type="website", noindex=False):
 {GENERATED_MARK}
 <meta charset="utf-8">
 {ga_tag}<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="{robots}">
+<meta name="robots" content="{robots}">{verify}
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{url}">
