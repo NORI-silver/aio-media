@@ -74,6 +74,7 @@
 | 28 | 用語:SERPとは | glossary/serp | 未着手 |
 | 29 | 用語:RAG(検索拡張生成)とは | glossary/rag | 未着手 |
 | 30 | 用語:エンティティとは | glossary/entity | 未着手 |
+| 31 | SEOは時間がかかる?効果が出るまでの期間(SEO 時間がかかる) | seo/how-long-seo-takes | 公開:content/articles/seo/how-long-seo-takes.md (2026-11-10、Nori さんの依頼) |
 
 ## テーマを足し続ける(逆算の前提)
 

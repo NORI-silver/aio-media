@@ -22,6 +22,7 @@
 - [JavaScriptのサイトはAIに読まれる?SSRの必要性と確かめ方](https://aio.shiokonbu.com/aio/javascript-ai-crawlers/): JavaScriptで本文を表示するサイトは、GooglebotとAIクローラーで読まれ方が違います。CSRとSSRの違い、実験で確かめた結果、AIクローラーの調査データ、自分のサイトの確かめ方と対策を解説します。
 
 ## SEO実務
+- [SEOは時間がかかるって本当?効果が出るまでの期間と理由](https://aio.shiokonbu.com/seo/how-long-seo-takes/): SEOは時間がかかるのは本当?Googleの公式説明と調査データ、当サイトの公開直後の実際の記録で、効果が出るまでの期間の目安、時間がかかる4つの理由、待つあいだにやることを解説します。
 - [canonical(正規URL)とは?書き方と重複ページの正しい整理方法](https://aio.shiokonbu.com/seo/canonical-url/): canonical(正規URL)は、同じ内容のページが複数あるときに検索に出したいURLを伝える仕組みです。書き方、リダイレクトとの使い分け、よくある間違い、Googleの選んだURLの確かめ方を解説します。
 - [E-E-A-Tとは?Googleが重視する「信頼」の高め方と具体策](https://aio.shiokonbu.com/seo/eeat/): E-E-A-T(経験・専門性・権威性・信頼性)の意味と、ランキング要因ではないというGoogleの公式見解、Who・How・Whyの考え方、著者情報やAI利用の開示など今日からできる具体策を解説します。
 - [一次情報とは?SEOとAIOで評価される作り方と記事への載せ方](https://aio.shiokonbu.com/seo/first-party-information/): 一次情報とは、自分で試した結果・計測した数字・実際の画面など、他から引き写していない情報です。SEOとAI検索でなぜ重要か、中小企業でも作れる一次情報の例、記事への載せ方と注意点を解説します。
