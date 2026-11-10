@@ -1,0 +1,61 @@
+# ガイド記事の毎日追加(手順とテーマの順番)
+
+ニュース(`docs/news.md`)とは別に、**いつ読んでも役に立つ解説記事(ガイド)を1日1本** 足します(2026-11-10 Nori さん「最短で月1万クリック」の計画。優先順位 pet > aio > agri > wheel > hinata)。
+
+ねらいは、検索される回数が多く、しばらく古くならないテーマで、検索とAIの答えの両方から読者を連れてくることです。数を出すために薄い記事を出すことはしません。1本ずつ、公式の情報で確かめて書きます。
+
+## 毎日の手順
+
+1. `main` を最新にして、`AGENTS.md`・`docs/writing.md`・このファイルを読む。
+2. 下の「テーマの順番」で、状態が `未着手` のいちばん上を選ぶ。
+3. **かぶりの確認**:`content/articles/` の title・見出しを grep し、同じ検索意図の記事がもうないか確かめる。
+   - すでに同じ意図の記事がある → 新しく作らず、その記事に足りない章を足して `updated:` を今日にする(状態は `既存に追記:<パス>`)。
+   - 一部だけ重なる → 新しい記事では重なる部分を短くして、既存記事へリンクする。
+4. **検索の確認**:WebSearch でそのキーワードを調べ、上位の記事が何を答えているか、何が足りないかを見る。上位とサイト内にない情報(公式の最新の仕様、手順の画面、当サイトで試した結果など)が半分以上入れられないなら、そのテーマは `見送り:<理由>` にして次へ進む。
+5. **公式で確かめる**:Google 検索セントラル、Google 広告ヘルプ、OpenAI・Anthropic・Perplexity・Microsoft の公式ドキュメントなどを WebFetch で開いて、数字・仕様・手順を確かめる。確かめられないことは書かない。出典リンクに確認日を添える。
+6. **書く**:`docs/writing.md` のルールをすべて守る(冒頭で答える、ひとつのたとえを通す、図を1枚以上、[初級][中級][上級]、よくある質問、内部リンク3本以上)。当サイトで実際に試せることは試して書く(例:aio.shiokonbu.com のソース、robots.txt、AIO診断ツールの結果)。やっていないことを体験談にしない。かさ増しの段落・言い換えの繰り返しは入れない。
+7. `content/roadmap.json` の関係するステップの `articles` にパスを足す。関係する既存記事から新しい記事へのリンクを1〜2本足す。
+8. このファイルの表の状態を `公開:<パス> (日付)` に直す。思いついた新しいテーマは表の下に `未着手` で足す。
+9. `python3 tools/build.py . && python3 tools/seo_check.py .` で NG 0。ブランチを作って PR、SEO check が緑ならマージする(AGENTS.md の standing approval)。
+10. 1日1本まで。毎朝のニュースの作業と同じファイル(roadmap.json など)をさわるので、PR を出す前に `main` を取り直す。
+
+## テーマの順番
+
+上ほど先に書く。AIO(このサイトの看板)で検索の多いもの → AIOの土台になるSEOの基本 → 用語集、の順。キーワードは目安で、書く前に手順4で確かめる。
+
+| # | テーマ(メインキーワード) | カテゴリ・スラッグ案 | 状態 |
+|---|---|---|---|
+| 1 | AIモードとは・サイト側の対策(AIモード 対策) | aio/google-ai-mode | 未着手 |
+| 2 | LLMO対策のやり方・チェックリスト(LLMO対策) | aio/llmo-checklist | 未着手 |
+| 3 | ChatGPT検索に表示・引用されるには(ChatGPT 検索 表示) | aio/chatgpt-search | 未着手 |
+| 4 | AI Overviewsに表示されるには・表示されない原因(AI Overviews 表示されるには) | 既存の aio/ai-overviews に追記するか手順3で判断 | 未着手 |
+| 5 | Perplexityに引用されるには(Perplexity SEO) | aio/perplexity | 未着手 |
+| 6 | Geminiで紹介されるには(Gemini 表示) | aio/gemini | 未着手 |
+| 7 | Bing Webmaster Tools と IndexNow の始め方(ChatGPT は Bing の索引も使う) | seo/bing-webmaster-tools | 未着手 |
+| 8 | AI経由のアクセスをGA4で測る方法(GA4 ChatGPT 流入) | analytics/ga4-ai-referral | 未着手 |
+| 9 | ゼロクリック検索とは・対策(ゼロクリック検索) | aio/zero-click-search | 未着手 |
+| 10 | AIで書いた記事はSEOで不利?Googleの方針(AI 記事 SEO) | seo/ai-generated-content | 未着手 |
+| 11 | ページがインデックスされない原因と直し方(インデックスされない) | seo/not-indexed | 未着手 |
+| 12 | 内部リンクの貼り方(内部リンク SEO) | seo/internal-links | 未着手 |
+| 13 | SEOキーワードの選び方(キーワード選定) | seo/keyword-research | 未着手 |
+| 14 | 検索意図とは・調べ方(検索意図) | seo/search-intent | 未着手 |
+| 15 | noindexとは・使い方と注意点(noindex) | seo/noindex | 未着手 |
+| 16 | 被リンクとは・自然に増やす方法(被リンク) | seo/backlinks | 未着手 |
+| 17 | Core Web Vitalsとは・改善方法(コアウェブバイタル) | seo/core-web-vitals | 未着手 |
+| 18 | 見出しタグ(h1・h2)の正しい使い方(見出しタグ SEO) | seo/heading-tags | 未着手 |
+| 19 | 301リダイレクトのやり方(301リダイレクト) | seo/301-redirect | 未着手 |
+| 20 | パンくずリストとは・設定方法(パンくずリスト) | seo/breadcrumb | 未着手 |
+| 21 | 画像のalt属性の書き方(alt属性 SEO) | seo/image-alt | 未着手 |
+| 22 | FAQの構造化データの書き方と今の扱い(FAQ 構造化データ) | 既存の seo/structured-data に追記するか手順3で判断 | 未着手 |
+| 23 | Search Consoleの検索パフォーマンスの見方(Search Console 見方) | seo/search-console-performance | 未着手 |
+| 24 | Googleビジネスプロフィールの始め方(地域のAI検索にも効く) | seo/google-business-profile | 未着手 |
+| 25 | 用語:クローラーとは | glossary/crawler | 未着手 |
+| 26 | 用語:インデックスとは | glossary/index | 未着手 |
+| 27 | 用語:CTR(クリック率)とは | glossary/ctr | 未着手 |
+| 28 | 用語:SERPとは | glossary/serp | 未着手 |
+| 29 | 用語:RAG(検索拡張生成)とは | glossary/rag | 未着手 |
+| 30 | 用語:エンティティとは | glossary/entity | 未着手 |
+
+## Search Console の数字が出てきたら
+
+aio.shiokonbu.com の Search Console に表示回数がたまってきたら(目安:公開から4週間)、表の順番より、**表示が多いのに順位が11〜30位のテーマの記事を厚くする** ほうを先にする。その日は新しい記事のかわりに既存記事の強化を1本として数える。

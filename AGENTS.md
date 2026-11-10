@@ -25,6 +25,7 @@
 | `worker/` `.github/workflows/deploy-worker.yml` | AIO診断ツール(`/aio-checker/`)のAPI。Cloudflare Workers。main に入ると自動デプロイ。説明は `worker/README.md`。URL は `site.json` の `checker_api`(空のあいだ診断ページは noindex・準備中) |
 | `content/news-sources.json` `tools/news_watch.py` `.github/workflows/news-watch.yml` | 公式発表の自動ウォッチ。3時間ごとに新着を `content/news-watch.json`(自動生成・手で直さない)にためて `/news/` に原文リンクで出す |
 | `content/news-triage.json` `docs/news.md` | 新着をどう扱ったか(記事にした・見送った)の記録と、毎日ニュース記事を書く手順 |
+| `docs/guides.md` | 毎日1本足すガイド記事(いつ読んでも役に立つ解説)の手順とテーマの順番。状態もここに書く |
 | `assets/` | CSS・OGP画像・ロゴ・診断ツールの画面(`checker.js`) |
 | ルートの `*.html` `*/index.html` `sitemap.xml` `feed.xml` `robots.txt` `llms*.txt` | **生成物。直接直さない**(build.py が上書きする) |
 
