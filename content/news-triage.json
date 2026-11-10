@@ -68,5 +68,18 @@
   "https://developers.google.com/search/blog/2026/07/platform-properties-social-video-guide": "skipped:2026年7月の発表で古い。Search Consoleの記事を更新するときに扱う",
   "https://blog.google/products-and-platforms/products/search/ai-mode-real-world-tips/": "skipped:利用者向けの話題・季節のトレンド・宣伝で、サイト運営の実務に影響なし",
   "https://blog.google/products-and-platforms/products/search/touch-grass-trends/": "skipped:利用者向けの話題・季節のトレンド・宣伝で、サイト運営の実務に影響なし",
-  "https://openai.com/index/how-news-organizations-are-using-ai": "skipped:事例紹介・企業の話で実務の変更なし"
+  "https://openai.com/index/how-news-organizations-are-using-ai": "skipped:事例紹介・企業の話で実務の変更なし",
+  "https://www.seroundtable.com/google-updates-crawled-currently-not-indexed-42450.html": "written:crawled-currently-not-indexed-help-update(公式ヘルプ日本語版で確認。前の文言は報道で確認)",
+  "https://www.seroundtable.com/google-new-sites-time-value-42489.html": "merged:/news/crawled-currently-not-indexed-help-update/ と /seo/how-long-seo-takes/(Mueller の Bluesky、報道で確認)",
+  "https://www.seroundtable.com/google-search-ranking-volatility-november-9th-42486.html": "skipped:Google が認めていない順位のゆれ",
+  "https://www.seroundtable.com/google-protected-important-urls-index-42464.html": "skipped:個別サイトの事例(4xxでも重要URLを一時的に保護)。LinkedIn のコメントのみで公式文書なし",
+  "https://www.seroundtable.com/google-ai-mode-four-ads-42443.html": "skipped:AIモードの広告表示の観察報道。日本での提供・公式発表を確認できず",
+  "https://www.seroundtable.com/google-ai-mode-multiturn-ads-42478.html": "skipped:AIモードの広告表示の観察報道。日本での提供・公式発表を確認できず",
+  "https://www.seroundtable.com/google-ads-ai-generated-summaries-42482.html": "skipped:広告のテスト表示の観察報道。公式発表なし",
+  "https://www.seroundtable.com/data-manager-in-google-analytics-42480.html": "skipped:GA4 のベータ機能の観察報道。公式の案内が出たら再検討",
+  "https://www.seroundtable.com/google-performance-report-multi-select-device-filters-42457.html": "skipped:Search Console のフィルタの小さな改善",
+  "https://www.seroundtable.com/google-email-site-reputation-policy-eea-42462.html": "skipped:EEA(欧州)だけの話で日本の読者に影響なし",
+  "https://www.seroundtable.com/chatgpt-20-percent-google-42451.html": "skipped:OpenAI 側の発言の報道。openai.com を開いて確かめられない",
+  "https://www.seroundtable.com/openai-updates-chatgpt-ads-bidding-options-42470.html": "skipped:ChatGPT 広告の入札の変更。openai.com を開いて確かめられない",
+  "https://www.seroundtable.com/google-ai-overview-local-pack-action-buttons-42483.html": "skipped:表示の観察報道。公式発表なし"
 }
