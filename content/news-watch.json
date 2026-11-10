@@ -1,6 +1,6 @@
 {
  "_説明": "tools/news_watch.py が自動で作る。手で直さない。",
- "checked": "2026-11-09T22:18:35Z",
+ "checked": "2026-11-10T23:16:27Z",
  "sources": {
   "google-search-central": {
    "ok": true,
@@ -49,6 +49,15 @@
   }
  },
  "items": [
+  {
+   "source": "google-search-status",
+   "source_name": "Google 検索ステータス ダッシュボード",
+   "title": "UPDATE: November 2026 core update",
+   "url": "https://status.search.google.com/incidents/WLxcJyC6jMWMfryxsKMc",
+   "published": "2026-11-10T18:07:10Z",
+   "summary": "Incident began at 2026-11-10 10:06 (all times are US/Pacific ). Released the November 2026 core update , which applies globally and to all languages. The rollout may take up to 2 weeks to complete. Affected products: Ranking",
+   "first_seen": "2026-11-10T23:16:27Z"
+  },
   {
    "source": "google-ads",
    "source_name": "Google 公式ブログ(広告・コマース)",
