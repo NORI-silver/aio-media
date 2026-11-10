@@ -11,6 +11,7 @@
 - [編集方針](https://aio.shiokonbu.com/editorial-policy/): 情報源・検証・更新のルール
 
 ## AIO・LLMO・GEO対策
+- [AIモードとは?AI Overviewsとの違いとサイト側の対策](https://aio.shiokonbu.com/aio/google-ai-mode/): GoogleのAIモードは、長い質問に会話で答え、出典リンクを出す検索の画面です。しくみ、自分のページを出す4つの条件、Search Consoleでの数え方と除外の設定を公式情報で解説します。
 - [AIに引用されているか調べる方法|ChatGPT・AI Overviews](https://aio.shiokonbu.com/aio/ai-citation-tracking/): 自社のサイトがChatGPT・Perplexity・GoogleのAI Overviewsに引用されているかを調べる方法を解説します。質問リストの作り方、記録表のテンプレート、GA4でAIからの流入を見る方法、実際のデータまで紹介します。
 - [AIクローラーのrobots.txt設定|GPTBotなどの許可とブロック方法](https://aio.shiokonbu.com/aio/ai-crawler-robots-txt/): GPTBot・OAI-SearchBot・ClaudeBot・PerplexityBotなどAIのボットの役割と、robots.txtで許可・おことわりする書き方を、入口の張り紙のたとえと図でやさしく解説します。
 - [AI Overviews(AIによる概要)とは?表示の仕組みとサイト側の対策](https://aio.shiokonbu.com/aio/ai-overviews/): GoogleのAI Overviews(AIによる概要)は、検索結果の上にAIの答えと出典リンクを出す機能です。しくみ、出る条件、特別な対策は必要か、出したくないときの方法を図解でやさしく解説します。

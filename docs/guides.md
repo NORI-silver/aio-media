@@ -36,6 +36,7 @@
 
 | 日付 | 記事 | 変えたこと |
 |---|---|---|
+| 2026-11-10 | aio/ai-overviews | 「AIだけ止める設定はない」を、Search Console の「検索の生成 AI 設定」(2026-08-31 全世界)に直した。生成AIレポートが全サイトで使えること(表示回数のみ)を追記。AIモードの記事へのリンクを追加 |
 
 ## テーマの順番
 
@@ -43,7 +44,7 @@
 
 | # | テーマ(メインキーワード) | カテゴリ・スラッグ案 | 状態 |
 |---|---|---|---|
-| 1 | AIモードとは・サイト側の対策(AIモード 対策) | aio/google-ai-mode | 未着手 |
+| 1 | AIモードとは・サイト側の対策(AIモード 対策) | aio/google-ai-mode | 公開:content/articles/aio/google-ai-mode.md (2026-11-10) |
 | 2 | LLMO対策のやり方・チェックリスト(LLMO対策) | aio/llmo-checklist | 未着手 |
 | 3 | ChatGPT検索に表示・引用されるには(ChatGPT 検索 表示) | aio/chatgpt-search | 未着手 |
 | 4 | AI Overviewsに表示されるには・表示されない原因(AI Overviews 表示されるには) | 既存の aio/ai-overviews に追記するか手順3で判断 | 未着手 |

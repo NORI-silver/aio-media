@@ -2,7 +2,7 @@
 title: AI Overviews(AIによる概要)とは?表示の仕組みとサイト側の対策
 description: GoogleのAI Overviews(AIによる概要)は、検索結果の上にAIの答えと出典リンクを出す機能です。しくみ、出る条件、特別な対策は必要か、出したくないときの方法を図解でやさしく解説します。
 date: 2026-11-09
-updated: 2026-11-09
+updated: 2026-11-10
 summary: AI Overviews(日本語の画面では「AIによる概要」)は、Google 検索の結果の上に、AIが作った答えと、その答えのもとになったページへのリンクを出す機能です。出るために特別なことは必要なく、Google はふつうに検索結果に出せるページなら対象になるとしています。
 ---
 AI Overviews(エーアイ・オーバービュー)は、**Google で検索したとき、いつもの検索結果の上に、AI が作った「答えのまとめ」と、そのもとになったページへのリンクを出す機能** です。日本語の画面では「**AIによる概要**」と表示されます。日本では2024年8月に始まりました。
@@ -27,7 +27,7 @@ Google は、ここに出るために **特別なことは必要ない** とし�
 
 ### AIモードとのちがい
 
-Google には、AI Overviews とはべつに「**AIモード**」もあります。
+Google には、AI Overviews とはべつに「**AIモード**」もあります。しくみと対策は「[AIモードとは?AI Overviewsとの違いとサイト側の対策](/aio/google-ai-mode/)」でくわしく説明しています。
 
 | | AI Overviews(AIによる概要) | AIモード |
 |---|---|---|
@@ -95,7 +95,7 @@ Google は「AI Overviews や AIモードに出るための追加の条件や、
 | `max-snippet` | 説明文に使える文字数の上限を決める |
 | `noindex` | ページそのものを検索結果に出さない |
 
-ただし、`nosnippet` などは **ふつうの検索結果の見え方も変わります**。ふつうの検索には出したまま、AI の機能だけを止める専用の設定は、Google のドキュメントでは案内されていません(2026年11月時点)。
+ただし、`nosnippet` などは **ふつうの検索結果の見え方も変わります**。ふつうの検索には出したまま AI の機能だけから外したいときは、Search Console の「設定」→「検索の生成 AI」で「除外」を選びます。2026年8月31日に全世界のサイトで使えるようになった設定で、サイト(プロパティ)単位で AI Overviews・AIモードなどから外れます([検索の生成 AI 設定](https://support.google.com/webmasters/answer/16908024?hl=ja)、2026年11月10日に確認)。くわしくは「[AIモードとは?](/aio/google-ai-mode/)」の「AIモードに出したくないときは?」を見てください。
 
 また、**Google-Extended(グーグル・エクステンデッド)を止めても AI Overviews からは消えません**。Google-Extended は、Gemini アプリなどで内容を使うかどうかを決めるためのものです。
 
@@ -105,7 +105,7 @@ Google は「AI Overviews や AIモードに出るための追加の条件や、
 
 Google の説明では、AI Overviews や AIモードで表示された回数やクリックは、**Search Console(Google の無料の分析ツール)の「検索パフォーマンス」レポートの「ウェブ」に合わせて数えられます**。Search Console の始め方は「[Search Consoleの始め方](/seo/search-console-start/)」で説明しています。
 
-さらに Google は2026年6月、Search Console に生成AI機能向けのレポートを追加したと[発表](https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports)しています。一方で Google は「Google の中のしくみにアクセスできる外部ツールはない」とも書いています。市販の「AI Overviews 順位チェックツール」の数字は、参考ていどに見るのが安全です。
+さらに Google は2026年6月、Search Console に生成AI機能向けのレポートを追加したと[発表](https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports)し、2026年8月31日に全世界のサイトで使えるようにしました。AI Overviews と AIモードをあわせた表示回数が見られます(クリック数は出ません)。一方で Google は「Google の中のしくみにアクセスできる外部ツールはない」とも書いています。市販の「AI Overviews 順位チェックツール」の数字は、参考ていどに見るのが安全です。
 
 なお Google は、AI Overviews からのクリックは質が高く、サイトに長くとどまる傾向があるとしています。
 
