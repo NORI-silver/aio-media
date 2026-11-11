@@ -11,6 +11,7 @@
 - [編集方針](https://aio.shiokonbu.com/editorial-policy/): 情報源・検証・更新のルール
 
 ## AIO・LLMO・GEO対策
+- [ChatGPT検索に表示・引用されるには?やること5つと公式の条件](https://aio.shiokonbu.com/aio/chatgpt-search/): ChatGPT検索に自分のサイトを出す条件を、OpenAI公式の説明で確かめて解説します。OAI-SearchBotの許可、noindexの注意、GA4での確かめ方、実際の流入データまで紹介します。
 - [LLMO対策のやり方チェックリスト|やる10項目とやらなくていい5つ](https://aio.shiokonbu.com/aio/llmo-checklist/): LLMO対策のやり方を、確かめ方つきのチェックリスト10項目にまとめました。Googleが2026年7月のガイドで「無視してよい」と書いた5つと、当サイトで診断ツールを試した結果も紹介します。
 - [AIモードとは?AI Overviewsとの違いとサイト側の対策](https://aio.shiokonbu.com/aio/google-ai-mode/): GoogleのAIモードは、長い質問に会話で答え、出典リンクを出す検索の画面です。しくみ、自分のページを出す4つの条件、Search Consoleでの数え方と除外の設定を公式情報で解説します。
 - [AIに引用されているか調べる方法|ChatGPT・AI Overviews](https://aio.shiokonbu.com/aio/ai-citation-tracking/): 自社のサイトがChatGPT・Perplexity・GoogleのAI Overviewsに引用されているかを調べる方法を解説します。質問リストの作り方、記録表のテンプレート、GA4でAIからの流入を見る方法、実際のデータまで紹介します。

@@ -39,7 +39,7 @@ AI検索は、読者の質問に答えて、おすすめのお店を紹介して
 | 3 | Search Console の「検索の生成 AI 設定」が「含める」 | Search Console の左のメニュー「設定」→「検索の生成 AI」 | [AIモードとは?](/aio/google-ai-mode/) |
 | 4 | 本文が、最初に届くHTMLに入っている | ページの上で右クリック →「ページのソースを表示」→ 本文の1文をページ内検索(Ctrl+F)で探す | [JavaScriptとAIのボット](/aio/javascript-ai-crawlers/) |
 
-1 で止めてはいけない代表は、ChatGPT の検索用の OAI-SearchBot、Claude の検索用の Claude-SearchBot、Perplexity の PerplexityBot、そして Google の Googlebot です。それぞれの会社の公式ページで役割が説明されています(一覧は上の解説記事)。
+1 で止めてはいけない代表は、ChatGPT の検索用の OAI-SearchBot、Claude の検索用の Claude-SearchBot、Perplexity の PerplexityBot、そして Google の Googlebot です。それぞれの会社の公式ページで役割が説明されています(一覧は上の解説記事)。ChatGPT 検索に出るための条件は「[ChatGPT検索に表示・引用されるには](/aio/chatgpt-search/)」でくわしく説明しています。
 
 2 の「説明文を止めていない」とは、ページに `nosnippet`(説明文を出さない指定)や `max-snippet:0` を入れていないことです。Google は、AIによる概要とAIモードにリンクが出る条件を「インデックスにのっていて、説明文(スニペット)つきで検索に出せること」としています([AI features and your website](https://developers.google.com/search/docs/appearance/ai-features)、2026年11月11日に確認)。
 

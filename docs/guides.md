@@ -53,7 +53,7 @@
 |---|---|---|---|
 | 1 | AIモードとは・サイト側の対策(AIモード 対策) | aio/google-ai-mode | 公開:content/articles/aio/google-ai-mode.md (2026-11-10) |
 | 2 | LLMO対策のやり方・チェックリスト(LLMO対策) | aio/llmo-checklist | 公開:content/articles/aio/llmo-checklist.md (2026-11-11) |
-| 3 | ChatGPT検索に表示・引用されるには(ChatGPT 検索 表示) | aio/chatgpt-search | 未着手 |
+| 3 | ChatGPT検索に表示・引用されるには(ChatGPT 検索 表示) | aio/chatgpt-search | 公開:content/articles/aio/chatgpt-search.md (2026-11-11) |
 | 4 | AI Overviewsに表示されるには・表示されない原因(AI Overviews 表示されるには) | 既存の aio/ai-overviews に追記するか手順3で判断 | 未着手 |
 | 5 | Perplexityに引用されるには(Perplexity SEO) | aio/perplexity | 未着手 |
 | 6 | Geminiで紹介されるには(Gemini 表示) | aio/gemini | 未着手 |
