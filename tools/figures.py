@@ -1189,4 +1189,14 @@ cards_fig("chatgpt-search-todo", "ChatGPT検索に出るためにやる5つ:OAI-
     ("f-g", "流入を確かめる", ["GA4 で chatgpt.com からの訪問"]),
 ], numbered=False, gap=6)
 
+
+# ---- 「AI Overviewsに表示されない原因」(司書さんが答えを先に教えてくれる)
+steps_fig("ai-overviews-not-shown-check", "AI Overviewsに自分のページが出ないときに確かめる順番:そもそもその検索でAI Overviewsが出ているか、Googleのメモ帳(インデックス)にのっているか、説明文やAIへの使用を止める設定がないか、Search Consoleの生成AI設定が除外になっていないか、ページがその問いに文字で答えているか", [
+    ("f-o", "その検索で AI Overviews が出ている?", ["出ていなければ、だれのページも出ない", "(Google が役に立つと判断した検索だけ)"]),
+    ("f-b", "Google のメモ帳にのっている?", ["Search Console の「URL 検査」で", "「登録されています」を確かめる"]),
+    ("f-b", "説明文を止める設定がない?", ["nosnippet・max-snippet:0・", "data-nosnippet が本文にかかっていないか"]),
+    ("f-p", "生成 AI 設定が「除外」になっていない?", ["Search Console の「設定」で確かめる"]),
+    ("f-g", "その問いに、文字で答えている?", ["小さな問いの1つに冒頭で答える", "大事なことを画像の中だけに書かない"]),
+])
+
 print(sorted(os.listdir(OUT)))
