@@ -2,14 +2,14 @@
 title: AIクローラーのrobots.txt設定|GPTBotなどの許可とブロック方法
 description: GPTBot・OAI-SearchBot・ClaudeBot・PerplexityBotなどAIのボットの役割と、robots.txtで許可・おことわりする書き方を、入口の張り紙のたとえと図でやさしく解説します。
 date: 2026-11-09
-updated: 2026-11-09
+updated: 2026-11-11
 summary: AIのボット(クローラー)は「AIの勉強用」「AI検索の準備用」「人に頼まれてその場で読みに来るもの」の3種類に分かれます。AI検索で紹介されたいなら、少なくとも検索用のボット(OAI-SearchBot・Claude-SearchBot・PerplexityBot)はおことわりしないのが基本です。
 ---
 robots.txt(ロボッツ・テキスト)は、**サイトの入口に貼る「張り紙」** のようなファイルです。ページを自動で読みに来るプログラム(ボット)に向けて、「このボットは入ってOK」「このボットは入らないで」とお願いを書けます。
 
 AI のボットは、**「AI の勉強(学習)のために読むもの」と「AI 検索で紹介するために読むもの」で名前が分かれています**。だから、「AI の勉強には使われたくないけれど、AI 検索では紹介されたい」という設定もできます。
 
-この記事では、主な AI のボットの役割と、robots.txt の書き方を、各社の公式の説明(2026年11月9日に確認)をもとに、図を使って説明します。
+この記事では、主な AI のボットの役割と、robots.txt の書き方を、各社の公式の説明(2026年11月11日に確認し直し)をもとに、図を使って説明します。
 
 ## robots.txtってなに? [初級]
 
@@ -41,7 +41,7 @@ AI のボットは、目的で3つに分けるとわかりやすくなります�
 
 ※ Google-Extended は、実際に見に来るボットではなく、robots.txt に書くための「名前」です。くわしくは後で説明します。
 
-出典:[OpenAI「Overview of OpenAI Crawlers」](https://developers.openai.com/api/docs/bots)、[Anthropic ヘルプセンター](https://support.claude.com/en/articles/8896518)、[Perplexity「Perplexity Crawlers」](https://docs.perplexity.ai/docs/resources/perplexity-crawlers.md)、[Google「Google's common crawlers」](https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers)(いずれも2026年11月9日に確認)。
+出典:[OpenAI「Overview of OpenAI Crawlers」](https://developers.openai.com/api/docs/bots)、[Anthropic ヘルプセンター](https://support.claude.com/en/articles/8896518)、[Perplexity「Perplexity Crawlers」](https://docs.perplexity.ai/docs/resources/perplexity-crawlers.md)、[Google「Google's common crawlers」](https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers)(いずれも2026年11月11日に確認)。
 
 ## 結局、AIのボットは入れていい? [初級]
 
@@ -58,6 +58,9 @@ AI 検索から問い合わせや知名度を得たいなら、**少なくとも
 - **GPTBot**:AI の学習に使うかもしれないページを集めます。おことわりすると「このサイトの内容を学習に使わないで」という意思表示になります。
 - **OAI-SearchBot**:ChatGPT の検索にサイトを出すためのボットです。OpenAI は「OAI-SearchBot をおことわりしたサイトは、ChatGPT の検索の答えに出ない」と説明しています。robots.txt を変えてから反映まで **約24時間** かかるとされています。
 - **ChatGPT-User**:人が ChatGPT に質問したときなどに、その場でページを読みに来ます。人の操作がきっかけなので、OpenAI は「robots.txt のルールが当てはまらないことがある」としています。
+- **OAI-AdsBot**:ChatGPT に広告として出されたページの安全を確かめるボットです。広告として出されたページだけを見に来て、集めた内容は学習には使わないとされています。広告を出していないサイトには関係ありません。
+
+OAI-SearchBot をおことわりしても、会社名で聞かれたときの「行き先のリンク」としては出ることがある、とも書かれています。ChatGPT 検索に出る条件と、出したくないときの止め方は「[ChatGPT検索に表示・引用されるには](/aio/chatgpt-search/)」でくわしく説明しています。
 
 ### Anthropic(Claude)
 
@@ -153,6 +156,12 @@ robots.txt では、ボットは **自分の名前が書かれた部分だけ** 
 
 たとえば `*` で `/admin/` をおことわりしていても、`User-agent: GPTBot` の部分を別に作って `Allow: /` だけ書くと、GPTBot には `/admin/` のおことわりが効きません。名前ごとの部分を作るときは、止めたい場所をそこにも書き直してください。
 
+### robots.txtで止めても、題名とURLは出ることがある
+
+robots.txt は「読まないで」というお願いなので、ページの **中身** は読まれません。でも、ほかのページからのリンクなどでページの存在が知られると、**題名と URL だけ** が出ることがあります。OpenAI は、robots.txt で止めたページでも、ほかの検索サービスやリンクから見つかると、ChatGPT Atlas(OpenAI のブラウザ)に題名とリンクだけが出ることがあると書いています([Publishers and Developers FAQ](https://help.openai.com/en/articles/12627856-publishers-and-developers-faq)、2026年11月11日に確認)。Google 検索でも同じことが起きます。
+
+検索や AI の答えに **一切出したくない** ページは、robots.txt で止めるのではなく、ページに `noindex`(このページを検索にのせないで、という印)を入れます。ボットがページを読めないと noindex に気づけないので、**noindex を入れたページは robots.txt では止めない** のがポイントです。
+
 ### おことわりしても、すでに集められたものは消えない
 
 学習用ボットのおことわりは「これから」のデータについての意思表示です。前に集められたデータが消えるわけではありません。
@@ -164,6 +173,8 @@ ChatGPT-User と Perplexity-User は、robots.txt が当てはまらないこと
 ### サーバーの守りの設定でも止まっていないか確かめる
 
 robots.txt で「どうぞ」にしていても、CDN(サイトを速く配るためのサービス)や WAF(サイトを守るファイアウォール)のボット対策で、AI のボットがまとめて止められていることがあります。AI 検索で紹介されないときは、こちらの設定も確かめてください。
+
+Perplexity は、Cloudflare なら「ボットの User-Agent と、公開している IP アドレスの両方に合うものは通す」ルールを、ブロックのルールより上に置く方法を案内しています。ただし Cloudflare の「Bot Fight Mode」は、このルールでも外せず、ボットを止めてしまうことがあるとも書いています([Perplexity Crawlers](https://docs.perplexity.ai/docs/resources/perplexity-crawlers.md)、2026年11月11日に確認)。
 
 ## ルールの優先順位と本物の見分け方は? [上級]
 
@@ -187,9 +198,16 @@ Google の仕様では、`User-agent` の値(ボット名)は大文字・小文�
 
 User-Agent(アクセスしてきたプログラムの名乗り)はだれでも偽れます。アクセスログで「GPTBot」を名乗るアクセスを見つけても、本物とは限りません。
 
-- **OpenAI**:ボットごとの IP アドレスの一覧を公開しています(`openai.com/gptbot.json`、`openai.com/searchbot.json`、`openai.com/chatgpt-user.json`)。ログの IP がこの範囲に入っているかで確かめられます。
-- **Anthropic**:IP アドレスでのブロックは「正しく働かない、または確実なオプトアウトにならない可能性がある」として、robots.txt での指定をすすめています。
+- **OpenAI**:ボットごとの IP アドレスの一覧を公開しています(`openai.com/gptbot.json`、`openai.com/searchbot.json`、`openai.com/chatgpt-user.json`、`openai.com/adsbot.json`)。ログの IP がこの範囲に入っているかで確かめられます。
+- **Anthropic**:IP アドレスの一覧を `claude.com/crawling/bots.json` で公開していて、この中の IP から来たものは Anthropic のボットだとしています。ただし、IP アドレスで **ブロック** するのは「ボットが robots.txt を読めなくなるため、正しく働かない、または確実なオプトアウトにならない可能性がある」として、robots.txt での指定をすすめています。
+- **Perplexity**:`perplexity.ai/perplexitybot.json` と `perplexity.ai/perplexity-user.json` で IP アドレスの一覧を公開しています。
 - **Google**:Googlebot が本物かどうかは、IP アドレスの逆引き(DNS)で確かめる方法を Google が案内しています。Google-Extended は独自のボットではないため、ログに「Google-Extended」という名前のアクセスは現れません。
+
+### 「AIの学習に使わないで」を全体に伝える新しい印
+
+ボットの名前を1つずつ書く方法とは別に、「AI の学習に使わないで」という意思を、機械が読める形でまとめて伝える印が、IETF(インターネットの技術のルールを決める団体)の作業部会で検討されています([draft-kelley-aipref-training-preference-signal](https://datatracker.ietf.org/doc/draft-kelley-aipref-training-preference-signal))。
+
+Anthropic は、2026年10月30日から、この下書き(ドラフト)にそった印を尊重し始めたと書いています(全サービスへ順に広げている途中)。そのうえで、robots.txt で **ClaudeBot を名指しで書いたルールのほうを優先する** としています。まだ下書きの段階で、書き方が変わる可能性があり、ほかの会社が対応しているかも公式には確認できなかったため、この記事では書き方の例はのせません。今のところは、この記事の robots.txt の書き方で十分です。
 
 ### サーバーの負荷が気になるときは
 
@@ -212,6 +230,10 @@ OpenAI(OAI-SearchBot)と Perplexity は、反映まで約24時間かかるとし
 ### Bingのボットをおことわりしても大丈夫?
 
 おすすめしません。Microsoft の Copilot など、Bing の検索結果を土台にしている AI サービスがあるためです。このサイトでは Bing のボットも「どうぞ」にし、IndexNow というしくみで更新を Bing に知らせています。
+
+### robots.txtで止めたのに、検索やAIにページの題名が出るのはなぜ?
+
+robots.txt は中身を読まないでというお願いで、ページの存在まで隠すものではないからです。ほかのページからのリンクで見つかると、題名と URL だけが出ることがあります。完全に出したくないページは、robots.txt で止めずに `noindex` を入れてください。
 
 ### llms.txtやサイトマップとは何がちがう?
 
