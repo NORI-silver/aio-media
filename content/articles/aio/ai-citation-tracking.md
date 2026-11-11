@@ -66,7 +66,7 @@ AIの回答の出典リンクがクリックされると、アクセス解析に
 | gemini.google.com | Gemini |
 | copilot.microsoft.com | Microsoft Copilot |
 
-OpenAI は、ChatGPT の検索結果から送るリンクに **`utm_source=chatgpt.com`** を自動で付けると説明しています([OpenAI ヘルプ「Publishers and Developers FAQ」](https://help.openai.com/en/articles/12627856))。そのため ChatGPT からの流入は、GA4 で比較的見分けやすくなっています。
+OpenAI は、ChatGPT の検索結果から送るリンクに **`utm_source=chatgpt.com`** を自動で付けると説明しています([OpenAI ヘルプ「Publishers and Developers FAQ」](https://help.openai.com/en/articles/12627856))。そのため ChatGPT からの流入は、GA4 で比較的見分けやすくなっています。ChatGPT 検索に出るための条件と、実際に ChatGPT から来た訪問のデータは「[ChatGPT検索に表示・引用されるには](/aio/chatgpt-search/)」にまとめています。
 
 なお、Google の AI Overviews・AIモードからのクリックは、参照元が google になり、通常の検索と区別がつきません。Google 側の数字は Search Console で確認します([Search Consoleの始め方](/seo/search-console-start/))。
 
