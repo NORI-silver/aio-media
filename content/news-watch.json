@@ -1,11 +1,11 @@
 {
  "_説明": "tools/news_watch.py が自動で作る。手で直さない。",
- "checked": "2026-11-10T23:16:27Z",
+ "checked": "2026-11-11T21:55:02Z",
  "sources": {
   "google-search-central": {
    "ok": true,
    "feed": "https://developers.google.com/search/blog/feed.xml",
-   "items": 9
+   "items": 10
   },
   "google-search-status": {
    "ok": true,
@@ -30,7 +30,7 @@
   "bing-search": {
    "ok": true,
    "feed": "https://blogs.bing.com/search/feed",
-   "items": 1
+   "items": 2
   },
   "bing-webmaster": {
    "ok": true,
@@ -49,6 +49,24 @@
   }
  },
  "items": [
+  {
+   "source": "bing-search",
+   "source_name": "Microsoft Bing Blog",
+   "title": "Your choice: Turn AI answers on or off in Bing",
+   "url": "https://blogs.bing.com/search/2026/11/your-choice-turn-ai-answers-on-or-off-in-bing/",
+   "published": "2026-11-11T17:20:00Z",
+   "summary": "When it comes to AI, we believe Bing users should have a choice in how they search. That's why Bing offers both AI-powered and traditional search experiences, including a browser extension that lets people easily turn off AI features in Bing.",
+   "first_seen": "2026-11-11T21:55:02Z"
+  },
+  {
+   "source": "google-search-central",
+   "source_name": "Google 検索セントラル ブログ",
+   "title": "Moving to a CDN without overwhelming your origin (or blocking Googlebot)",
+   "url": "https://developers.google.com/search/blog/2026/11/crawling-cdn",
+   "published": "2026-11-11T00:00:00Z",
+   "summary": "Deploying a Content Delivery Network (CDN) to distribute your site's assets across fast, globally distributed edge servers closer to users can be a major upgrade for any growing site: it lowers visitor latency and shields your origin server (the backend source of truth holding yo…",
+   "first_seen": "2026-11-11T21:55:02Z"
+  },
   {
    "source": "google-search-status",
    "source_name": "Google 検索ステータス ダッシュボード",
