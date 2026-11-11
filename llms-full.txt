@@ -2433,9 +2433,9 @@ About Smart Bidding のヘルプでは、正確に評価するために **少な
 
 # AIに引用されているか調べる方法|ChatGPT・AI Overviews
 URL: https://aio.shiokonbu.com/aio/ai-citation-tracking/
-更新: 2026-11-09
+更新: 2026-11-11
 
-自社のサイトがAIに引用されているかは、**決めた質問を各AIサービスに定期的に入力して、答えの出典に自社が出るかを記録する方法** と、**アクセス解析でAIサービスからの流入を見る方法** を組み合わせて確かめます。どのAIサービスも、サイト運営者向けに「どの質問で引用されたか」を一覧できる仕組みは、2026年11月時点ではまだ限られています。
+自社のサイトがAIに引用されているかは、**決めた質問を各AIサービスに定期的に入力して、答えの出典に自社が出るかを記録する方法** と、**検索エンジンの無料のレポートとアクセス解析で数字を見る方法** を組み合わせて確かめます。2026年11月時点で、公式の数字が見られるのは Google の Search Console(AI Overviews・AIモードでの表示回数)と、Microsoft の Bing Webmaster Tools(Copilot などでの引用回数)です。ChatGPT や Perplexity には、引用の回数を一覧できる公式の仕組みはまだありません。
 
 お店にたとえると、**AI は「ガイドブック」**、AI に紹介されることは **ガイドブックに自分のお店がのること** です。ガイドブックは毎月中身が少しずつ変わるので、本屋で同じページを毎月開いて「のっているか」「となりにどのお店がのっているか」を確かめる、というのがこの記事のやり方です。
 
@@ -2447,7 +2447,7 @@ URL: https://aio.shiokonbu.com/aio/ai-citation-tracking/
 
 SEO なら、Search Console で検索順位やクリック数がわかります。一方、AI検索では、
 
-- ChatGPT や Perplexity での引用状況を一覧で見られる公式ツールがほとんどない
+- ChatGPT や Perplexity での引用状況を一覧で見られる公式ツールがない(Google と Bing にはあるが、見られる数字は限られる)
 - 同じ質問でも、聞くたびに答えや出典が変わることがある
 - 引用されても、クリックされなければアクセス解析には残らない
 
@@ -2485,7 +2485,23 @@ SEO なら、Search Console で検索順位やクリック数がわかります�
 
 月に1回、同じ質問で記録を続けると、**記事を直した後に引用されるようになったか** が比べられます。「一緒に出た他社」のページは、どんな情報が引用されやすいかを学ぶ材料になります。
 
-## アクセス解析ではどう見る? [中級]
+## 公式のレポートとアクセス解析ではどう見る? [中級]
+
+ガイドブックのたとえで言うと、ここは「出版社が教えてくれる掲載回数」と「ガイドブックを見て来たお客さんの数」を見るところです。
+
+### Search Console の「生成 AI パフォーマンス レポート」(Google)
+
+Search Console の「パフォーマンス」の中に、**生成 AI パフォーマンス レポート(検索)** があります。AI Overviews と AIモードで、**自分のサイトへのリンクが表示された回数(インプレッション数)** がわかります。ページ・国・日付・デバイスごとに分けて見られるので、「どのページが AI の答えに出ているか」がわかります。2026年8月31日から全サイトで使えます([Search Console ヘルプ「生成 AI パフォーマンス レポート(検索)」](https://support.google.com/webmasters/answer/16984139?hl=ja)、2026年11月11日に確認)。
+
+できないこともあります。ヘルプにはクリック数や検索語(クエリ)ごとの見方は書かれていません。また、表示回数が少ないサイトではレポート自体が出ないことがあり、「検索の生成 AI」の設定で除外しているとデータは入りません。出ないときの確かめ方は「[AI Overviewsとは?](/aio/ai-overviews/)」の「自分のページが表示されないときは何を確かめる?」にまとめています。
+
+### Bing Webmaster Tools の「AI Performance」(Microsoft)
+
+Microsoft の無料ツール Bing Webmaster Tools には、2026年2月から **AI Performance**(試験公開)があります。Microsoft Copilot や Bing の AI の要約などで、**自分のサイトが出典として表示された回数(Total Citations)**、ページごとの引用回数、そして **AI が調べるときに使った検索語(Grounding queries、一部のサンプル)** がわかります([Bing Webmaster Blog](https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview)、2026年2月10日)。
+
+2026年6月には、検索語を「調べもの・比較・地域」などに分ける **Intents**、テーマごとにまとめる **Topics**、その検索語での引用全体に占める自分の割合を出す **Citation Share**、前の期間と比べる **Compare** が追加されました。Citation Share は順位ではなく、ほかの会社の名前も出ません([Bing Search Blog](https://blogs.bing.com/search/June-2026/New-AI-Visibility-Insights-in-Bing-Webmaster-Tools-Intents-Topics-Citation-Share-Compare)、2026年6月16日)。**AI が実際に使った検索語がわかる公式の仕組みは、2026年11月時点ではこれだけ** なので、質問リストを作るときのヒントにもなります。
+
+### GA4(アクセス解析)
 
 AIの回答の出典リンクがクリックされると、アクセス解析に「参照元」として残ります。GA4 なら、「集客」→「トラフィック獲得」で、ディメンションを **「セッションの参照元」** にすると確認できます。
 
@@ -2496,9 +2512,11 @@ AIの回答の出典リンクがクリックされると、アクセス解析に
 | gemini.google.com | Gemini |
 | copilot.microsoft.com | Microsoft Copilot |
 
+GA4 には、ChatGPT・Gemini・Copilot などから来た訪問をまとめる **「AI アシスタント」というチャネル**(訪問の入口の分類)もあります。「集客」→「トラフィック獲得」で、ディメンションを「セッションのデフォルト チャネル グループ」にすると見られます。Google の AI による概要と AIモードからの訪問は、ここではなく「オーガニック検索」に入ります([GA4 ヘルプ「デフォルト チャネル グループ」](https://support.google.com/analytics/answer/9756891?hl=ja)、2026年11月11日に確認)。
+
 OpenAI は、ChatGPT の検索結果から送るリンクに **`utm_source=chatgpt.com`** を自動で付けると説明しています([OpenAI ヘルプ「Publishers and Developers FAQ」](https://help.openai.com/en/articles/12627856))。そのため ChatGPT からの流入は、GA4 で比較的見分けやすくなっています。ChatGPT 検索に出るための条件と、実際に ChatGPT から来た訪問のデータは「[ChatGPT検索に表示・引用されるには](/aio/chatgpt-search/)」にまとめています。
 
-なお、Google の AI Overviews・AIモードからのクリックは、参照元が google になり、通常の検索と区別がつきません。Google 側の数字は Search Console で確認します([Search Consoleの始め方](/seo/search-console-start/))。
+なお、Google の AI Overviews・AIモードからのクリックは、参照元が google になり、通常の検索と区別がつきません。Google 側は、上の生成 AI パフォーマンス レポートで表示回数を見ます([Search Consoleの始め方](/seo/search-console-start/))。
 
 ## 実際にはどのくらいAIから来ている? [上級]
 
@@ -2528,7 +2546,7 @@ AIサービスから(chatgpt.com・openai・gemini.google.com)は合わせて **
 定点観測の目的は、数を数えることではなく、**引用されなかった質問について、答えになるページを作る・書き足すこと** です。
 
 1. 引用されなかった質問について、引用された他社のページを読み、何が書いてあるかを見る(費用の表、手順、具体的な数字など)
-2. 自社のページに、その問いへの答えが冒頭で言い切られているかを確かめる([AIに引用される文章の書き方](/aio/answer-first-writing/))
+2. 自社のページに、その問いへの答えが冒頭で言い切られているかを確かめる([AIに引用される文章の書き方](/aio/answer-first-writing/)、ほかに直すところは[LLMO対策のチェックリスト](/aio/llmo-checklist/))
 3. 自社にしか書けない一次情報(実績の数字、実際の事例)を足す([一次情報とは?](/seo/first-party-information/))
 4. 翌月、同じ質問で記録して変化を見る
 
@@ -2538,7 +2556,11 @@ AIサービスから(chatgpt.com・openai・gemini.google.com)は合わせて **
 
 ### AIの引用状況を自動で調べるツールはありますか?
 
-民間の有料ツールはありますが、Google は「Google の内部のランキングやAIのシステムにアクセスできる外部ツールはない」としています。ツールの数字は、ツールが自分で質問した結果の集計だと理解したうえで、参考として使いましょう。
+まず無料の公式レポートを使いましょう。Google の Search Console(AI Overviews・AIモードでの表示回数)と、Bing Webmaster Tools の AI Performance(Copilot などでの引用回数と、AIが使った検索語)です。民間の有料ツールもありますが、Google は「Google の内部のランキングやAIのシステムにアクセスできる外部ツールはない」としています。ツールの数字は、ツールが自分で質問した結果の集計だと理解したうえで、参考として使いましょう。
+
+### Search Consoleで、どの検索語でAI Overviewsに出たかわかりますか?
+
+2026年11月時点のヘルプでは、生成 AI パフォーマンス レポートはページ・国・日付・デバイスごとの表示回数を見るもので、検索語ごとの見方は書かれていません。AI が使った検索語を知りたいときは、Bing Webmaster Tools の AI Performance(Grounding queries)が参考になります。Google と Bing では AI のしくみがちがうので、そのまま同じとは考えないでください。
 
 ### 毎回答えが変わるのに、記録する意味はありますか?
 
