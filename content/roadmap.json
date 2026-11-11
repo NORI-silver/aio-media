@@ -16,7 +16,9 @@
             "「まずやること」に出た項目をメモしておく"
           ],
           "checks": [],
-          "articles": [],
+          "articles": [
+            "/aio/llmo-checklist/"
+          ],
           "links": [
             [
               "AIO診断ツール",
@@ -119,6 +121,7 @@
           "checks": [],
           "articles": [
             "/aio/aio-llmo-geo-aeo-difference/",
+            "/aio/llmo-checklist/",
             "/aio/ai-overviews/",
             "/aio/google-ai-mode/",
             "/aio/how-search-and-ai-work/",

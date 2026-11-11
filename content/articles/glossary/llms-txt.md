@@ -34,6 +34,8 @@ Google は、AI 検索についての公式ガイド「[Optimizing your website 
 
 つまり llms.txt は、Google の検索順位にも [AI Overviews(AIによる概要)](/aio/ai-overviews/) にも影響しません。ChatGPT・Claude・Perplexity など、ほかの会社の AI が llms.txt を使っているかについても、2026年11月時点で各社の公式の説明に、はっきりした記載は見つかりませんでした。
 
+llms.txt より先にやることは、「[LLMO対策のやり方チェックリスト](/aio/llmo-checklist/)」の10項目にまとめています。
+
 ## llms.txtは置くべき? [初級]
 
 急いで置く必要はありませんが、置いて困ることもほとんどありません。目安はこうです。
