@@ -1,6 +1,6 @@
 {
  "_説明": "tools/news_watch.py が自動で作る。手で直さない。",
- "checked": "2026-11-12T17:34:11Z",
+ "checked": "2026-11-12T23:35:37Z",
  "sources": {
   "google-search-central": {
    "ok": true,
@@ -49,6 +49,15 @@
   }
  },
  "items": [
+  {
+   "source": "google-blog-search",
+   "source_name": "Google 公式ブログ(検索)",
+   "title": "Google Search gets a major upgrade with Gemini 4 Hydrogen",
+   "url": "https://blog.google/products-and-platforms/products/search/gemini-4-hydrogen-search-upgrade/",
+   "published": "2026-11-12T18:00:00Z",
+   "summary": "We are bringing Gemini 4 Hydrogen to Google Search globally to provide you with more helpful, visual, and intuitive responses.",
+   "first_seen": "2026-11-12T23:35:37Z"
+  },
   {
    "source": "google-ads",
    "source_name": "Google 公式ブログ(広告・コマース)",
