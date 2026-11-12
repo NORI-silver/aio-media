@@ -1,6 +1,6 @@
 {
  "_説明": "tools/news_watch.py が自動で作る。手で直さない。",
- "checked": "2026-11-11T21:55:02Z",
+ "checked": "2026-11-12T17:34:11Z",
  "sources": {
   "google-search-central": {
    "ok": true,
@@ -49,6 +49,15 @@
   }
  },
  "items": [
+  {
+   "source": "google-ads",
+   "source_name": "Google 公式ブログ(広告・コマース)",
+   "title": "We’re introducing a new transparency tool for invalid traffic in Google Ads.",
+   "url": "https://blog.google/products/ads-commerce/invalid-traffic-overview-google-ads/",
+   "published": "2026-11-12T13:00:00Z",
+   "summary": "Google Ads introduces the Invalid Traffic Overview Card for campaign transparency. See your savings and credits from November 2026. Get the details.",
+   "first_seen": "2026-11-12T17:34:11Z"
+  },
   {
    "source": "bing-search",
    "source_name": "Microsoft Bing Blog",
