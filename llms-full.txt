@@ -3916,7 +3916,7 @@ Google の検索広告なら、検索の数が少ない、入札が低い、広�
 
 # llms.txtとは?書き方の例とGoogleの見解、置くべきかを解説
 URL: https://aio.shiokonbu.com/glossary/llms-txt/
-更新: 2026-11-09
+更新: 2026-11-14
 
 llms.txt(エル・エル・エム・エス・テキスト)は、**AI のための「おすすめ案内板」** のようなファイルです。お店の入口にある「1階は食品、2階は服」という案内のように、「このサイトには何があって、大事なページはどこか」を AI にまとめて伝えます。
 
@@ -4018,6 +4018,20 @@ llmstxt.org の仕様には、llms.txt 本体のほかに、次のような提�
 
 効果を語る前に、まずAIが llms.txt を読みに来ているかを確かめます。サーバーのアクセスログで `/llms.txt` へのアクセスを探し、User-Agent(GPTBot・ClaudeBot・PerplexityBot など)を確認します。名前は偽装できるので、本物かどうかの確かめ方は「[robots.txtの設定](/aio/ai-crawler-robots-txt/)」の上級者向けの章を参考にしてください。なお、このサイトは GitHub Pages で公開しているためアクセスログが見られず、読まれているかはまだ確かめられていません(「[AIのアクセスと人のアクセスの違い](/aio/ai-vs-human-access/)」)。
 
+### このサイトで確かめたこと:Googleはllms.txtを「ふつうのページ」として登録した
+
+Google 検索は llms.txt を「AI への案内板」としては使いません。では、まったく読まないのかというと、そうではありませんでした。このサイトの [llms.txt](/llms.txt) を Search Console の URL 検査で調べた結果(2026年11月14日に確認)はこうです。
+
+| 項目 | 結果 |
+|---|---|
+| 登録の状態 | 送信して登録されました(インデックス済み) |
+| 最後にクロールされた日 | 2026年11月9日 |
+| Googleが選んだ正規のURL | https://aio.shiokonbu.com/llms.txt |
+
+さらに、Search Console の検索パフォーマンス(2026年10月14日〜11月10日)では、llms.txt が「aio 資格 学習 リソース」という検索で1回表示されていました(平均掲載順位62位、クリック0)。
+
+つまり Google は、llms.txt を **案内板としては使わないが、ただの文字のファイルとしてはクロール・登録し、検索結果に出すこともある** ということです。llms.txt の中身は検索結果に出ても困らない内容にしておきましょう。検索結果に出したくない場合は、HTTP ヘッダーの `X-Robots-Tag: noindex` で登録を止められます(Google 検索セントラル「[Robots Meta Tags Specifications](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag)」、2026年11月時点)。GitHub Pages のようにヘッダーを変えられない公開先では、この方法は使えません。ただし robots.txt で llms.txt を止めると、AI のボットも読めなくなるので注意してください。このサイトは今のところ、登録されたままにしています。
+
 ## よくある質問
 
 ### llms.txtとrobots.txtのちがいは?
@@ -4031,6 +4045,10 @@ Google 検索(AI Overviews・AIモードをふくむ)では使われていない
 ### WordPressでもllms.txtは作れる?
 
 作れます。文字だけのファイルを手で作って、サイトのいちばん上にアップロードするか、自動で作ってくれるプラグイン(追加機能)を使います。記事をふやすたびに直す必要があるので、自動で作れる方法がおすすめです。
+
+### llms.txtがGoogleの検索結果に出ることはある?
+
+あります。このサイトの llms.txt は Google に登録され、検索結果に1回表示されました(2026年11月、Search Console で確認)。Google は llms.txt を順位づけの材料には使いませんが、文字のファイルとしては登録します。
 
 ### llms.txtは日本語で書いてもいい?
 
