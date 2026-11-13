@@ -54,6 +54,7 @@
 | 2026-11-11 | aio/aio-llmo-geo-aeo-difference | Google公式ガイド(2026-07-10更新)・GEO論文・llmstxt.org を開き直して事実を確認(変更なし)。Googleが「無視してよい」とした5つ、Search Console の「検索の生成 AI 設定」と生成AIレポート、「AIO対策は自分でできる?」の質問を追加。新記事 LLMO対策チェックリストへのリンクを追加 |
 | 2026-11-11 | aio/ai-crawler-robots-txt | OpenAI・Anthropic・Perplexity のボットの公式ページを開き直して確認。OAI-AdsBot、OAI-SearchBot を止めても行き先リンクは出ること、Anthropic・Perplexity の IP 一覧、Anthropic の「AI学習に使わないで」の新しい印(2026-10-30〜)、Cloudflare Bot Fight Mode の注意、「robots.txt で止めても題名とURLは出る→noindex」の章と質問を追加。新記事 ChatGPT検索へのリンクを追加 |
 | 2026-11-11 | aio/ai-citation-tracking | OpenAI・GA4 の公式ページを開き直して確認。Search Console の「生成 AI パフォーマンス レポート」(表示回数・ページ別、2026-08-31〜全サイト)、Bing Webmaster Tools の AI Performance(引用回数・Grounding queries、2026-06 の Intents・Topics・Citation Share・Compare)、GA4 の「AI アシスタント」チャネルの章と質問を追加。説明文を直し、AI Overviews の「表示されないとき」とLLMOチェックリストへのリンクを追加 |
+| 2026-11-14 | glossary/llms-txt | llmstxt.org と Google の AI 向けガイド(2026-07-10更新)を開き直して確認(変更なし)。自前の実測として、Search Console の URL 検査で aio の llms.txt が「送信して登録されました」(11/9 クロール)・検索で1回表示(62位)されたことを章と質問で追加。X-Robots-Tag で止める方法と GitHub Pages では使えない注意を追記 |
 
 ## テーマの順番
 
