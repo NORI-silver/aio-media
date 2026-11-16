@@ -1,6 +1,6 @@
 {
  "_説明": "tools/news_watch.py が自動で作る。手で直さない。",
- "checked": "2026-11-16T00:59:38Z",
+ "checked": "2026-11-16T21:58:27Z",
  "sources": {
   "google-search-central": {
    "ok": true,
@@ -49,6 +49,33 @@
   }
  },
  "items": [
+  {
+   "source": "google-blog-search",
+   "source_name": "Google 公式ブログ(検索)",
+   "title": "4 ways Search can help with your holiday plans",
+   "url": "https://blog.google/products-and-platforms/products/search/holiday-prep-search-2026/",
+   "published": "2026-11-16T14:00:00Z",
+   "summary": "Here are four ways Search can help tackle your seasonal to-do list.",
+   "first_seen": "2026-11-16T21:58:27Z"
+  },
+  {
+   "source": "google-ads",
+   "source_name": "Google 公式ブログ(広告・コマース)",
+   "title": "How to find the best Black Friday deals and shop smarter",
+   "url": "https://blog.google/products-and-platforms/products/shopping/black-friday-cyber-monday-shopping-tips-2026/",
+   "published": "2026-11-16T14:00:00Z",
+   "summary": "Track price drops, organize your cart, and find thoughtful gifts faster this Black Friday and Cyber Monday with these Google tools.",
+   "first_seen": "2026-11-16T21:58:27Z"
+  },
+  {
+   "source": "google-search-central",
+   "source_name": "Google 検索セントラル ブログ",
+   "title": "New filtering and reporting capabilities in the Search Analytics API",
+   "url": "https://developers.google.com/search/blog/2026/11/search-analytics-api-update",
+   "published": "2026-11-16T00:00:00Z",
+   "summary": "Over the past year, we introduced several updates to the Search Console Performance report to help you better slice and understand your traffic, including the branded queries filter, web multimodal search reporting, and multi-country and multi-device filtering.",
+   "first_seen": "2026-11-16T21:58:27Z"
+  },
   {
    "source": "google-blog-search",
    "source_name": "Google 公式ブログ(検索)",
