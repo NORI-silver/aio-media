@@ -1,6 +1,6 @@
 {
  "_説明": "tools/news_watch.py が自動で作る。手で直さない。",
- "checked": "2026-11-12T23:35:37Z",
+ "checked": "2026-11-16T00:59:38Z",
  "sources": {
   "google-search-central": {
    "ok": true,
@@ -25,7 +25,7 @@
   "google-japan-blog": {
    "ok": true,
    "feed": "https://blog.google/intl/ja-jp/rss/",
-   "items": 3
+   "items": 2
   },
   "bing-search": {
    "ok": true,
