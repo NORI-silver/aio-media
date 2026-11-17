@@ -1,6 +1,6 @@
 {
  "_説明": "tools/news_watch.py が自動で作る。手で直さない。",
- "checked": "2026-11-16T21:58:27Z",
+ "checked": "2026-11-17T18:32:12Z",
  "sources": {
   "google-search-central": {
    "ok": true,
@@ -40,7 +40,7 @@
   "openai-news": {
    "ok": true,
    "feed": "https://openai.com/news/rss.xml",
-   "items": 14
+   "items": 16
   },
   "ietf-aipref": {
    "ok": true,
@@ -49,6 +49,15 @@
   }
  },
  "items": [
+  {
+   "source": "google-blog-search",
+   "source_name": "Google 公式ブログ(検索)",
+   "title": "Temporary threads are now available in AI Mode in Search.",
+   "url": "https://blog.google/products-and-platforms/products/search/temporary-threads-ai-mode/",
+   "published": "2026-11-17T17:00:00Z",
+   "summary": "Google AI Mode now offers temporary threads for private searches. Keep your history clean and avoid personalization. Try this new feature today.",
+   "first_seen": "2026-11-17T18:32:12Z"
+  },
   {
    "source": "google-blog-search",
    "source_name": "Google 公式ブログ(検索)",
@@ -95,6 +104,15 @@
    "first_seen": "2026-11-12T17:34:11Z"
   },
   {
+   "source": "openai-news",
+   "source_name": "OpenAI News",
+   "title": "ChatGPT Ads increases its market presence in 44 countries",
+   "url": "https://openai.com/ads/blog/chatgpt-ads-increases-its-market-presence",
+   "published": "2026-11-12T00:00:00Z",
+   "summary": "Aleph selected as ChatGPT Ads’ exclusive reseller in 44 countries to offer local invoicing, in-person support and local market expertise to brands and agencies",
+   "first_seen": "2026-11-17T18:32:12Z"
+  },
+  {
    "source": "bing-search",
    "source_name": "Microsoft Bing Blog",
    "title": "Your choice: Turn AI answers on or off in Bing",
@@ -129,6 +147,15 @@
    "published": "2026-11-09T12:00:00Z",
    "summary": "Google’s Holiday 100 is here. Shop the gifts that are most popular this year and see the Search trends behind them.",
    "first_seen": "2026-11-09T22:18:35Z"
+  },
+  {
+   "source": "openai-news",
+   "source_name": "OpenAI News",
+   "title": "How VistaPrint helps small businesses get the word out",
+   "url": "https://openai.com/ads/customers/vistaprint",
+   "published": "2026-11-09T00:00:00Z",
+   "summary": "Small business owners preparing for a launch or an event often know what they want to accomplish before they know what to print. VistaPrint uses ChatGPT Ads to show how products like signs and branded merchandise can help them get the word out.",
+   "first_seen": "2026-11-17T18:32:12Z"
   },
   {
    "source": "google-japan-blog",
