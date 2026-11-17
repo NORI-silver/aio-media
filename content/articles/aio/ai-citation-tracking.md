@@ -1,8 +1,8 @@
 ---
-title: AIに引用されているか調べる方法|ChatGPT・AI Overviews
-description: 自社サイトがChatGPT・Perplexity・GoogleのAI Overviewsに引用されているかを調べる方法を解説。質問リストと記録表、Search ConsoleとBingの無料のAIレポート、GA4での流入の見方を紹介します。
+title: AIに引用されているか確認する方法と無料ツール|AI Overviews
+description: 自社サイトがAI Overviews・ChatGPT・Perplexityに引用されているかを確認する方法と無料ツールを解説。Search ConsoleとBingのAIレポート、質問リストと記録表、GA4の見方も紹介。
 date: 2026-11-09
-updated: 2026-11-11
+updated: 2026-11-17
 summary: AIに引用されているかを確かめるには、①自社に関係する質問を10〜20個決め、②ChatGPT・Perplexity・GoogleのAI Overviewsで定期的に質問して出典を記録し、③Search Console と Bing Webmaster Tools の無料のAIレポートと、GA4のAIサービスからの流入を見る、の3つを組み合わせます。AIの答えは毎回変わるので、1回ではなく同じ質問を繰り返し記録することが大切です。
 ---
 自社のサイトがAIに引用されているかは、**決めた質問を各AIサービスに定期的に入力して、答えの出典に自社が出るかを記録する方法** と、**検索エンジンの無料のレポートとアクセス解析で数字を見る方法** を組み合わせて確かめます。2026年11月時点で、公式の数字が見られるのは Google の Search Console(AI Overviews・AIモードでの表示回数)と、Microsoft の Bing Webmaster Tools(Copilot などでの引用回数)です。ChatGPT や Perplexity には、引用の回数を一覧できる公式の仕組みはまだありません。
@@ -124,9 +124,9 @@ AIサービスから(chatgpt.com・openai・gemini.google.com)は合わせて **
 
 ## よくある質問
 
-### AIの引用状況を自動で調べるツールはありますか?
+### AI Overviewsで自社が引用されているか確認できるツールは?
 
-まず無料の公式レポートを使いましょう。Google の Search Console(AI Overviews・AIモードでの表示回数)と、Bing Webmaster Tools の AI Performance(Copilot などでの引用回数と、AIが使った検索語)です。民間の有料ツールもありますが、Google は「Google の内部のランキングやAIのシステムにアクセスできる外部ツールはない」としています。ツールの数字は、ツールが自分で質問した結果の集計だと理解したうえで、参考として使いましょう。
+AI Overviews なら、まず Google の無料の Search Console です。「生成 AI パフォーマンス レポート」で、AI Overviews・AIモードに自社のページが出た回数をページごとに見られます。Copilot など Microsoft の AI なら、Bing Webmaster Tools の AI Performance(引用回数と、AIが使った検索語)です。民間の有料ツールもありますが、Google は「Google の内部のランキングやAIのシステムにアクセスできる外部ツールはない」としています。ツールの数字は、ツールが自分で質問した結果の集計だと理解したうえで、参考として使いましょう。
 
 ### Search Consoleで、どの検索語でAI Overviewsに出たかわかりますか?
 
