@@ -1,6 +1,6 @@
 {
  "_説明": "tools/news_watch.py が自動で作る。手で直さない。",
- "checked": "2026-11-17T18:32:12Z",
+ "checked": "2026-11-18T20:27:54Z",
  "sources": {
   "google-search-central": {
    "ok": true,
@@ -49,6 +49,15 @@
   }
  },
  "items": [
+  {
+   "source": "google-ads",
+   "source_name": "Google 公式ブログ(広告・コマース)",
+   "title": "Win the holiday shopping season with November’s Demand Gen Drop.",
+   "url": "https://blog.google/products/ads-commerce/demand-gen-drop-november-2026/",
+   "published": "2026-11-18T17:00:00Z",
+   "summary": "Take advantage of the holiday peak with YouTube’s November Demand Gen Drop.",
+   "first_seen": "2026-11-18T20:27:54Z"
+  },
   {
    "source": "google-blog-search",
    "source_name": "Google 公式ブログ(検索)",
