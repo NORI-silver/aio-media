@@ -1,6 +1,6 @@
 {
  "_説明": "tools/news_watch.py が自動で作る。手で直さない。",
- "checked": "2026-11-20T11:30:40Z",
+ "checked": "2026-11-20T20:10:32Z",
  "sources": {
   "google-search-central": {
    "ok": true,
@@ -40,7 +40,7 @@
   "openai-news": {
    "ok": true,
    "feed": "https://openai.com/news/rss.xml",
-   "items": 16
+   "items": 15
   },
   "ietf-aipref": {
    "ok": true,
@@ -49,6 +49,15 @@
   }
  },
  "items": [
+  {
+   "source": "google-blog-search",
+   "source_name": "Google 公式ブログ(検索)",
+   "title": "Get your year-end tasks done with new Connected Apps.",
+   "url": "https://blog.google/products-and-platforms/products/search/connected-apps-holiday-errands/",
+   "published": "2026-11-20T18:00:00Z",
+   "summary": "Google Connected Apps simplify your year-end tasks. Manage groceries, credit scores, and home services directly in Search. Get the details for November 2026.",
+   "first_seen": "2026-11-20T20:10:32Z"
+  },
   {
    "source": "google-ads",
    "source_name": "Google 公式ブログ(広告・コマース)",
