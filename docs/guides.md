@@ -56,6 +56,7 @@
 | 2026-11-11 | aio/ai-citation-tracking | OpenAI・GA4 の公式ページを開き直して確認。Search Console の「生成 AI パフォーマンス レポート」(表示回数・ページ別、2026-08-31〜全サイト)、Bing Webmaster Tools の AI Performance(引用回数・Grounding queries、2026-06 の Intents・Topics・Citation Share・Compare)、GA4 の「AI アシスタント」チャネルの章と質問を追加。説明文を直し、AI Overviews の「表示されないとき」とLLMOチェックリストへのリンクを追加 |
 | 2026-11-14 | glossary/llms-txt | llmstxt.org と Google の AI 向けガイド(2026-07-10更新)を開き直して確認(変更なし)。自前の実測として、Search Console の URL 検査で aio の llms.txt が「送信して登録されました」(11/9 クロール)・検索で1回表示(62位)されたことを章と質問で追加。X-Robots-Tag で止める方法と GitHub Pages では使えない注意を追記 |
 | 2026-11-17 | aio/ai-citation-tracking | Search Console(11/1〜11/14)で「AI Overviewsで自社が引用されているか確認できるツールは?」が平均8.3位・表示3・クリック0。題名を「確認する方法と無料ツール|AI Overviews」に、説明文を AI Overviews 先頭に直し、よくある質問の見出しと答えを検索語に合わせた(AI Overviews は Search Console、Copilot は Bing と分けて答える) |
+| 2026-11-22 | aio/how-search-and-ai-work | Search Console(10/22〜11/18)で「aio seo 違い」など違いを探す検索が、違いを主題にしていない ads/ads-seo-aio に出ていた(13.8位・表示5・クリック0)。違いの章がある本記事の題名と説明文を「SEOとAIOの違いを図解」に直し、「ひとことで言うと?」の質問を追加。ads/ads-seo-aio の用語説明からリンク |
 
 ## テーマの順番
 
