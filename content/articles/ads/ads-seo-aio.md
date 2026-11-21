@@ -19,7 +19,7 @@ summary: 広告にお金を払っても、Googleのふつうの検索結果の�
 この記事で使う言葉は、次のとおりです。
 
 - **SEO(エス・イー・オー)**:Google などの検索結果で、自分のページを上のほうに出すための工夫
-- **AIO(エー・アイ・オー)**:ChatGPT や Google の「AIによる概要」など、AI が作る答えの中で自分のページを紹介してもらうための工夫(呼び方のちがいは [AIO・LLMO・GEO・AEOの違い](/aio/aio-llmo-geo-aeo-difference/))
+- **AIO(エー・アイ・オー)**:ChatGPT や Google の「AIによる概要」など、AI が作る答えの中で自分のページを紹介してもらうための工夫(呼び方のちがいは [AIO・LLMO・GEO・AEOの違い](/aio/aio-llmo-geo-aeo-difference/))。SEO と AIO そのもののちがいは「[SEOとAIOの違いを図解](/aio/how-search-and-ai-work/)」で説明しています
 - **自然検索**:検索結果のうち、広告ではない、ふつうの結果のこと
 
 ## 広告とSEO・AIOは何がちがう? [初級]

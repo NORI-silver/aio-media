@@ -1678,7 +1678,7 @@ URL: https://aio.shiokonbu.com/ads/ads-seo-aio/
 この記事で使う言葉は、次のとおりです。
 
 - **SEO(エス・イー・オー)**:Google などの検索結果で、自分のページを上のほうに出すための工夫
-- **AIO(エー・アイ・オー)**:ChatGPT や Google の「AIによる概要」など、AI が作る答えの中で自分のページを紹介してもらうための工夫(呼び方のちがいは [AIO・LLMO・GEO・AEOの違い](/aio/aio-llmo-geo-aeo-difference/))
+- **AIO(エー・アイ・オー)**:ChatGPT や Google の「AIによる概要」など、AI が作る答えの中で自分のページを紹介してもらうための工夫(呼び方のちがいは [AIO・LLMO・GEO・AEOの違い](/aio/aio-llmo-geo-aeo-difference/))。SEO と AIO そのもののちがいは「[SEOとAIOの違いを図解](/aio/how-search-and-ai-work/)」で説明しています
 - **自然検索**:検索結果のうち、広告ではない、ふつうの結果のこと
 
 ## 広告とSEO・AIOは何がちがう? [初級]
@@ -3374,9 +3374,9 @@ Google は、AI向けに文章を細かく分割する必要はなく、理想�
 
 ---
 
-# SEOとAIOの仕組みを図解|Google検索とAI検索が答えを選ぶ流れ
+# SEOとAIOの違いを図解|Google検索とAI検索が答えを選ぶ仕組み
 URL: https://aio.shiokonbu.com/aio/how-search-and-ai-work/
-更新: 2026-11-09
+更新: 2026-11-22
 
 Google 検索は、**大きな図書館の「司書さん」のような仕事** をしています。世界中のページを見に行って、中身をメモしておき、質問されたら役に立ちそうなページを順番に見せてくれます。
 
@@ -3526,6 +3526,10 @@ OpenAI は、OAI-SearchBot を拒否したサイトは ChatGPT の検索の回�
 Google と各 AI 会社の段階は別々に進みます。Googlebot には読まれていても、CDN のボット対策で OAI-SearchBot だけ止まっている、ということもあります。AI のアクセスと人のアクセスの見分け方は「[AIのアクセスと人のアクセスの違い](/aio/ai-vs-human-access/)」で図解しています。なお、上の Search Console の確認は、AI から MCP という仕組みで行いました(「[MCPとは?](/glossary/mcp/)」)。
 
 ## よくある質問
+
+### SEOとAIOの違いをひとことで言うと?
+
+ゴールがちがいます。SEO は「検索結果のリンクの列で上に並ぶこと」、AIO は「AI の答えの中で出典として紹介されること」です。ただ、そこまでの道(読んでもらえる・わかってもらえる・えらばれる)はほとんど同じで、Google も AI 検索への工夫は SEO の一部としています。
 
 ### AIの答えに出るには、SEOとはべつのことが必要?
 
