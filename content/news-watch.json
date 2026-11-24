@@ -1,6 +1,6 @@
 {
  "_説明": "tools/news_watch.py が自動で作る。手で直さない。",
- "checked": "2026-11-24T02:10:34Z",
+ "checked": "2026-11-24T23:52:32Z",
  "sources": {
   "google-search-central": {
    "ok": true,
@@ -10,7 +10,7 @@
   "google-search-status": {
    "ok": true,
    "feed": "https://status.search.google.com/en/feed.atom",
-   "items": 1
+   "items": 3
   },
   "google-blog-search": {
    "ok": true,
@@ -49,6 +49,15 @@
   }
  },
  "items": [
+  {
+   "source": "google-search-status",
+   "source_name": "Google 検索ステータス ダッシュボード",
+   "title": "UPDATE: December 2026 core update",
+   "url": "https://status.search.google.com/incidents/AXrqxXXdtSjj3672ux7X",
+   "published": "2026-11-24T15:03:11Z",
+   "summary": "Incident began at 2026-11-24 07:02 (all times are US/Pacific ). Preannounced the December 2026 core update, which focuses on multiple improvements to how our systems understand and rank relevant content (including for longer and more complex questions), as well as improving perso…",
+   "first_seen": "2026-11-24T23:52:32Z"
+  },
   {
    "source": "google-blog-search",
    "source_name": "Google 公式ブログ(検索)",
