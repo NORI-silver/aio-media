@@ -1,6 +1,6 @@
 {
  "_説明": "tools/news_watch.py が自動で作る。手で直さない。",
- "checked": "2026-11-20T20:10:32Z",
+ "checked": "2026-11-24T02:10:34Z",
  "sources": {
   "google-search-central": {
    "ok": true,
@@ -49,6 +49,15 @@
   }
  },
  "items": [
+  {
+   "source": "google-blog-search",
+   "source_name": "Google 公式ブログ(検索)",
+   "title": "A more tailored Google Search that’s uniquely yours",
+   "url": "https://blog.google/products-and-platforms/products/search/google-search-personal-intelligence-apps/",
+   "published": "2026-11-23T17:00:00Z",
+   "summary": "Get more helpful Search responses by securely opting in to connect Google Wallet, Drive, and the Gemini app to Personal Intelligence in AI Mode.",
+   "first_seen": "2026-11-24T02:10:34Z"
+  },
   {
    "source": "google-blog-search",
    "source_name": "Google 公式ブログ(検索)",
