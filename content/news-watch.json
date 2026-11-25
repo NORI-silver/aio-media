@@ -1,6 +1,6 @@
 {
  "_説明": "tools/news_watch.py が自動で作る。手で直さない。",
- "checked": "2026-11-24T23:52:32Z",
+ "checked": "2026-11-25T19:13:23Z",
  "sources": {
   "google-search-central": {
    "ok": true,
@@ -10,7 +10,7 @@
   "google-search-status": {
    "ok": true,
    "feed": "https://status.search.google.com/en/feed.atom",
-   "items": 3
+   "items": 1
   },
   "google-blog-search": {
    "ok": true,
@@ -785,24 +785,6 @@
    "url": "https://developers.google.com/search/blog/2026/07/platform-properties-social-video-guide",
    "published": "2026-07-29T00:00:00Z",
    "summary": "Earlier this month, we announced platform properties for Search Console, allowing you to track how your social and video posts on Instagram, TikTok, X, and YouTube perform on Google Search, Discover, and Google News. Today, platform properties are globally available to everyone.",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "google-blog-search",
-   "source_name": "Google 公式ブログ(検索)",
-   "title": "5 ways AI Mode in Search helps you enjoy the real world",
-   "url": "https://blog.google/products-and-platforms/products/search/ai-mode-real-world-tips/",
-   "published": "2026-07-28T13:00:00Z",
-   "summary": "It might sound counterintuitive, but Search's AI tools can actually help you make the most of your time offline whether you want to book concert tickets or find the perf…",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "google-blog-search",
-   "source_name": "Google 公式ブログ(検索)",
-   "title": "These Google Trends show people really want to touch grass",
-   "url": "https://blog.google/products-and-platforms/products/search/touch-grass-trends/",
-   "published": "2026-07-28T13:00:00Z",
-   "summary": "Google Search data reveals a growing desire to unplug and connect in real life with local run clubs, mahjong lessons and more.",
    "first_seen": "2026-11-09T09:45:34Z"
   }
  ]
