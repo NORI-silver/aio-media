@@ -1,6 +1,6 @@
 {
  "_説明": "tools/news_watch.py が自動で作る。手で直さない。",
- "checked": "2026-11-25T19:13:23Z",
+ "checked": "2026-11-26T03:32:34Z",
  "sources": {
   "google-search-central": {
    "ok": true,
@@ -776,15 +776,6 @@
    "url": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-july-2026/",
    "published": "2026-08-04T13:00:00Z",
    "summary": "Here are Google’s latest AI updates from July 2026",
-   "first_seen": "2026-11-09T09:45:34Z"
-  },
-  {
-   "source": "google-search-central",
-   "source_name": "Google 検索セントラル ブログ",
-   "title": "Platform properties roll out globally, plus a new social and video performance guide",
-   "url": "https://developers.google.com/search/blog/2026/07/platform-properties-social-video-guide",
-   "published": "2026-07-29T00:00:00Z",
-   "summary": "Earlier this month, we announced platform properties for Search Console, allowing you to track how your social and video posts on Instagram, TikTok, X, and YouTube perform on Google Search, Discover, and Google News. Today, platform properties are globally available to everyone.",
    "first_seen": "2026-11-09T09:45:34Z"
   }
  ]
