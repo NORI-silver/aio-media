@@ -57,6 +57,7 @@
 | 2026-11-14 | glossary/llms-txt | llmstxt.org と Google の AI 向けガイド(2026-07-10更新)を開き直して確認(変更なし)。自前の実測として、Search Console の URL 検査で aio の llms.txt が「送信して登録されました」(11/9 クロール)・検索で1回表示(62位)されたことを章と質問で追加。X-Robots-Tag で止める方法と GitHub Pages では使えない注意を追記 |
 | 2026-11-17 | aio/ai-citation-tracking | Search Console(11/1〜11/14)で「AI Overviewsで自社が引用されているか確認できるツールは?」が平均8.3位・表示3・クリック0。題名を「確認する方法と無料ツール|AI Overviews」に、説明文を AI Overviews 先頭に直し、よくある質問の見出しと答えを検索語に合わせた(AI Overviews は Search Console、Copilot は Bing と分けて答える) |
 | 2026-11-22 | aio/how-search-and-ai-work | Search Console(10/22〜11/18)で「aio seo 違い」など違いを探す検索が、違いを主題にしていない ads/ads-seo-aio に出ていた(13.8位・表示5・クリック0)。違いの章がある本記事の題名と説明文を「SEOとAIOの違いを図解」に直し、「ひとことで言うと?」の質問を追加。ads/ads-seo-aio の用語説明からリンク |
+| 2026-11-29 | aio/google-ai-mode | Search Console(11/5〜11/25)で表示108回・平均25位。この記事に来た会話調の長い検索語3つを「追加の質問が長い検索語として出てくる」の章に実例として追加(推測と明記)。「aiモード表示」(12.2位)に合わせ「AIモードに自分のサイトが表示されるか確認するには?」の質問を追加 |
 
 ## テーマの順番
 
